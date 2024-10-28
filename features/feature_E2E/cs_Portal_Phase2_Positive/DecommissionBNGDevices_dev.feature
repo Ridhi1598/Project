@@ -7,7 +7,7 @@ Feature: Decommission the BNG devices on Dev env
     When I set api endpoint "/api/queues/%2F/cs_portal_queue_test/contents" for "DELETE"
     Then I Set Consumer POST request Body "ClearPortalQueue.json"
     When I send "DELETE" request
-    Then I extract the response code value
+    Then I extract the response code values 2
 
   Scenario: Check the status of BNG devices on Dev and decommission it
     When I set the Dev RMQ URL
