@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n    \"request-id\": \"req_Id\",\n     \"user-id\": \"x235417\",\n    \"callback-url\": \"cs-portal/reject-config\",\n    \"type\": \"REJECT\",\n    \"path\": \"/request/request-id=uuid\",\n    \"query-parameters\": [],\n    \"payload\": {}\n}",
+  "payload_encoding": "string"
+}

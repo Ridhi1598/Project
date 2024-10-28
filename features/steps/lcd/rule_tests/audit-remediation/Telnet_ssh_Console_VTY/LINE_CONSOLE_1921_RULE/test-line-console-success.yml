@@ -1,0 +1,57 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line console audit succeeds
+  test_suite:
+  device_models:
+    - "1921"
+
+  given: line console 0 configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line console 0
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 10 0
+        - exec-banner
+        - motd-banner
+        - logging synchronous
+        - login authentication default
+        - session-timeout 120
+        - logout-warning 20 
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: line-console
+      subtree: '
+        {"exec_timeout": 
+          {"minutes": 10, "seconds": 0}, 
+        "session_timeout": 120, 
+        "access_class_in": 88}'
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key: 
+      path: line-console-device
+      subtree: '{"logout-warning": 20}'
+        
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LINE_CONSOLE_1921_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 

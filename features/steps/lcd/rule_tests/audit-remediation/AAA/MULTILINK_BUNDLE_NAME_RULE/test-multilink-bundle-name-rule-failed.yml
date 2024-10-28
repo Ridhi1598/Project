@@ -1,0 +1,45 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Multilink bunde name failed
+  test_suite:
+  device_models:
+    - "1921"
+
+  given: Setting multilink bundle-name to endpoint
+  when: parsed
+  then: parsing is failing, rule is remediated afterwords
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - multilink bundle-name endpoint
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: MULTILINK_BUNDLE_NAME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: ''
+        filter: multilink bundle-name authenticated
+        config:
+          - multilink bundle-name authenticated

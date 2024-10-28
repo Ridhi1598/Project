@@ -1,0 +1,17 @@
+{
+   "request-id": "patch-multicast-evpn-ft",
+   "type": "PATCH",
+   "path": "/evpn-service=EDTNABTFSE51_EDTNABTFSE52_MULTICAST/evpn-instances/evpn-instance=CMCS_MCAST_L2/interface",
+   "query-parameters": [],
+   "callback-url": "cs-orchestrator/mock-extension",
+   "payload": [
+      {
+         "interface-name": "lag-108:20.0",
+         "node": "EDTNABTFSE51"
+      },
+      {
+         "interface-name": "lag-108:20.0",
+         "node": "EDTNABTFSE52"
+      }
+   ]
+}

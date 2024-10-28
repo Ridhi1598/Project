@@ -1,0 +1,8 @@
+{
+  "vhost": "/",
+  "name": "cs_portal_queue_test",
+  "truncate": "50000",
+  "ackmode": "ack_requeue_true",
+  "encoding": "auto",
+  "count": "1"
+}

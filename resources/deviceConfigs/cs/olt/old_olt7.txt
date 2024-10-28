@@ -1,0 +1,19 @@
+ {
+         config {
+             configure {
+                 service {
+                     ies 3005003 {
+-                        customer 1;
++                        customer "CMCS EVPN Backhaul";
+                         interface CMCS_MCAST_L3 {
+                             ipv4 {
++                                secondary 100.65.11.145 {
++                                    prefix-length 29;
++                                }
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }

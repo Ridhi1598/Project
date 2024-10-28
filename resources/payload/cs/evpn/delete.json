@@ -1,0 +1,13 @@
+{
+   "request-id":"commit-create-multicast-evpn-ft",
+   "type":"DELETE",
+   "user-id": "cs-orchestrator",
+   "path":"/evpn-services/evpn-service=NG001_NG0001_dummy",
+   "query-parameters":[
+
+   ],
+   "callback-url":"cs-orchestrator/mock-extension",
+   "payload":{
+
+   }
+}

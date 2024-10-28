@@ -1,0 +1,5 @@
+{
+  "vhost": "/",
+  "name": "cs_portal_queue_ta",
+  "mode": "purge"
+}

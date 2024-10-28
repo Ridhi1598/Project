@@ -1,0 +1,45 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Service Sequence rule failed
+  test_suite:
+  device_models:
+    - "1921"
+
+  given: failed sample
+  when: parsed
+  then: parsing is failing
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no service sequence-numbers
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SERVICE_SEQUENCE_NUMBERS_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: 
+        filter: service sequence-numbers
+        config:
+          - service sequence-numbers

@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip subnet-zero audit fails and is remediated
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip subnet-zero not configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit fails
+  then: Remediation is called
+  then: ip subnet-zero is configured on device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip subnet-zero
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_SUBNET_ZERO_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+      status: remediated
+      errors:
+      messages:
+      remediation: 
+        - !RuleTestCaseDeviceConfigItem
+          section:
+          filter: ip subnet-zero
+          config:
+            - ip subnet-zero

@@ -1,0 +1,136 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "callback-url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "bng-group": {
+              "type": "string"
+            },
+            "bng1-name": {
+              "type": "string"
+            },
+            "bng2-name": {
+              "type": "string"
+            },
+            "user-id": {
+              "type": "string"
+            },
+            "completed-timestamp": {
+              "type": "string"
+            },
+            "connected-olt": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "bng-group",
+            "bng1-name",
+            "bng2-name",
+            "user-id",
+            "completed-timestamp",
+            "connected-olt"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "bng-group": {
+              "type": "string"
+            },
+            "bng1-name": {
+              "type": "string"
+            },
+            "bng2-name": {
+              "type": "string"
+            },
+            "user-id": {
+              "type": "string"
+            },
+            "completed-timestamp": {
+              "type": "string"
+            },
+            "connected-olt": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "required": [
+            "bng-group",
+            "bng1-name",
+            "bng2-name",
+            "user-id",
+            "completed-timestamp",
+            "connected-olt"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "bng-group": {
+              "type": "string"
+            },
+            "bng1-name": {
+              "type": "string"
+            },
+            "bng2-name": {
+              "type": "string"
+            },
+            "user-id": {
+              "type": "string"
+            },
+            "completed-timestamp": {
+              "type": "string"
+            },
+            "connected-olt": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "bng-group",
+            "bng1-name",
+            "bng2-name",
+            "user-id",
+            "completed-timestamp",
+            "connected-olt"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "request-id",
+    "callback-url",
+    "status",
+    "response"
+  ]
+}

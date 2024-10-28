@@ -1,0 +1,76 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line vty audit succeeds
+  test_suite:
+  device_models:
+    - "1921"
+  given: line vty 0 4 & line vty 5 15 configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line vty 0 4
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 10 0
+        - exec-banner
+        - motd-banner
+        - timeout login response 120
+        - logging synchronous
+        - login authentication default
+        - logout-warning 20
+        - session-timeout 118
+        - transport input ssh
+        - transport output none
+        - transport preferred none
+    - !RuleTestCaseDeviceConfigItem
+      section: line vty 5 15
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 10 0
+        - exec-banner
+        - motd-banner
+        - timeout login response 120
+        - logging synchronous
+        - login authentication default
+        - logout-warning 20
+        - session-timeout 118
+        - transport input ssh
+        - transport output none
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: line-vty
+      subtree: '
+        {"exec_timeout": 
+          {"minutes": 10, "seconds": 0}, 
+        "session_timeout": 118, 
+        "timeout_login_response": 120,
+        "access_class_in": 88}'
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key: 
+      path: line-vty-device
+      subtree: '{"transport_input": ["ssh"], "transport_output": ["none"], "logout_warning": 20}'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LINE_VTY_1921_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 

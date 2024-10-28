@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "BNG COMMON CONFIG ON BNG DEVICES": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "device": {
+                "type": "string"
+              },
+              "config": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "device",
+              "config"
+            ]
+          }
+        },
+        "EPIPE CONFIG ON BNG DEVICES": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "device": {
+                "type": "string"
+              },
+              "config": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "device",
+              "config"
+            ]
+          }
+        },
+        "IES CONFIG ON BNG DEVICES": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "device": {
+                "type": "string"
+              },
+              "config": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "device",
+              "config"
+            ]
+          }
+        }
+      },
+      "required": [
+        "BNG COMMON CONFIG ON BNG DEVICES",
+        "EPIPE CONFIG ON BNG DEVICES",
+        "IES CONFIG ON BNG DEVICES"
+      ]
+    },
+    "callback-url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request-id",
+    "status",
+    "response",
+    "callback-url"
+  ]
+}

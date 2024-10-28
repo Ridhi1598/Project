@@ -1,0 +1,15 @@
+-# Generated FRI MAY 12 12:53:31 2023 UTC
++# Generated FRI MAY 12 13:07:42 2023 UTC
++                prefix 192.168.45.0/31 exact
++                entry 40
++                    description "IPV4: Allow only white-listed IPV4 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-# Finished FRI MAY 12 12:53:33 2023 UTC
++# Finished FRI MAY 12 13:07:44 2023 UTC

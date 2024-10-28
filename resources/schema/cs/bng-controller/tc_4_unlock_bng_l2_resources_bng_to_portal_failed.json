@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["failed"]
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "exception": {
+          "type": "string"
+        }
+      },
+      "required": ["exception"],
+      "additionalProperties": false
+    },
+    "callback-url": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "required": ["request-id", "status", "response", "callback-url"],
+  "additionalProperties": false
+}

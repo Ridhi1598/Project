@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n  \"request-id\": \"req_Id\",\n  \"callback-url\": \"cs-orchestrator/commit-bng-config/commit-bng-common-config\",\n  \"status\": \"error\",\n  \"response\": {\n    \"exception\": \"Internal server error\"\n  }\n}",
+  "payload_encoding": "string"
+}

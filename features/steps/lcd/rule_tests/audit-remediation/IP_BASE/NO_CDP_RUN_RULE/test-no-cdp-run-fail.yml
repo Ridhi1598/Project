@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: no cdp run audit succeeds
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: cdp run configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+  then: Remediation is called
+  then: cdp run removed from device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - cdp run
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NO_CDP_RUN_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: cdp run
+        config:
+         - no cdp run

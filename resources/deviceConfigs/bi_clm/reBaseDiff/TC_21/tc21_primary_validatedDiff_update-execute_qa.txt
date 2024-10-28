@@ -1,0 +1,97 @@
+-# Generated WED MAR 22 07:44:43 2023 UTC
++# Generated WED MAR 22 08:08:09 2023 UTC
+-            prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0040"
+-                prefix 2101:db4::/126 exact
+-            exit
+-            exit
+-            prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0040"
+-                prefix 2001:db4::/126 exact
+-                prefix 2001:db4::/126 exact
+-            exit
+-            policy-statement "CUSTIN-V6_CLGRAB21-TST0040_PRI"
+-                description "1234740.CLGRAB21-TST0040.PON.100000K.BICI..V4V6..PRI..CLM.SEDU...CLGRAB21-TST0040-ALIAS"
++                description "1234740.CLGRAB21-TST0040.PON.100000K.BICI..V4..PRI..CLM.SEDU...CLGRAB21-TST0040-ALIAS"
+-                exit
+-                ipv6
+-                    address 2001:db4::2/126
+-                            rate 100000 cir 100000
++                            rate 100000 cir 100000
+-                    filter ipv6 500
+-                            rate 100000 cir 100000
++                            rate 100000 cir 100000
+-                    filter ipv6 500
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE51"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-            policy-statement "CUSTIN-V6_CLGRAB21-TST0040_PRI"
+-                entry 10
+-                    description "Set prefixes as backup"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-BACKUP"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 20
+-                    description "Set same LP as peering prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-PEERING"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 230
+-                    exit
+-                exit
+-                entry 30
+-                    description "Set same LP as transit prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-TRANSIT"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 150
+-                    exit
+-                exit
+-                entry 40
+-                    description "IPV6: Allow only white-listed IPV6 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0040"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE51"
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV6: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0040"
+-                        family ipv6 label-ipv6
+-                    description "1234740.CLGRAB21-TST0040...BICI..V4V6..PRI"
++                    description "1234740.CLGRAB21-TST0040...BICI..V4..PRI"
+-                exit
+-                neighbor 2001:db4::1
+-                    description "1234740.CLGRAB21-TST0040...BICI..V4V6..PRI"
+-                    family ipv6
+-                    authentication-key "3byg3pMuteTGTZJZJMBgxakWNQ/3okE=" hash2
+-                    keepalive 60
+-                    hold-time 90 min 45
+-                    local-preference 350
+-                    prefix-limit ipv6 100
+-                    med-out 80
+-                    remove-private
+-                    import "CUSTOMER-IN-BI-V6" "CUSTIN-V6_CLGRAB21-TST0040_PRI"
+-                    export "DEFAULT-CUST-FULL-OUT-V6"
+-                    peer-as 64004
+-# Finished WED MAR 22 07:44:48 2023 UTC
++# Finished WED MAR 22 08:08:12 2023 UTC

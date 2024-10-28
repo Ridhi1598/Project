@@ -1,0 +1,46 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: no ip source-route audit fails and is remediated
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: no ip source-route configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ip source-route
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NO_IP_SOURCE_ROUTE_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: ip source-route
+        config:
+          - no ip source-route

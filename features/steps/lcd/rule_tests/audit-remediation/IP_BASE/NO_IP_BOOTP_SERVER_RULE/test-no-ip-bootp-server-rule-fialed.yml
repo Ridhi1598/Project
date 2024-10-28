@@ -1,0 +1,46 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: no ip bootp server audit succeeds
+  test_suite:
+  device_models:
+    - "1921"
+  given: ip bootp server configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+  then: Remediation is called
+  then: ip bootp server removed from device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ip bootp server
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NO_IP_BOOTP_SERVER_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: ip bootp server
+        config:
+         - no ip bootp server

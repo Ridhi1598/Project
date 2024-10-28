@@ -1,0 +1,37 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Multilink bunde name success
+  test_suite:
+  device_models:
+    - "1921"
+
+  given: Setting multilink bundle-name to authenticated
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - multilink bundle-name authenticated
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+        
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: MULTILINK_BUNDLE_NAME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

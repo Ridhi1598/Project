@@ -1,0 +1,85 @@
+-+                ethernet-segment "EDTNABTFOT39" virtual create
+-+                    esi 01:3c:8b:cd:7c:05:2e:00:01:09
+-+                    es-activation-timer 0
+-+                    service-carving
+-+                        mode auto
+-+                    multi-homing all-active
+-+                    lag 109
+-+                    qinq
+-+                        s-tag-range 20
+-+                        s-tag * c-tag-range *
+-+                    no shutdown
+-+        ies 3005003 name "CMCS_MCAST_L3" customer 22 create
+-+            interface "CMCS_MCAST_L3" create
+-+        ies 3005003 name "CMCS_MCAST_L3" customer 22 create
+-+            description "CMCS_MCAST"
+-+            interface "CMCS_MCAST_L3" create
+-+                address 10.157.3.193/27
+-+                vrrp 1 owner
+-+                    backup 10.157.3.193
+-+                    message-interval 5
+-+                    oper-group "MULTICAST_VRRP_OG"
+-+                vpls "CMCS_MCAST_L2"
+-+            no shutdown
+-+            no shutdown
+-+        vpls 3005013 name "CMCS_MCAST_L2" customer 22 create
+-+            description "CMCS_MCAST_L2"
+-+            allow-ip-int-bind
+-+            split-horizon-group "1" create
+-+            bgp
+-+                route-distinguisher 172.25.141.26:30059
+-+                route-target export target:65038:30059 import target:65038:30059
+-+            bgp-evpn
+-+                cfm-mac-advertisement
+-+                evi 30059
+-+                mpls bgp 1
+-+                    ingress-replication-bum-label
+-+                    auto-bind-tunnel
+-+                        resolution-filter
+-+                            ldp
+-+                            sr-isis
+-+                        resolution any
+-+                    no shutdown
+-+            stp
+-+                shutdown
+-+            igmp-snooping
+-+                no shutdown
+-+            sap lag-109:20.0 split-horizon-group "1" create
+-+                egress
+-+                    qos 129
+-+                no shutdown
+-+        epipe 4000092 name "EDTNABTFOT39" customer 22 create
+-+            description "EDTNABTFOT39_EPIPE_BACKHAUL"
+-+            service-mtu 9186
+-+            bgp-evpn
+-+                local-attachment-circuit EDTNABTFOT39 create
+-+                    eth-tag 4000092
+-+                remote-attachment-circuit EDTNABTFNG03-EDTNABTFNG04 create
+-+                    eth-tag 4000093
+-+                evi 30058
+-+                mpls bgp 1
+-+                    force-qinq-vc-forwarding s-tag-c-tag
+-+                    auto-bind-tunnel
+-+                        resolution-filter
+-+                            ldp
+-+                            sr-isis
+-+                        resolution filter
+-+                    no shutdown
+-+            sap lag-109:*.* create
+-+                ingress
+-+                    scheduler-policy "CMCS_WLN_BACKHAUL"
+-+                    qos 3600
+-+                egress
+-+                    scheduler-policy "CMCS_WLN_BACKHAUL"
+-+                    qos 3600
+-+                no shutdown
+-+            no shutdown
+-+        vpls 3005013 name "CMCS_MCAST_L2" customer 22 create
+-+            allow-ip-int-bind
+-+                igmp-snooping
+-+                    mrouter-port
+-+            interface "CMCS_MCAST_L3"
+-+                no shutdown
+-+            interface "CMCS_MCAST_L3"
+-+                bfd-enable
+-+                monitor-oper-group "MULTICAST_VRRP_OG" family ipv4 set 5

@@ -1,0 +1,5 @@
+INSERT INTO bng_group (bng_group_id, sdp, id_consumer_service, as_number) VALUES ('EDTNABTFNG07-EDTNABTFNG08', 99, 1, 65038);
+INSERT INTO bng (bng_name, bng_group_id, loopback_ip_address, loopback_address_mz) VALUES ('EDTNABTFNG07', 'EDTNABTFNG07-EDTNABTFNG08', '10.0.0.3', '192.168.1.1');
+INSERT INTO multi_chassis (peer, authentication_key, bng_name) VALUES ('10.0.0.4', 'key', 'EDTNABTFNG07');
+INSERT INTO bng (bng_name, bng_group_id, loopback_ip_address, loopback_address_mz) VALUES ('EDTNABTFNG08', 'EDTNABTFNG07-EDTNABTFNG08', '10.0.0.4', '192.168.1.2');
+INSERT INTO multi_chassis (peer, authentication_key, bng_name) VALUES ('10.0.0.3', 'key', 'EDTNABTFNG08');

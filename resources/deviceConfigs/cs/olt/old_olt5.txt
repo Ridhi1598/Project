@@ -1,0 +1,567 @@
+                 {
+         config {
+             configure {
+                 service {
++                    ies 3005001 {
++                        description "Consumer IES";
++                        customer 23;
++                        admin-state enable;
++                        redundant-interface srrp-reth {
++                            spoke-sdp 99:1 {
++                                admin-state enable;
++                            }
++                            ipv4 {
++                                primary {
++                                    address 172.25.99.89;
++                                    prefix-length 31;
++                                }
++                            }
++                        }
++                        subscriber-interface REINT-EVEN {
++                            ipv4 {
++                                address 10.160.61.34 {
++                                    prefix-length 27;
++                                    gateway 10.160.61.33;
++                                    track-srrp 92;
++                                }
++                                address 10.160.63.34 {
++                                    prefix-length 27;
++                                    gateway 10.160.63.33;
++                                    track-srrp 92;
++                                }
++                                address 10.160.63.98 {
++                                    prefix-length 27;
++                                    gateway 10.160.63.97;
++                                    track-srrp 92;
++                                }
++                                address 100.80.13.34 {
++                                    prefix-length 27;
++                                    gateway 100.80.13.33;
++                                    track-srrp 92;
++                                }
++                                dhcp {
++                                    gi-address 10.160.61.33;
++                                }
++                            }
++                            ipv6 {
++                                prefix 2001:568:b:428::/61 {
++                                    track-srrp 92;
++                                }
++                                link-local-address {
++                                    address fe80::e441:64e4:8a3f;
++                                }
++                            }
++                            group-interface EVEN {
++                                redundant-interface srrp-reth;
++                                dynamic-routes-track-srrp {
++                                }
++                                srrp 92 {
++                                    admin-state enable;
++                                    keep-alive-interval 10;
++                                    message-path lag-12:4004.4092;
++                                    priority 100;
++                                    one-garp-per-sap true;
++                                }
++                                sap lag-12:4004.4092;
++                            }
++                        }
++                        subscriber-interface REINT-ODD {
++                            ipv4 {
++                                address 10.160.61.2 {
++                                    prefix-length 27;
++                                    gateway 10.160.61.1;
++                                    track-srrp 91;
++                                }
++                                address 10.160.63.2 {
++                                    prefix-length 27;
++                                    gateway 10.160.63.1;
++                                    track-srrp 91;
++                                }
++                                address 10.160.63.66 {
++                                    prefix-length 27;
++                                    gateway 10.160.63.65;
++                                    track-srrp 91;
++                                }
++                                address 100.80.13.2 {
++                                    prefix-length 27;
++                                    gateway 100.80.13.1;
++                                    track-srrp 91;
++                                }
++                                dhcp {
++                                    gi-address 10.160.61.1;
++                                }
++                            }
++                            ipv6 {
++                                prefix 2001:568:b:420::/61 {
++                                    track-srrp 91;
++                                }
++                                link-local-address {
++                                    address fe80::e441:64e4:8a3f;
++                                }
++                            }
++                            group-interface EDTNABTFOT39 {
++                                ingress-stats true;
++                                oper-up-while-empty true;
++                                redundant-interface srrp-reth;
++                                dynamic-routes-track-srrp {
++                                }
++                                ipv4 {
++                                    icmp {
++                                        mask-reply false;
++                                        redirects {
++                                            admin-state disable;
++                                        }
++                                        unreachables {
++                                            admin-state disable;
++                                        }
++                                    }
++                                    neighbor-discovery {
++                                        remote-proxy-arp true;
++                                    }
++                                    dhcp {
++                                        admin-state enable;
++                                        server [ 10.195.0.57 ];
++                                        trusted true;
++                                        gi-address 10.160.61.1;
++                                        src-ip-addr gi-address;
++                                        proxy-server {
++                                            admin-state enable;
++                                            lease-time {
++                                                value 14400;
++                                            }
++                                        }
++                                        option-82 {
++                                            action keep;
++                                            remote-id {
++                                                none;
++                                            }
++                                            vendor-specific-option {
++                                                pool-name true;
++                                            }
++                                        }
++                                        lease-populate {
++                                            max-leases 10;
++                                        }
++                                    }
++                                }
++                                ipv6 {
++                                    dhcp6 {
++                                        relay {
++                                            admin-state enable;
++                                            link-address 2001:568:b:420::;
++                                            server [ 2001:568:801:100::57 ];
++                                        }
++                                    }
++                                    router-advertisements {
++                                        admin-state enable;
++                                        options {
++                                            retransmit-timer 100;
++                                        }
++                                    }
++                                }
++                                ipoe-session {
++                                    admin-state enable;
++                                    ipoe-session-policy CONSUMER_IPOE_POLICY;
++                                    sap-session-limit 20;
++                                    min-auth-interval 5;
++                                    force-auth {
++                                        cid-change true;
++                                    }
++                                }
++                                srrp 9 {
++                                    admin-state enable;
++                                    keep-alive-interval 10;
++                                    message-path lag-12:4001.9;
++                                    priority 200;
++                                    one-garp-per-sap true;
++                                }
++                                sap lag-12:4001.9;
++                            }
++                            group-interface EDTNABTFOT39-fixed {
++                                ingress-stats true;
++                                oper-up-while-empty true;
++                                redundant-interface srrp-reth;
++                                dynamic-routes-track-srrp {
++                                }
++                                ipv4 {
++                                    icmp {
++                                        mask-reply false;
++                                        redirects {
++                                            admin-state disable;
++                                        }
++                                        unreachables {
++                                            admin-state disable;
++                                        }
++                                    }
++                                    neighbor-discovery {
++                                        remote-proxy-arp true;
++                                    }
++                                    dhcp {
++                                        admin-state enable;
++                                        server [ 10.195.0.57 ];
++                                        trusted true;
++                                        gi-address 10.160.63.1;
++                                        src-ip-addr gi-address;
++                                        proxy-server {
++                                            admin-state enable;
++                                            emulated-server 10.160.63.1;
++                                            lease-time {
++                                                value 14400;
++                                            }
++                                        }
++                                        option-82 {
++                                            action keep;
++                                            remote-id {
++                                                none;
++                                            }
++                                            vendor-specific-option {
++                                                pool-name true;
++                                            }
++                                        }
++                                        lease-populate {
++                                            max-leases 10;
++                                        }
++                                    }
++                                }
++                                ipv6 {
++                                    dhcp6 {
++                                        relay {
++                                            admin-state enable;
++                                            link-address 2001:568:b:420::;
++                                            server [ 2001:568:801:100::57 ];
++                                        }
++                                    }
++                                    router-advertisements {
++                                        admin-state enable;
++                                        options {
++                                            retransmit-timer 100;
++                                        }
++                                    }
++                                }
++                                ipoe-session {
++                                    admin-state enable;
++                                    ipoe-session-policy CONSUMER_IPOE_POLICY;
++                                    sap-session-limit 20;
++                                    min-auth-interval 5;
++                                    force-auth {
++                                        cid-change true;
++                                    }
++                                }
++                                srrp 109 {
++                                    admin-state enable;
++                                    keep-alive-interval 10;
++                                    message-path lag-12:4002.9;
++                                    priority 200;
++                                    one-garp-per-sap true;
++                                }
++                                sap lag-12:4002.9;
++                            }
++                            group-interface ODD {
++                                redundant-interface srrp-reth;
++                                dynamic-routes-track-srrp {
++                                }
++                                srrp 91 {
++                                    admin-state enable;
++                                    keep-alive-interval 10;
++                                    message-path lag-12:4004.4091;
++                                    priority 200;
++                                    one-garp-per-sap true;
++                                }
++                                sap lag-12:4004.4091;
++                            }
++                        }
++                    }
++                    ies 3005004 {
++                        description "Consumer IES";
++                        customer 23;
++                        admin-state enable;
++                        redundant-interface SRRP-DV-RETH {
++                            spoke-sdp 99:4 {
++                                admin-state enable;
++                            }
++                            ipv4 {
++                                primary {
++                                    address 10.198.1.3;
++                                    prefix-length 31;
++                                }
++                            }
++                        }
++                        subscriber-interface SRRP-DV-EVEN {
++                            ipv4 {
++                                address 10.160.62.98 {
++                                    prefix-length 27;
++                                    gateway 10.160.62.97;
++                                    track-srrp 82;
++                                }
++                                dhcp {
++                                    gi-address 10.160.62.97;
++                                }
++                            }
++                            ipv6 {
++                            }
++                            group-interface DV-EVEN {
++                                ingress-stats true;
++                                oper-up-while-empty true;
++                                redundant-interface SRRP-DV-RETH;
++                                dynamic-routes-track-srrp {
++                                }
++                                ipv4 {
++                                    icmp {
++                                        mask-reply false;
++                                        redirects {
++                                            admin-state disable;
++                                        }
++                                        unreachables {
++                                            admin-state disable;
++                                        }
++                                    }
++                                    neighbor-discovery {
++                                        remote-proxy-arp true;
++                                    }
++                                    dhcp {
++                                        admin-state enable;
++                                        server [ 10.195.0.24 ];
++                                        trusted true;
++                                        proxy-server {
++                                            admin-state enable;
++                                            lease-time {
++                                                value 14400;
++                                            }
++                                        }
++                                        option-82 {
++                                            action keep;
++                                            remote-id {
++                                                none;
++                                            }
++                                            vendor-specific-option {
++                                                pool-name true;
++                                            }
++                                        }
++                                        lease-populate {
++                                            max-leases 2000;
++                                        }
++                                    }
++                                }
++                                srrp 82 {
++                                    admin-state enable;
++                                    keep-alive-interval 10;
++                                    message-path lag-12:4004.4082;
++                                    priority 100;
++                                    one-garp-per-sap true;
++                                }
++                                sap lag-12:4004.4082;
++                            }
++                        }
++                        subscriber-interface SRRP-DV-ODD {
++                            ipv4 {
++                                address 10.160.62.66 {
++                                    prefix-length 27;
++                                    gateway 10.160.62.65;
++                                    track-srrp 81;
++                                }
++                                dhcp {
++                                    gi-address 10.160.62.65;
++                                }
++                            }
++                            ipv6 {
++                            }
++                            group-interface DV-ODD {
++                                ingress-stats true;
++                                oper-up-while-empty true;
++                                redundant-interface SRRP-DV-RETH;
++                                dynamic-routes-track-srrp {
++                                }
++                                ipv4 {
++                                    icmp {
++                                        mask-reply false;
++                                        redirects {
++                                            admin-state disable;
++                                        }
++                                        unreachables {
++                                            admin-state disable;
++                                        }
++                                    }
++                                    neighbor-discovery {
++                                        remote-proxy-arp true;
++                                    }
++                                    dhcp {
++                                        admin-state enable;
++                                        server [ 10.195.0.24 ];
++                                        trusted true;
++                                        proxy-server {
++                                            admin-state enable;
++                                            lease-time {
++                                                value 14400;
++                                            }
++                                        }
++                                        option-82 {
++                                            action keep;
++                                            remote-id {
++                                                none;
++                                            }
++                                            vendor-specific-option {
++                                                pool-name true;
++                                            }
++                                        }
++                                        lease-populate {
++                                            max-leases 2000;
++                                        }
++                                    }
++                                }
++                                srrp 81 {
++                                    admin-state enable;
++                                    keep-alive-interval 10;
++                                    message-path lag-12:4004.4081;
++                                    priority 200;
++                                    one-garp-per-sap true;
++                                }
++                                sap lag-12:3901.21;
++                                sap lag-12:4004.4081;
++                            }
++                        }
++                    }
++                    vpls 3005002 {
++                        description "Capture SAP VPLS";
++                        customer 23;
++                        admin-state enable;
++                        capture-sap lag-12:2001.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2002.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2003.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2004.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2005.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2006.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2007.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                        capture-sap lag-12:2008.* {
++                            admin-state enable;
++                            trigger-packet {
++                                dhcp true;
++                                dhcp6 true;
++                                pppoe true;
++                            }
++                            msap-defaults {
++                                policy TELUS-MSAP;
++                                service-name 3005001;
++                                group-interface EDTNABTFOT39;
++                            }
++                            ipoe-session {
++                                admin-state enable;
++                                ipoe-session-policy CONSUMER_IPOE_POLICY;
++                            }
++                        }
++                    }
+                 }
+             }
+         }
+     }

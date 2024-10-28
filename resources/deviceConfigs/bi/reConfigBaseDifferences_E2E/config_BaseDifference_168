@@ -1,0 +1,77 @@
+-# Generated MON APR 12 12:18:29 2021 UTC
++# Generated MON APR 12 12:25:26 2021 UTC
+-        description "spare"
++        description "1234741.CLGRAB21-TST0041.400000K"
+-            no autonegotiate
++        static-route-entry 10.74.1.0/26
++            next-hop 192.168.41.1
++                no shutdown
++            exit
++        exit
++        static-route-entry 40.40.41.0/32
++            next-hop 192.168.41.1
++                no shutdown
++            exit
++        exit
++                no shutdown
++            exit
++        exit
++        static-route-entry 100.74.1.0/26
++            next-hop 192.168.41.1
++                no shutdown
++            exit
++        exit
++        static-route-entry 2001:db4::/126
++            next-hop 2001:db4::1
+-            description "Service Portal UAT Tester 4"
++            description "Customer TST04"
++            exit
++        exit
++        ies 3087041 customer 700074 create
++            interface "CLGRAB21-TST0041.1500" create
++        ies 3087041 customer 700074 create
++            interface "CLGRAB21-TST0041.1500" create
++                description "1234741.CLGRAB21-TST0041.HS.400000K.BICI..V6..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                address 192.168.41.0/31
++                ip-mtu 1500
++                cflowd-parameters
++                    sampling unicast type interface
++                exit
++                ipv6
++                    address 2001:db4::/127 
++                exit
++                sap 4/1/18:1500 create
++                    ingress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 400000 cir 400000
++                            exit
++                        exit
++                        qos 53201
++                        filter ip 500
++                        filter ipv6 500
++                    exit
++                    egress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 400000
++                            exit
++                        exit
++                        qos 53201
++                    exit
++                    collect-stats
++                    accounting-policy 77
++                exit
++            exit
++            no shutdown
++        exit
++                prefix 10.74.1.0/26 exact
++                prefix 40.40.41.0/32 exact
++                prefix 100.74.1.0/26 exact
++                prefix 2001:db4::/126 exact
++                prefix 192.168.41.0/31 exact
++                prefix 2001:db4::/127 exact
+-# Finished MON APR 12 12:18:40 2021 UTC
++# Finished MON APR 12 12:25:38 2021 UTC

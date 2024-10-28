@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"94815355-d339-41d3-bd8b-c60a8680c8bd\",\n   \"status\":\"completed\",\n   \"response\":{\n      \n   },\n   \"callback-url\":\"cs-orchestrator/revert-bng-config/revert-bng-l3vpn-config\"\n}",
+  "payload_encoding": "string"
+}

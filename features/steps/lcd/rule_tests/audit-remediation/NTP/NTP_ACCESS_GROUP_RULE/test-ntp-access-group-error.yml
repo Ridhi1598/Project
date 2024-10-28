@@ -1,0 +1,44 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ntp access group audit returns an error
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ntp access-group 88 configured on device and param_tree empty
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns an error
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ntp access-group peer
+        - ntp access-group peer 88
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus-wide
+      level_key:
+      path:
+      subtree: "{'ntp-access-group-peer': null}"
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NTP_ACCESS_GROUP_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+      assertion_type: 'EXACT'
+      value: 'MANDATORY_PARAMETER_MISSING: ntp-access-group-peer'
+    messages: 
+  remediation_result: 

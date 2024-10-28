@@ -1,0 +1,6 @@
+{
+    "properties": {"delivery_mode": 1, "headers": {}},
+    "routing_key": "queue",
+    "payload": "{\n  \"request-id\": \"req_Id\",\n  \"status\": \"completed\",\n  \"response\": {},\n  \"callback-url\": \"cs-orchestrator/revert-bng-config/revert-bng-epipe-config\"\n}",
+    "payload_encoding": "string"
+  }

@@ -1,0 +1,101 @@
+-# Generated FRI MAR 26 16:10:49 2021 UTC
++# Generated FRI MAR 26 16:19:22 2021 UTC
+-                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V6..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                exit
++                ipv6
++                    address 2001:db4::/127 
++                        filter ipv6 500
++            prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0041"
++                prefix 2001:db4::/126 exact
++            exit
++                prefix 2001:db4::/127 exact
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0041_PRI"
+-                entry 5
+-                    from
+-                        protocol bgp
+-                        community "680"
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 30
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0041"
+-                    exit
+-                    action next-entry
+-                        community add "BICI-EXPORT-SRBHONTFRE27"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
++                exit
++            exit
++            policy-statement "CUSTIN-V4V6_CLGRAB21-TST0041_PRI"
++                entry 5
++                    from
++                        protocol bgp
++                        community "680"
++                    exit
++                    action next-entry
++                        local-preference 80
++                    exit
++                exit
++                entry 30
++                    from
++                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0041"
++                    exit
++                    action next-policy
++                        community add "BICI-EXPORT-SRBHONTFRE27"
++                    exit
++                exit
++                entry 50
++                    description "Allow only white-listed IPV6 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0041"
++                    exit
++                    action next-entry
++                        community add "IPV6"
++                    exit
++                exit
++                entry 70
++                    description "Allow only white-listed IPV6 prefixes with export"
++                    from
++                        prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0041"
++                        family ipv6
++                    exit
++                    action next-policy
++                        community add "BICI-EXPORT-SRBHONTFRE27"
++                        next-hop 2001:db4::1
++                    exit
++                exit
++                default-action drop
++                exit
++            exit
++            policy-statement "DEFAULTONLYV6_CLGRAB21-TST0041_P"
++                entry 10
++                    from
++                        prefix-list "DEFAULT-IPV6"
++                        family ipv6 label-ipv6
++                    exit
++                    to
++                        protocol bgp bgp-label
++                    exit
++                    action accept
++                        next-hop 2001:db4::
++                    exit
++                exit
++                default-action drop
+-                    description "1234741.CLGRAB21-TST0041...BICI..V4..PRI"
+-                    family ipv4
++                    description "1234741.CLGRAB21-TST0041...BICI..V6..PRI"
++                    family ipv4 ipv6
++                    prefix-limit ipv6 100
+-                    import "CUSTIN-V4_CLGRAB21-TST0041_PRI" "CUSTOMER-IN-BI" 
+-                    export "DEFAULT-ONLY" 
++                    import "CUSTIN-V4V6_CLGRAB21-TST0041_PRI" "CUSTOMER-IN-BI-V4-V6" 
++                    export "DEFAULT-ONLY-V4-V6" "DEFAULTONLYV6_CLGRAB21-TST0041_P" 
+-# Finished FRI MAR 26 16:11:00 2021 UTC
++# Finished FRI MAR 26 16:19:34 2021 UTC

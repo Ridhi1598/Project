@@ -1,0 +1,55 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line console 0 onboarding success
+  test_suite:
+  device_models:
+    - "1921"
+  given: line console 0 configured on device
+  when: run ONBOARDING operation on device
+  then: onboarding succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line console 0
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 10 0
+        - exec-banner
+        - motd-banner
+        - logging synchronous
+        - login authentication default
+        - session-timeout 120
+        - logout-warning 110 
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    # - !RuleTestCaseParamTreeItem
+    #   level: device
+    #   level_key: 
+    #   path: line-vty-device
+    #   subtree: '{"transport_input": ["ssh"], "transport_output": ["ssh"]}'
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: LINE_CONSOLE_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: line-console-device/logout-warning
+          subtree: 110

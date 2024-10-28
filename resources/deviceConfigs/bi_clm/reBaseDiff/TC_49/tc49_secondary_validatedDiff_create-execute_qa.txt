@@ -1,0 +1,60 @@
+-# Generated THU SEP 21 15:25:04 2023 UTC
++# Generated THU SEP 21 15:58:56 2023 UTC
++                prefix 2002:56a:132::/48 exact
++                prefix 2012:568:5015::/48 exact
++                prefix 3001:db42::2/127 exact
++                no shutdown
++            exit
++        exit
++        static-route-entry 2002:56a:132::/48
++            next-hop 3001:db42::2
++                no shutdown
++            exit
++        exit
++        static-route-entry 2012:568:5015::/48
++            next-hop 3001:db42::2
++        customer 700074 name "TST04" create
++            description "UAT Tester 4"
++        exit
++            exit
++        exit
++        ies 3087042 name "3087042" customer 700074 create
++            interface "CLGRAB21-TST0042.3.1501" create
++        ies 3087042 name "3087042" customer 700074 create
++            interface "CLGRAB21-TST0042.3.1501" create
++                description "1234742.CLGRAB21-TST0042.HS.2000000000K.BICI..V6..SEC..CLM.SEDU...CLGRAB21-TST0042ALIAS"
++                ip-mtu 1500
++                cflowd-parameters
++                    sampling unicast type interface
++                exit
++                ipv6
++                    address 3001:db42::1/127
++                exit
++                sap lag-736:3.1501 create
++                    ingress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 15000 cir 15000
++                            exit
++                        exit
++                        qos 53202
++                        filter ipv6 500
++                    exit
++                    egress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 15000
++                            exit
++                        exit
++                        qos 53202
++                    exit
++                    collect-stats
++                    accounting-policy 77
++                exit
++            exit
++            no shutdown
++        exit
+-# Finished THU SEP 21 15:25:05 2023 UTC
++# Finished THU SEP 21 15:58:57 2023 UTC

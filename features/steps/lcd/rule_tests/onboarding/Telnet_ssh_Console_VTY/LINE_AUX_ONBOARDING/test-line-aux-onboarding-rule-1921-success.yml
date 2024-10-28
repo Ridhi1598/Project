@@ -1,0 +1,68 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line vty aux onboariding success
+  test_suite:
+  device_models:
+    - "1921"
+  given: line aux configured on device
+  when: run ONBOARDING operation on device
+  then: onboarding succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line aux 0
+      config:
+        - access-class 88 in
+        - exec-timeout 10 0
+        - modem InOut
+        - logging synchronous
+        - login authentication default
+        - logout-warning 110
+        - transport input all
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    # - !RuleTestCaseParamTreeItem
+    #   level: device
+    #   level_key: 
+    #   path: line-vty-device
+    #   subtree: '{"transport_input": ["ssh"], "transport_output": ["ssh"]}'
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: LINE_AUX_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key: 
+          path: line-aux-device/transport-input
+          subtree: '["all"]'
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key: 
+          path: line-aux-device/logout-warning
+          subtree: 110                
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key: 
+          path: line-aux-device/aux-port-connected
+          subtree: True
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key: 
+          path: line-aux-device/using-1x-modem
+          subtree: False

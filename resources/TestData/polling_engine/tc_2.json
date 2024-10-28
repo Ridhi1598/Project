@@ -1,0 +1,202 @@
+{
+    "odd_bng_validation_response":[
+       {
+          "name":"Lag Validation",
+          "response":{
+             "interfaces":{
+                "interface":[
+                   {
+                      "name":"lag-100",
+                      "error":{
+                         "message":"Failed to retrieve lag details",
+                         "description":"It is not a valid lag"
+                      }
+                   },
+                   {
+                      "name":"lag-200",
+                      "error":{
+                         "message":"Failed to retrieve lag details",
+                         "description":"It is not a valid lag"
+                      }
+                   },
+                   {
+                      "name":"multi-chassis"
+                   }
+                ]
+             }
+          }
+       },
+       {
+          "name":"AAA Radius validation",
+          "response":{
+             "server-group":[
+                {
+                   "name":"DHCP_ACCT_MZ_RADIUS",
+                   "error":{
+                      "message":"Failed to retrieve radius server policy details",
+                      "description":"It is not a valid radius server policy"
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "name":"NPC and MZ diameter nodes validation",
+          "response":{
+             "node":[
+                {
+                   "origin-host":"EDTNABTFNG03-EDTNABTFNG04-NPC",
+                   "error":{
+                      "message":"Failed to retrieve diameter node details",
+                      "description":"It is not a valid diameter node"
+                   }
+                },
+                {
+                   "origin-host":"EDTNABTFNG03-EDTNABTFNG04-MZ",
+                   "error":{
+                      "message":"Failed to retrieve diameter node details",
+                      "description":"It is not a valid diameter node"
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "name":"Redundancy Multi-Chassis validation",
+          "response":{
+             "ha-group":[
+                {
+                   "id":1,
+                   "config":{
+                      "id":1
+                   },
+                   "error":{
+                      "message":"Failed to retrieve redundnacy multi-chassis details",
+                      "description":"Failed to retrieve multi-chassis configuration"
+                   }
+                }
+             ]
+          }
+       }
+    ],
+    "even_bng_validation_response":[
+       {
+          "name":"Lag Validation",
+          "response":{
+             "interfaces":{
+                "interface":[
+                   {
+                      "name":"lag-100",
+                      "error":{
+                         "message":"Failed to retrieve lag details",
+                         "description":"It is not a valid lag"
+                      }
+                   },
+                   {
+                      "name":"lag-200",
+                      "error":{
+                         "message":"Failed to retrieve lag details",
+                         "description":"It is not a valid lag"
+                      }
+                   },
+                   {
+                      "name":"multi-chassis"
+                   }
+                ]
+             }
+          }
+       },
+       {
+          "name":"AAA Radius validation",
+          "response":{
+             "server-group":[
+                {
+                   "name":"DHCP_ACCT_MZ_RADIUS",
+                   "error":{
+                      "message":"Failed to retrieve radius server policy details",
+                      "description":"It is not a valid radius server policy"
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "name":"NPC and MZ diameter nodes validation",
+          "response":{
+             "node":[
+                {
+                   "origin-host":"EDTNABTFNG03-EDTNABTFNG04-NPC",
+                   "error":{
+                      "message":"Failed to retrieve diameter node details",
+                      "description":"It is not a valid diameter node"
+                   }
+                },
+                {
+                   "origin-host":"EDTNABTFNG03-EDTNABTFNG04-MZ",
+                   "error":{
+                      "message":"Failed to retrieve diameter node details",
+                      "description":"It is not a valid diameter node"
+                   }
+                }
+             ]
+          }
+       },
+       {
+          "name":"Redundancy Multi-Chassis validation",
+          "response":{
+             "ha-group":[
+                {
+                   "id":1,
+                   "config":{
+                      "id":1
+                   },
+                   "error":{
+                      "message":"Failed to retrieve redundnacy multi-chassis details",
+                      "description":"Failed to retrieve multi-chassis configuration"
+                   }
+                }
+             ]
+          }
+       }
+    ],
+    "errors":[
+       {
+          "name":"Lag Validation",
+          "errors":[
+             "The lag lag-100 is not available for device EDTNABTFNG03",
+             "The lag lag-200 is not available for device EDTNABTFNG03",
+             "The lag lag-300 is not available for device EDTNABTFNG03",
+             "The lag lag-400 is not available for device EDTNABTFNG03",
+             "The lag lag-100 is not available for device EDTNABTFNG04",
+             "The lag lag-200 is not available for device EDTNABTFNG04",
+             "The lag lag-300 is not available for device EDTNABTFNG04",
+             "The lag lag-400 is not available for device EDTNABTFNG04"
+          ],
+          "status":"failed"
+       },
+       {
+          "name":"AAA Radius validation",
+          "errors":[
+             "Failed to validate aaa radius DHCP_ACCT_MZ_RADIUS on device EDTNABTFNG03",
+             "Failed to validate aaa radius DHCP_ACCT_MZ_RADIUS on device EDTNABTFNG04"
+          ],
+          "status":"failed"
+       },
+       {
+          "name":"Redundancy Multi-Chassis validation",
+          "errors":[
+             "Failed to retrieve multi-chassis configuration on device EDTNABTFNG03",
+             "Failed to retrieve multi-chassis configuration on device EDTNABTFNG04"
+          ],
+          "status":"failed"
+       },
+       {
+          "name":"NPC and MZ diameter nodes validation",
+          "errors":[
+             "Diameter node EDTNABTFNG03-EDTNABTFNG04-MZ is not available",
+             "Diameter node EDTNABTFNG03-EDTNABTFNG04-NPC is not available"
+          ],
+          "status":"failed"
+       }
+    ]
+ }

@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\"request-id\":\"req_Id\",\"status\":\"failed\",\"response\":{\"exception\":[{\"error_code\":\"ERR500\",\"category\":\"executor-operation-error\",\"message\":\"internal error\",\"is-device-error\":false,\"detail\":[{\"error-type\":\"application\",\"error-tag\":\"Device communication error\",\"error-path\":\"/test-error-path\",\"error-message\":\"Device communication error\"}]}]},\"callback-url\":\"cs-orchestrator/create-olt-config/create-evpn-config\"}",
+  "payload_encoding": "string"
+}

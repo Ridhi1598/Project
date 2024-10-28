@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n  \"request-id\": \"req_Id\",\n  \"callback-url\": \"bng-svc-controller/resource-locking/bng/callback\",\n  \"status\": \"success\",\n  \"response\": {}\n}\n",
+  "payload_encoding": "string"
+}

@@ -1,0 +1,50 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: aaa authentication enable default fails
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: aaa authentication login default not configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns failed results
+  then: Remediation is initiated
+  then: Device configuration is asserted correctly
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - aaa new-model
+        - no aaa authentication enable default
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: AAA_AUTHENTICATION_ENABLE_DEFAULT_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: aaa authentication enable default enable
+        config:
+          - aaa authentication enable default enable
+

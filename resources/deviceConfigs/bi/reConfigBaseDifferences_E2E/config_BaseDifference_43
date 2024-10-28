@@ -1,0 +1,17 @@
+-## Last commit: 2021-04-27 06:39:32 UTC by tinaa
++## Last commit: 2021-04-27 06:46:36 UTC by tinaa
+-            description 1234741.CLGRAB21-TST0041.HS.400M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            description 1234741.CLGRAB21-TST0041.HS.400M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
+-            }
+-            family inet6 {
+-                filter {
+-                    input-list [ 500-IPV6-NEXT-TERM BI_IN_400M_V6 ];
+-                }
+-                address 2001:db4::/127;
+-                address ::ffff:c0a8:2900/127;
+-            route 2001:db4::/126 next-hop 2001:db4::1;
+-    prefix-list STATIC-BGP-V6-NE-LP350-EDTNABTFRE32 {
+-        2001:db4::/126;
+-    }
++    prefix-list STATIC-BGP-V6-NE-LP350-EDTNABTFRE32;
+-        2001:db4::/127;

@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\"request-id\":\"req_Id\",\"user-id\":\"x235417\",\"callback-url\":\"cs-portal/push-bng-config\",\"type\":\"COMMIT\",\"path\":\"/request/bng/request-id=uuid\",\"query-parameters\":[],\"payload\":{}}",
+  "payload_encoding": "string"
+}

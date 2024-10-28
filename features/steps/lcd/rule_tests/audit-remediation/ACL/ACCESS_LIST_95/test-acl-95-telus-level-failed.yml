@@ -1,0 +1,99 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL 95 Telus Level fail test
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 95
+        - access-list 95 permit 1.1.1.1
+        - access-list 95 permit 1.1.1.1 0.0.0.255
+        - access-list 95 deny any log
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+    - !RuleTestCaseParamTreeItem
+          level: telus-wide
+          level_key:
+          path: #subtree path
+          subtree: "{
+                  'access_list_95': [{
+                    '_key': ['ip_address', 'mask'],
+                    'ip_address':'2.1.1.0',
+                    'mask':'0.0.0.255'
+                  }]
+                  }"
+
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key:
+      path: #subtree path /access-list-95
+      subtree: "{
+                    'access_list_95': [{
+                        '_key': ['ip_address', 'mask'],
+                        'ip_address':'1.1.1.0',
+                        'mask':'0.0.0.255'
+                    }],
+                    'access_list_95_state':'extend',
+                    'snmp_v3_read_purchased':'true'
+                }"
+
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path: #/access-list-95
+      subtree: "{
+                  'access_list_95': [{
+                      '_key': ['ip_address', 'mask'],
+                      'ip_address':'2.2.2.2',
+                      'mask':'0.0.0.0'
+                  },
+                  {
+                      '_key': ['ip_address', 'mask'],
+                      'ip_address':'1.1.1.1',
+                      'mask':'0.0.0.0'
+                  }],
+                  'access_list_95_state':'extend',
+                  'access_list_95_state_confirmation':'confirmed'
+                }"
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: ACCESS_LIST_95_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: access-list 95
+        config:
+          - access-list 95 permit 2.2.2.2
+          - access-list 95 permit 1.1.1.1
+          - access-list 95 permit 1.1.1.0 0.0.0.255
+          - access-list 95 permit 2.1.1.0 0.0.0.255
+          - access-list 95 deny   any log

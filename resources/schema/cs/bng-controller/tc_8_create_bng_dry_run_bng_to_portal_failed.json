@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "exception": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "error_code",
+                "category",
+                "message"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "exception"
+      ]
+    },
+    "callback-url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request-id",
+    "status",
+    "response",
+    "callback-url"
+  ]
+}

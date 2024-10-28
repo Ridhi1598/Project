@@ -1,0 +1,74 @@
+-# Generated THU SEP 21 16:36:13 2023 UTC
++# Generated FRI SEP 22 12:15:33 2023 UTC
+-        description "c1-10g"
+-        connector
+-            breakout c1-10g
+-        exit
++        description "<< RSVD - Mustapha Oueida >>"
+-        exit
+-    exit
+-    port 1/1/c18/1
+-        shutdown
+-        description "1234742.CLGRAB21-TST0042.2000000000K"
+-        ethernet
+-            mode access
+-            encap-type dot1q
+-        customer 700074 name "TST04" create
+-            description "UAT Tester 4"
+-        exit
+-            split-horizon-group "CNM_DOWNLINKS_SHG" create
+-            exit
+-            stp
+-                shutdown
+-            exit
+-            sap 1/1/c18/1:401 split-horizon-group "CNM_DOWNLINKS_SHG" create
+-                ingress
+-                    qos 1903
+-                exit
+-                no shutdown
+-            exit
+-            no shutdown
++            shutdown
++            stp
++                shutdown
++            exit
+-        vpls 6000042 name "PRI.3087042" customer 700074 create
+-            description "1234742.CLGRAB21-TST0042.CLM.BICI.PRI.SEDU"
+-            stp
+-                shutdown
+-            exit
+-            sap lag-10:3040.1500 create
+-                ingress
+-                    qos 301
+-                exit
+-                no shutdown
+-            exit
+-            sap 1/1/c18/1:1500 create
+-                ingress
+-                    qos 53231
+-                exit
+-                no shutdown
+-            exit
+-            no shutdown
+-        exit
+-                ingress
+-                    qos 53231
+-                exit
+-                no shutdown
+-            exit
+-            no shutdown
+-        exit
+-        vpls 6200042 name "SEC.3087042" customer 700074 create
+-            description "1234742.CLGRAB21-TST0042.CLM.BICI.SEC.SEDU"
+-            stp
+-                shutdown
+-            exit
+-            sap lag-11:3040.1501 create
+-                ingress
+-                    qos 301
+-                exit
+-                no shutdown
+-            exit
+-            sap 1/1/c18/1:1501 create
+-# Finished THU SEP 21 16:36:13 2023 UTC
++# Finished FRI SEP 22 12:15:33 2023 UTC

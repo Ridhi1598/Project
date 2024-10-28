@@ -1,0 +1,125 @@
+  {
+         config {
+             configure {
+                 service {
+                     ies 3005003 {
+-                        customer 1;
++                        customer "CMCS EVPN Backhaul";
+                     }
+                 }
+             }
+         }
+     }
+ }
+ l3vpn-ntw {
+     vpn-services {
++        vpn-service CMCS_MCAST_L3 {
++            vpn-name CMCS_MCAST_L3;
++            vpn-description CMCS_MCAST;
++            customer-name "CMCS EVPN Backhaul";
++            vpn-type l3vpn;
++            status {
++                admin-status {
++                    status admin-up;
++                }
++            }
++            vpn-nodes {
++                vpn-node 3005003-EDTNABTFSE51 {
++                    description CMCS_MCAST;
++                    ne-id EDTNABTFSE51;
++                    local-as 65038;
++                    status {
++                        admin-status {
++                            status admin-up;
++                        }
++                    }
++                    vpn-network-accesses {
++                        vpn-network-access CMCS_MCAST_L3 {
++                            interface-id CMCS_MCAST_L3;
++                            vpn-network-access-type multipoint;
++                            status {
++                                admin-status {
++                                    status admin-up;
++                                }
++                            }
++                            connection {
++                                l2vpn-id CMCS_MCAST_L2;
++                            }
++                            ip-connection {
++                                ipv4 {
++                                    address-allocation-type static-address;
++                                    primary-address 10.157.3.193/27;
++                                    address 10.157.3.193/27;
++                                    address 100.65.11.145/29;
++                                }
++                            }
++                            service {
++                                multicast {
++                                    igmp {
++                                        version igmpv3;
++                                        status {
++                                            admin-status {
++                                                status admin-up;
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        }
++                    }
++                    telus-service-info {
++                        re-service-id 3005003;
++                        service-type IES;
++                    }
++                }
++                vpn-node 3005003-EDTNABTFSE52 {
++                    description CMCS_MCAST;
++                    ne-id EDTNABTFSE52;
++                    local-as 65038;
++                    status {
++                        admin-status {
++                            status admin-up;
++                        }
++                    }
++                    vpn-network-accesses {
++                        vpn-network-access CMCS_MCAST_L3 {
++                            interface-id CMCS_MCAST_L3;
++                            vpn-network-access-type multipoint;
++                            status {
++                                admin-status {
++                                    status admin-up;
++                                }
++                            }
++                            connection {
++                                l2vpn-id CMCS_MCAST_L2;
++                            }
++                            ip-connection {
++                                ipv4 {
++                                    address-allocation-type static-address;
++                                    primary-address 10.157.3.193/27;
++                                    address 10.157.3.193/27;
++                                    address 100.65.11.145/29;
++                                }
++                            }
++                            service {
++                                multicast {
++                                    igmp {
++                                        version igmpv3;
++                                        status {
++                                            admin-status {
++                                                status admin-up;
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        }
++                    }
++                    telus-service-info {
++                        re-service-id 3005003;
++                        service-type IES;
++                    }
++                }
++            }
++        }
+     }

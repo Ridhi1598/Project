@@ -1,0 +1,57 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL 95 Host Only success test
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 95
+        - access-list 95 permit 1.1.1.1
+        - access-list 95 deny any log
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key:
+      path: 
+      subtree: '{ "snmp_v3_read_purchased": "true" }'
+
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path:
+      subtree: '{
+                    "access_list_95": [{
+                        "_key": ["ip_address", "mask"],
+                        "ip_address":"1.1.1.1",
+                        "mask":"0.0.0.0"
+                    }],
+                    "access_list_95_state":"overwrite",
+                    "access_list_95_state_confirmation":"confirmed"
+                }'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: ACCESS_LIST_95_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

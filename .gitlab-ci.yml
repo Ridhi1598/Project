@@ -1,0 +1,164 @@
+variables:
+  KUBERNETES_CPU_REQUEST: "1"
+  KUBERNETES_CPU_LIMIT: "2"
+  KUBERNETES_MEMORY_REQUEST: "512Mi"
+  KUBERNETES_MEMORY_LIMIT: "1Gi"
+
+#  KUBERNETES_HELPER_CPU_REQUEST: "1"
+#  KUBERNETES_HELPER_CPU_LIMIT: "2"
+#  KUBERNETES_HELPER_MEMORY_REQUEST: "512Mi"
+#  KUBERNETES_HELPER_MEMORY_LIMIT: "1Gi"
+#
+#  KUBERNETES_SERVICE_CPU_REQUEST: "1"
+#  KUBERNETES_SERVICE_CPU_LIMIT: "2"
+#  KUBERNETES_SERVICE_MEMORY_REQUEST: "512Mi"
+#  KUBERNETES_SERVICE_MEMORY_LIMIT: "1Gi"
+
+stages:
+  - build
+  - test
+  - apitest
+  - endtoendtest
+  - uiFunctionalTest
+  - intFunctionalTest
+
+
+build-test:
+  stage: build
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  cache:
+    key: $CI_COMMIT_REF_SLUG-$CI_PROJECT_DIR
+    policy: pull
+  except:
+    - schedules    
+  script:
+    - ulimit -S -s 1000000
+    - pip install -r requirements.txt
+    - python Test_Runner.py bi dev ./features/feature_APIsFunctional/bi/api-gateway/commit_API_GWFunctional.feature
+    - python Test_Runner.py bi dev ./features/feature_UIFunctional/bi/TC_70_BI_Service_Dashboard_Login_commit.feature
+  allow_failure: true
+
+e2e-csUIFunctionalTest:
+  stage: uiFunctionalTest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csE2E_sequence.txt $tagOptions
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_UIFunctionalTest"
+
+e2e-csL2TopologyComponent:
+  stage: apitest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csl2topologyengine_sequence.txt $tagOptions
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_L2TopologyComponent"
+
+API-csEvpnFuncTest:
+  stage: apitest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csEvpn_controller_sequence_qa.txt $tagOptions -Drp_enable=True
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation/reports
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_evpn_test"
+
+
+API-csBNGControllerrFuncTest:
+  stage: apitest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csbng-controller_sequence.txt $tagOptions -Drp_enable=True
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation/reports
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_bng_controller_qa"
+
+
+API-csOrchestratorFuncTest:
+  stage: apitest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csorchestrator_sequence.txt $tagOptions -Drp_enable=True
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation/reports
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_orchestrator_qa"
+
+e2e-csUIFunctionalNegativeTest:
+  stage: uiFunctionalTest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csE2ENegative_sequence.txt $tagOptions
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_UIFunctionalNegativeTest"
+
+e2e-csUIFunctionalTestI:
+  stage: uiFunctionalTest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/csUI_UM_sequence.txt $tagOptions
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_UI_Portal_UserManagement"
+
+
+API-csPollingEngineFuncTest:
+  stage: apitest
+  image: image-registry.openshift-image-registry.svc:5000/bsaf-gitlab-runners/bsaf-test-automation:1.3.0
+  tags:
+    - test
+  script:
+    - pip install -r requirements.txt
+    - python Test_Runner.py cs $appEnv @resources/sequence/resources/sequence/cspolling_engine_sequence.txt $tagOptions -Drp_enable=True
+    - cp -R $CI_PROJECT_DIR/reports/* /test-automation/reports
+  only:
+    refs:
+      - schedules
+    variables:
+      - $appName_testType == "cs_polling_engine_qa"

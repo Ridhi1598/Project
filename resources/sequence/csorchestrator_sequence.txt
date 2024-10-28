@@ -1,0 +1,10 @@
+../../features/feature_APIsFunctional/cs/orchestrator/clear_queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/unbind/Unbind_BNG_Config_Engine_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/unbind/Unbind_CS_Portal_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/unbind/Unbind_EVPN_Config_Engine_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/unbind/Unbind_L2_Topology_Engine_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/TC_1_Get_Active_BNGs.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/bind/Bind_BNG_SVC_Controller_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/bind/Bind_CS_Portal_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/bind/Bind_EVPN_SVC_Controller_Queue.feature
+../../features/feature_APIsFunctional/cs/orchestrator/rmq/bind/Bind_L2_Topology_Engine_Queue_Dev.feature

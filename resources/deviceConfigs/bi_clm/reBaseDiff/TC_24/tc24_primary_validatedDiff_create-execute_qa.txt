@@ -1,0 +1,213 @@
+-# Generated WED JAN 25 11:23:06 2023 UTC
++# Generated WED JAN 25 11:31:58 2023 UTC
++            prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0040"
++                prefix 11.74.0.0/26 exact
++                prefix 110.74.0.0/26 exact
++            exit
++            prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
++                prefix 10.74.0.0/26 exact
++                prefix 100.74.0.0/26 exact
++            exit
++                prefix 192.168.40.0/31 exact
++            exit
++            policy-statement "CUSTIN-V4_CLGRAB21-TST0040_PRI"
++            exit
++        customer 700074 name "TST04" create
++            description "UAT Tester 4"
++        exit
++            exit
++        ies 3087040 name "3087040" customer 700074 create
++            interface "CLGRAB21-TST0040.3610.*" create
++        exit
++        ies 3087040 name "3087040" customer 700074 create
++            interface "CLGRAB21-TST0040.3610.*" create
++                description "1234740.CLGRAB21-TST0040.PON.100000K.BICI..V4..PRI..CLM.SEDU...CLGRAB21-TST0040-ALIAS"
++                address 192.168.40.1/31
++                ip-mtu 1500
++                cflowd-parameters
++                    sampling unicast type interface
++                exit
++                vpls "PRI.3087040"
++                exit
++            exit
++            no shutdown
++        exit
++        vpls 5600040 name "PRI.3087040" customer 700074 create
++            description "1234740.CLGRAB21-TST0040.CLM.BICI.PRI.SEDU"
++            service-mtu 2000
++            allow-ip-int-bind
++            exit
++            fdb-table-size 256
++            bgp
++                route-distinguisher 852:15600040
++                route-target export target:852:5600040 import target:852:5600040
++            exit
++            bgp-evpn
++                evi 5600040
++                mpls bgp 1
++                    auto-bind-tunnel
++                        resolution any
++                    exit
++                    no shutdown
++                exit
++            exit
++            stp
++                shutdown
++            exit
++            sap lag-736:3610.* create
++                ingress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000 cir 100000
++                        exit
++                    exit
++                    qos 53202
++                    filter ip 500
++                exit
++                egress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000
++                        exit
++                    exit
++                    qos 53202
++                exit
++                exit
++                collect-stats
++                accounting-policy 77
++                no shutdown
++            exit
++            no shutdown
++        exit
++        vpls 5800040 name "SEC.3087040" customer 700074 create
++            description "1234740.CLGRAB21-TST0040.CLM.BICI.SEC.SEDU"
++            service-mtu 2000
++            allow-ip-int-bind
++            exit
++            fdb-table-size 256
++            bgp
++                route-distinguisher 852:15800040
++                route-target export target:852:5800040 import target:852:5800040
++            exit
++            bgp-evpn
++                evi 5800040
++                mpls bgp 1
++                    auto-bind-tunnel
++                        resolution any
++                    exit
++                    no shutdown
++                exit
++            exit
++            stp
++                shutdown
++            exit
++            sap lag-736:3620.* create
++                ingress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000 cir 100000
++                        exit
++                    exit
++                    qos 53202
++                    filter ip 500
++                exit
++                egress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000
++                        exit
++                    exit
++                    qos 53202
++                exit
++                exit
++                collect-stats
++                accounting-policy 77
++                no shutdown
++            exit
++            no shutdown
++        exit
++        vpls 5600040 name "PRI.3087040" customer 700074 create
++            allow-ip-int-bind
++            exit
++        exit
++        vpls 5800040 name "SEC.3087040" customer 700074 create
++            allow-ip-int-bind
++            exit
++        exit
++            exit
++            policy-statement "CUSTIN-V4_CLGRAB21-TST0040_PRI"
++                entry 10
++                    description "Set prefixes as backup"
++                    from
++                        protocol bgp bgp-label
++                        community "BICI-LP-BACKUP"
++                        family ipv4 label-ipv4
++                    exit
++                    action next-entry
++                        local-preference 80
++                    exit
++                exit
++                entry 20
++                    description "Set same LP as peering prefixes"
++                    from
++                        protocol bgp bgp-label
++                        community "BICI-LP-PEERING"
++                        family ipv4 label-ipv4
++                    exit
++                    action next-entry
++                        local-preference 230
++                    exit
++                exit
++                entry 30
++                    description "Set same LP as transit prefixes"
++                    from
++                        protocol bgp bgp-label
++                        community "BICI-LP-TRANSIT"
++                        family ipv4 label-ipv4
++                    exit
++                    action next-entry
++                        local-preference 150
++                    exit
++                exit
++                entry 40
++                    description "IPV4: Allow only white-listed IPV4 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-NO-EXPORT-EDTNABTFSE51"
++                    exit
++                exit
++                entry 50
++                    description "IPV4: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0040"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-EXPORT-EDTNABTFSE51"
++                    exit
++                exit
++                default-action drop
++                exit
++                neighbor 192.168.40.0
++                    description "1234740.CLGRAB21-TST0040...BICI..V4..PRI"
++                    family ipv4
++                    authentication-key "Dk2xelfEqTKavVVvQz08iRQCSsTXAzE=" hash2
++                    keepalive 60
++                    hold-time 90 min 45
++                    local-preference 350
++                    prefix-limit ipv4 100
++                    med-out 80
++                    remove-private
++                    import "CUSTOMER-IN-BI-V4" "CUSTIN-V4_CLGRAB21-TST0040_PRI"
++                    export "DEFAULT-ONLY-V4"
++                    peer-as 64004
++                exit
+-# Finished WED JAN 25 11:23:08 2023 UTC
++# Finished WED JAN 25 11:32:00 2023 UTC

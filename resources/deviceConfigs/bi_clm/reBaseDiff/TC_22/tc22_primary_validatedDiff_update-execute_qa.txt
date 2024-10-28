@@ -1,0 +1,93 @@
+-# Generated THU MAR 16 11:17:23 2023 UTC
++# Generated THU MAR 16 11:41:02 2023 UTC
+-            prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0040"
+-                prefix 11.74.0.0/26 exact
+-                prefix 110.74.0.0/26 exact
+-            exit
+-            exit
+-            prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
+-                prefix 10.74.0.0/26 exact
+-                prefix 100.74.0.0/26 exact
+-                prefix 192.168.40.0/31 exact
+-            exit
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0040_PRI"
+-                description "1234740.CLGRAB21-TST0040.PON.100000K.BICI..V4V6..PRI..CLM.SEDU...CLGRAB21-TST0040-ALIAS"
+-                address 192.168.40.1/31
++                description "1234740.CLGRAB21-TST0040.PON.100000K.BICI..V6..PRI..CLM.SEDU...CLGRAB21-TST0040-ALIAS"
+-                    filter ip 500
+-                    filter ip 500
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE51"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0040_PRI"
+-                entry 10
+-                    description "Set prefixes as backup"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-BACKUP"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 20
+-                    description "Set same LP as peering prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-PEERING"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 230
+-                    exit
+-                exit
+-                entry 30
+-                    description "Set same LP as transit prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-TRANSIT"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 150
+-                    exit
+-                exit
+-                entry 40
+-                    description "IPV4: Allow only white-listed IPV4 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE51"
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0040"
+-                neighbor 192.168.40.0
+-                    description "1234740.CLGRAB21-TST0040...BICI..V4V6..PRI"
+-                    family ipv4
+-                    authentication-key "3byg3pMuteTGTZJZJMBgxSlfp2OnRFY=" hash2
+-                    keepalive 60
+-                    hold-time 90 min 45
+-                    local-preference 350
+-                    prefix-limit ipv4 100
+-                    med-out 80
+-                    remove-private
+-                    import "CUSTOMER-IN-BI-V4" "CUSTIN-V4_CLGRAB21-TST0040_PRI"
+-                    export "DEFAULT-CUST-FULL-OUT-V4"
+-                    peer-as 64004
+-                exit
+-                    description "1234740.CLGRAB21-TST0040...BICI..V4V6..PRI"
++                    description "1234740.CLGRAB21-TST0040...BICI..V6..PRI"
+-# Finished THU MAR 16 11:17:26 2023 UTC
++# Finished THU MAR 16 11:41:04 2023 UTC

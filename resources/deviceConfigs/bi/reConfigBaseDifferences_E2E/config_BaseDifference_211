@@ -1,0 +1,72 @@
+-# Generated WED FEB 02 08:36:06 2022 UTC
++# Generated WED FEB 02 08:40:23 2022 UTC
+-        description "1234744.CLGRAB21-TST0044.4000K"
++        description "spare"
+-            mode access
+-            encap-type dot1q
+-            no autonegotiate
+-        static-route-entry 10.74.4.0/26
+-            next-hop 192.168.44.1
+-                no shutdown
+-            exit
+-        exit
+-                no shutdown
+-            exit
+-        exit
+-        static-route-entry 40.40.44.0/32
+-            next-hop 192.168.44.1
+-                no shutdown
+-            exit
+-        exit
+-        static-route-entry 100.74.4.0/26
+-            next-hop 192.168.44.1
+-        customer 700074 create
+-            description "Customer TST04"
+-        exit
+-        exit
+-        ies 3087044 customer 700074 create
+-            interface "CLGRAB21-TST0044.1504" create
+-            exit
+-        ies 3087044 customer 700074 create
+-            interface "CLGRAB21-TST0044.1504" create
+-                description "1234744.CLGRAB21-TST0044.HS.4000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0044-ALIAS"
+-                address 192.168.44.0/31
+-                ip-mtu 1500
+-                cflowd-parameters
+-                    sampling unicast type interface
+-                exit
+-                sap 3/1/2:1504 create
+-                    ingress
+-                        scheduler-policy "BICI-SCHED"
+-                        scheduler-override
+-                            scheduler "BICI-ROOT" create
+-                                rate 4000 cir 4000
+-                            exit
+-                        exit
+-                        qos 53201
+-                        filter ip 500
+-                    exit
+-                    egress
+-                        scheduler-policy "BICI-SCHED"
+-                        scheduler-override
+-                            scheduler "BICI-ROOT" create
+-                                rate 4000
+-                            exit
+-                        exit
+-                        qos 53201
+-                    exit
+-                    collect-stats
+-                    accounting-policy 77
+-                exit
+-            exit
+-            no shutdown
+-        exit
+-                prefix 10.74.4.0/26 exact
+-                prefix 100.74.4.0/26 exact
+-            exit
+-            exit
+-                prefix 40.40.44.0/32 exact
+-            exit
+-                prefix 192.168.44.0/31 exact
+-# Finished WED FEB 02 08:36:11 2022 UTC
++# Finished WED FEB 02 08:40:28 2022 UTC

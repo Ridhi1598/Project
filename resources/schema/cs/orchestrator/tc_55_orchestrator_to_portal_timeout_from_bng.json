@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "exception": {
+          "type": "object",
+          "properties": {
+            "commit-errors": {
+              "type": "array",
+              "items": {}
+            },
+            "rollback-errors": {
+              "type": "array",
+              "items": {}
+            }
+          },
+          "required": [
+            "commit-errors",
+            "rollback-errors"
+          ]
+        }
+      },
+      "required": [
+        "exception"
+      ]
+    },
+    "callback-url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request-id",
+    "status",
+    "response",
+    "callback-url"
+  ]
+}

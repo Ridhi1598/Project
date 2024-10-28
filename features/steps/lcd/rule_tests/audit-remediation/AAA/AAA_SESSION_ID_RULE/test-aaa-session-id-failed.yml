@@ -1,0 +1,50 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: aaa session-id fails
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: aaa session-id unique configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns failed results
+  then: initiate remediation
+  then: Assert remediated device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - aaa new-model
+        - aaa session-id unique
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: AAA_SESSION_ID_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: aaa session-id common
+        config:
+          - aaa session-id common
+

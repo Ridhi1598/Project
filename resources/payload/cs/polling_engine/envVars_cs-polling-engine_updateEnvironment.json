@@ -1,0 +1,8 @@
+{
+  "EXECUTOR_LOGS_HOST" : "http://mockserver.develop.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_HOST" : "http://mockserver.develop.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_TIMEOUT" : "100",
+  "VALIDATE_TIMEOUT": "100"
+
+}
+

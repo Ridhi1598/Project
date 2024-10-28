@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\"request-id\":\"req_Id\", \"user-id\":\"x322195\", \"type\":\"VALIDATE\", \"path\":\"/olt-birth-certificate\", \"query-parameters\":[], \"payload\":{\"olt-clli-name\":\"EDTNABTFOT40\", \"bng-group-id\":\"EDTNABTFNG07-EDTNABTFNG08\", \"l3vpn-service-id\":\"EDTNABTFNG07-EDTNABTFNG08\", \"se-devices\":[\"EDTNABTFSE51\", \"EDTNABTFSE52\"], \"multicast-service-name\":\"CMCS_MCAST_L3\", \"olt-backhaul-service-name\":\"EDTNABTFNG07-EDTNABTFNG08-EDTNABTFOT40\"}, \"callback-url\":\"cs-orchestrator/mock-extension\"}",
+  "payload_encoding": "string"
+}

@@ -1,0 +1,46 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip domain name succeeds
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip domain name configured on device and matches param_tree config
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip domain name
+        - ip domain name cust.on.tac.net
+
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+  - !RuleTestCaseParamTreeItem
+      # level: global | telus_wide | customer | customer_group 
+      #       | device | device_group | vpn | interface | vrf
+      level: region
+      level_key:
+      path: 
+      subtree: "{'domain-name': 'cust.on.tac.net'}"
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_DOMAIN_NAME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result:

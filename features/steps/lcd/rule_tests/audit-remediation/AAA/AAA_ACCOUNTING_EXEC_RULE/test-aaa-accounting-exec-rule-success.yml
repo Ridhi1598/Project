@@ -1,0 +1,38 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: aaa accounting exec default succeeds
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: aaa accounting exec default properly configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - aaa new-model
+        - aaa accounting exec default start-stop group tacacs+
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: AAA_ACCOUNTING_EXEC_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result:

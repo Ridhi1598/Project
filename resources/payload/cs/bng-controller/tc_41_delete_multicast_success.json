@@ -1,0 +1,7 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n        \"request-id\": \"req_Id\",\n        \"user-id\": \"x231081\",\n        \"type\": \"DELETE\",\n        \"path\": \"/cs-bng-service/tinaa-l3vpn-ntw:l3vpn-ntw/vpn-services/vpn-service=CMCS_MCAST_L3\",\n        \"query-parameters\": [],\n        \"payload\": {},\n        \"callback-url\": \"cs-orchestrator/mock-extension\"\n}",
+  "payload_encoding": "string"
+}
+

@@ -1,0 +1,14 @@
+-+                route-distinguisher 172.25.141.27:30059
+-+                route-target export target:65038:30059 import target:65038:30059
+++                route-distinguisher 172.25.141.27:30076
+++                route-target export target:65038:30076 import target:65038:30076
+-+                evi 30059
+++                evi 30076
+-+        epipe 4000092 name "EDTNABTFOT39" customer 22 create
+++        epipe 4000116 name "EDTNABTFOT39" customer 22 create
+-+                    eth-tag 4000092
+++                    eth-tag 4000116
+-+                    eth-tag 4000093
+++                    eth-tag 4000117
+-+                evi 30058
+++                evi 30075

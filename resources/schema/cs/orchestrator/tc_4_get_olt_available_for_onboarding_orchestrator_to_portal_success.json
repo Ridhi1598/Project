@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "callback-url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "olt-name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "null"
+            },
+            "request-id": {
+              "type": "null"
+            },
+            "user-id": {
+              "type": "null"
+            },
+            "recvd-timestamp": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "olt-name",
+            "status",
+            "request-id",
+            "user-id",
+            "recvd-timestamp"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "olt-name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "null"
+            },
+            "request-id": {
+              "type": "null"
+            },
+            "user-id": {
+              "type": "null"
+            },
+            "recvd-timestamp": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "olt-name",
+            "status",
+            "request-id",
+            "user-id",
+            "recvd-timestamp"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "olt-name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "null"
+            },
+            "request-id": {
+              "type": "null"
+            },
+            "user-id": {
+              "type": "null"
+            },
+            "recvd-timestamp": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "olt-name",
+            "status",
+            "request-id",
+            "user-id",
+            "recvd-timestamp"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "olt-name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "null"
+            },
+            "request-id": {
+              "type": "null"
+            },
+            "user-id": {
+              "type": "null"
+            },
+            "recvd-timestamp": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "olt-name",
+            "status",
+            "request-id",
+            "user-id",
+            "recvd-timestamp"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "olt-name": {
+              "type": "string"
+            },
+            "status": {
+              "type": "null"
+            },
+            "request-id": {
+              "type": "null"
+            },
+            "user-id": {
+              "type": "null"
+            },
+            "recvd-timestamp": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "olt-name",
+            "status",
+            "request-id",
+            "user-id",
+            "recvd-timestamp"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "request-id",
+    "callback-url",
+    "status",
+    "response"
+  ]
+}

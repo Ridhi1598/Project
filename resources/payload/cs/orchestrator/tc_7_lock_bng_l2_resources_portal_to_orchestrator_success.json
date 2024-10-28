@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"x235417\",\n   \"type\":\"LOCK\",\n   \"path\":\"/lock-bng-resources\",\n   \"callback-url\":\"cs-portal/lock-bng-resources\",\n   \"query-parameters\":[\n      \n   ],\n   \"payload\":{\n      \"bng1-name\":\"EDTNABTFNG03\",\n      \"bng2-name\":\"EDTNABTFNG04\"\n   }\n}",
+  "payload_encoding": "string"
+}

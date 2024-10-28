@@ -1,0 +1,63 @@
+-## Last changed: 2021-06-15 12:04:37 UTC
++## Last changed: 2021-06-15 14:23:19 UTC
++        }
++        unit 1 {
++            description 1234741.CLGRAB21-TST0041.PON.6M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            no-traps;
++            vlan-tags outer 0x88a8.2400 inner 0x8100.1400;
++            family inet {
++                filter {
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_6M ];
++                }
++                address 192.168.41.0/31;
++            }
++        }
++        unit 2 {
++            description CLGRAB21-TST0041.MGT;
++            encapsulation vlan-vpls;
++            no-traps;
++            vlan-tags outer 0x88a8.500 inner 0x8100.501;
++            family vpls;
++        route 10.74.1.0/26 next-hop 192.168.41.1;
++        route 100.74.2.0/26 next-hop 192.168.41.1;
+-    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32;
++    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32 {
++        10.74.1.0/26;
++        100.74.2.0/26;
++    }
++        192.168.41.0/31;
++        BI_6M {
++            scheduler-map BICI-SCHED;
++            shaping-rate 6380000;
++        }
++            }
++        }
++        ae32 {
++            unit 1 {
++                output-traffic-control-profile BI_6M;
++            }
++            unit 2 {
++                forwarding-class FC_LOW_LATENCY_DATA;
++                output-traffic-control-profile L2VPN_NID_MGMT;
++                rewrite-rules {
++                    ieee-802.1ad L2VPN_NID;
++                }
++        filter BI_IN_6M {
++            term MATCH-ALL {
++                then {
++                    policer 6M;
++                    loss-priority low;
++                    forwarding-class FC_BEST_EFFORT_DATA;
++                    accept;
++                }
++            }
++        }
++        }
++        then discard;
++    }
++    policer 6M {
++        logical-interface-policer;
++        if-exceeding {
++            bandwidth-limit 6380000;
++            burst-size-limit 60k;
++        interface ae32.2;

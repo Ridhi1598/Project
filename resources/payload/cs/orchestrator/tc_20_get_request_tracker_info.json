@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"x235417\",\n   \"callback-url\":\"cs-portal/read-request-tracker\",\n   \"type\":\"READ\",\n   \"path\":\"/request/request-id=uuid\",\n   \"query-parameters\":[\n      \n   ],\n   \"payload\":{\n      \n   }\n}",
+  "payload_encoding": "string"
+}

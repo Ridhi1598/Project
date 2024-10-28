@@ -1,0 +1,68 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip domain list fails
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: Domain list configuration on device not compliant with paramtree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit fails
+  then: Remediation is called
+  then: Remediation succeeds as device config matches param_tree
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip domain list
+        - ip domain list hello
+        - ip domain list core.act.net
+        - ip domain list net.tac.net
+
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+  - !RuleTestCaseParamTreeItem
+      # level: global | telus_wide | customer | customer_group 
+      #       | device | device_group | vpn | interface | vrf
+      level: region
+      level_key:
+      path: 
+      subtree: '{"domain_list": null}'
+  - !RuleTestCaseParamTreeItem
+      # level: global | telus_wide | customer | customer_group 
+      #       | device | device_group | vpn | interface | vrf
+      level: region
+      level_key:
+      path: domain-list
+      subtree: '[".", "core.tac.net", "osc.net.tac.net"]'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_DOMAIN_LIST_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: ip domain list
+        config:
+          - ip domain list .
+          - ip domain list core.tac.net
+          - ip domain list osc.net.tac.net
+

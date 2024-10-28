@@ -1,0 +1,90 @@
+-## Last commit: 2021-03-11 05:51:51 UTC by tinaa
++## Last commit: 2021-03-11 05:59:24 UTC by tinaa
++        unit 3200 {
++            description 1234741.CLGRAB21-TST0041.DSL.6M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            no-traps;
++            vlan-id 3200;
++            family inet {
++                filter {
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_2M ];
++                    output BI_OUT;
++                }
++                address 192.168.41.0/31;
++            }
++        }
++            neighbor 192.168.41.1 {
++                description 1234741.CLGRAB21-TST0041...BICI..V4..PRI;
++                metric-out 80;
++                hold-time 45;
++                import [ CUSTOMER-IN-BI-V4-V6 CUSTIN-V4_CLGRAB21-TST0041_PRI ];
++                authentication-key "$9$zhj23Ct0BIcreOBVws2aJFn6";
++                export [ DEFAULT-ONLY-V4-V6 CUST-FULL-OUT ];
++                peer-as 64004;
++            }
++        192.168.41.0/31;
++    }
++    prefix-list PREFIX-IPV4-E_CLGRAB21-TST0041 {
++        10.74.1.0/26;
++        100.74.1.0/26;
++    }
++    prefix-list PREFIX-IPV4-NE_CLGRAB21-TST0041 {
++        40.40.41.0/32;
++    policy-statement CUSTIN-V4_CLGRAB21-TST0041_PRI {
++        term ENTRY_5 {
++            then {
++                local-preference 350;
++            }
++        }
++        term ENTRY_7 {
++            from community 680;
++            then {
++                local-preference 80;
++            }
++        }
++        term ENTRY_8 {
++            from community 670;
++            then {
++                local-preference 230;
++            }
++        }
++        term ENTRY_9 {
++            from community 675;
++            then {
++                local-preference 150;
++            }
++        }
++        term ENTRY_10 {
++            from {
++                prefix-list PREFIX-IPV4-NE_CLGRAB21-TST0041;
++            }
++            then {
++                community add NO-EXPORT;
++            }
++        }
++        term ENTRY_30 {
++            from {
++                prefix-list PREFIX-IPV4-NE_CLGRAB21-TST0041;
++            }
++            then {
++                community add BICI-NO-EXPORT-EDTNABTFRE32;
++                accept;
++            }
++        }
++        term ENTRY_40 {
++            from {
++                prefix-list PREFIX-IPV4-E_CLGRAB21-TST0041;
++            }
++            then {
++                community add BICI-EXPORT-EDTNABTFRE32;
++                accept;
++            }
++        }
++        term ENTRY_1000 {
++            then reject;
++        }
++    }
++        xe-0/3/1 {
++            unit 3200 {
++                output-traffic-control-profile BI_6M;
++            }
++        }

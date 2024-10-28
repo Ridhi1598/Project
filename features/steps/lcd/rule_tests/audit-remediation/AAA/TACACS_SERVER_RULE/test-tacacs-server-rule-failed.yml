@@ -1,0 +1,65 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: tacacs-server audit succeeds
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: tacacs-server hosts configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_nso_config: !RuleTestCaseDeviceNSOConfig
+  items:
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:tacacs-server/host
+      config_subtree: '[{"_clear": true}]'
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - tacacs-server host 209.202.66.133
+        - tacacs-server host 198.161.154.43
+        - tacacs-server key test
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: region
+      level_key:
+      path: tacacs-server/host
+      subtree: '[
+        {"_clear": true},
+        {"_key": ["name"], "name": "209.202.66.132"},
+        {"_key": ["name"], "name": "198.161.154.43"}]'
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: TACACS_SERVER_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: 
+        filter: tacacs-server host
+        config:
+          - tacacs-server host 209.202.66.132
+          - tacacs-server host 198.161.154.43

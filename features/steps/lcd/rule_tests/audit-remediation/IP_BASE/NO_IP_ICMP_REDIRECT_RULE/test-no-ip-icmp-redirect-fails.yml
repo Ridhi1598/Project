@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: no ip icmp redirect audit succeeds
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip icmp redirect configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit fails
+  then: Remediation is called
+  then: no ip icmp redirect configured on device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ip icmp redirect host
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NO_IP_ICMP_REDIRECT_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: ip icmp redirect
+        config:
+          - ip icmp redirect subnet

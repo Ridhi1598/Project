@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip domain name error not configured
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip domain name no configured on param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns an error stating the paramter is not set on paramtree
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip domain name
+        - ip domain name cust.on.tac.net
+
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+  - !RuleTestCaseParamTreeItem
+      # level: global | telus_wide | customer | customer_group 
+      #       | device | device_group | vpn | interface | vrf
+      level: region
+      level_key:
+      path: 
+      subtree: '{"domain-name" : null}'
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_DOMAIN_NAME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+      assertion_type: 'EXACT'
+      value: 'MANDATORY_PARAMETER_MISSING: domain-name'
+    messages: 
+  remediation_result:

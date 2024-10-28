@@ -1,0 +1,64 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line vty audit error
+  test_suite:
+  device_models:
+    - "3600"
+  given: line vty 0 4 configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit error
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line vty 0 4
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 10 0
+        - exec-banner
+        - motd-banner
+        - timeout login response 120
+        - logging synchronous
+        - login authentication default
+        - session-timeout 118
+        - transport input ssh
+        - transport output none
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: line-vty
+      subtree: '
+        {"exec_timeout": 
+          {"minutes": null, "seconds": null}, 
+        "session_timeout": null, 
+        "timeout_login_response": 120,
+        "access_class_in": 88}'
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key: 
+      path: line-vty-device
+      subtree: '{"transport_input": ["ssh"], "transport_output": ["none"]}'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LINE_VTY_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+        assertion_type: 'EXACT'
+        value: |+ 
+          MANDATORY_PARAMETER_MISSING: line-vty/exec-timeout/minutes or line-vty/exec-timeout/seconds should be set
+          MANDATORY_PARAMETER_MISSING: line-vty/session-timeout
+
+    messages:
+  remediation_result:

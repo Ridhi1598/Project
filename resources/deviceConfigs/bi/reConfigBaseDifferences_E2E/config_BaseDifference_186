@@ -1,0 +1,23 @@
+-# Generated MON SEP 27 13:38:23 2021 UTC
++# Generated MON SEP 27 14:27:16 2021 UTC
+-        description "spare"
++        description "1234741.CLGRAB21-TST0041.4000K"
+-        description "1234741.CLGRAB21-TST0041.400000K"
++        description "spare"
++            no autonegotiate
+-                description "1234741.CLGRAB21-TST0041.HS.400000K.BICI..V6..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.HS.4000K.BICI..V6..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
+-                sap 4/1/18:1500 create
++                sap 1/1/5:1500 create
+-                                rate 400000 cir 400000
++                                rate 4000 cir 4000
+-                                rate 400000
++                                rate 4000
+-                prefix 10.74.1.0/26 exact
+-                prefix 100.74.1.0/26 exact
++                prefix 10.74.2.0/26 exact
++                prefix 100.74.2.0/26 exact
+-                prefix 40.40.41.0/32 exact
++                prefix 40.40.42.0/32 exact
+-# Finished MON SEP 27 13:38:35 2021 UTC
++# Finished MON SEP 27 14:27:29 2021 UTC

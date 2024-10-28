@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"cs-orchestrator\",\n   \"callback-url\":\"cs-orchestrator/commit-olt-config/commit-bngl3vpn-config\",\n   \"type\":\"COMMIT\",\n   \"path\":\"/cs-bng-service/request/request-id=uuid\",\n   \"query-parameters\":[\n      \n   ],\n   \"payload\":{\n      \n   }\n}",
+  "payload_encoding": "string"
+}

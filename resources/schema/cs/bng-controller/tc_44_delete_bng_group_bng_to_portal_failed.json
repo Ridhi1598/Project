@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "exception": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "error_code": {
+                  "type": "string"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "is-device-error": {
+                  "type": "boolean"
+                },
+                "detail": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error-type": {
+                          "type": "string"
+                        },
+                        "error-tag": {
+                          "type": "string"
+                        },
+                        "error-path": {
+                          "type": "string"
+                        },
+                        "error-message": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "error-type",
+                        "error-tag",
+                        "error-path",
+                        "error-message"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "error_code",
+                "category",
+                "message",
+                "is-device-error",
+                "detail"
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "exception"
+      ]
+    },
+    "callback-url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "request-id",
+    "status",
+    "response",
+    "callback-url"
+  ]
+}

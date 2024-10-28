@@ -1,0 +1,47 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: IP SSH Rule succeeds
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+  given: line ssh configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ip ssh time-out 120
+        - ip ssh authentication-retries 3
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: ssh-timeout
+      subtree: "120"
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: ssh-authentication-retries
+      subtree: "3"
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_SSH_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 

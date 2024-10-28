@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "consumer_rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {
+
+    }
+  },
+  "routing_key": "cs_orchestrator_queue",
+  "delivery_mode": "2",
+  "payload": "{\r\n    \"request-id\": \"request-idValue\",\r\n    \"user-id\": \"txxxxxx\",\r\n    \"callback-url\": \"cs-portal/get-active-olts\",\r\n    \"type\": \"READ\",\r\n    \"path\": \"/get-active-olts\",\r\n    \"query-parameters\": [\r\n        {\r\n            \"name\": \"bng1-name\",\r\n            \"value\": \"EDTNABTFNG03\"\r\n        },\r\n        {\r\n            \"name\": \"bng2-name\",\r\n            \"value\": \"EDTNABTFNG04\"\r\n        }\r\n    ],\r\n    \"payload\": {}\r\n}\r\n",
+  "payload_encoding": "string",
+  "headers": {
+
+  },
+  "props": {
+
+  }
+}

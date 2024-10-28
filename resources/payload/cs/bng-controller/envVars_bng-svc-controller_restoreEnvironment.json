@@ -1,0 +1,7 @@
+{
+  "EXECUTOR_URI" : "https://pltf-api.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_LOGS_URI" : "https://pltf-api.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_HOST" : "https://pltf-api.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_Host" : "https://pltf-api.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_TIMEOUT" : "3600"
+ }

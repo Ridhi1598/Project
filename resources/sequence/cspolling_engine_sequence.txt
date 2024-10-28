@@ -1,0 +1,16 @@
+../../features/feature_E2E/cs_Portal_Phase2_Positive/DecommissionOLTDevices_dev.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/DecommissionBNGDevices_dev.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/DecommissionOLTDevices_QA.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/DecommissionBNGDevices_QA.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/LoginUser.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/OnboardBNGDevices.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/VerifyBNGOnboarded.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/BNGBirthCertificate.feature
+../../features/feature_APIsFunctional/cs/polling_engine/rmq/Update_Env/Update_Environment_Variable.feature
+../../features/feature_APIsFunctional/cs/polling_engine/rmq/unbind/Unbind_CS_Orchestrator_Queue.feature
+../../features/feature_APIsFunctional/cs/polling_engine/TC_1_Validate_BNG_birth_certificate_success.feature
+../../features/feature_APIsFunctional/cs/polling_engine/rmq/Restore_Env/Restore_Environment_Variable.feature
+../../features/feature_APIsFunctional/cs/polling_engine/rmq/bind/Bind_CS_Orchestrator_Queue.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/DecommissionBNGDevices_QA.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/VerifyBNGDevicesDecommission.feature
+

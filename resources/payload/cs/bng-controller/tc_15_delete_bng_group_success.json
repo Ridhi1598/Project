@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"x231081\",\n   \"type\":\"DELETE\",\n   \"path\":\"/cs-bng-service/cmcs-bng-service:consumer-service/bng-groups/bng-group=EDTNABTFNG77-EDTNABTFNG777\",\n   \"query-parameters\":[\n\n   ],\n   \"payload\":{\n\n   },\n   \"callback-url\":\"cs-orchestrator\"\n}",
+  "payload_encoding": "string"
+}

@@ -1,0 +1,12 @@
+-## Last commit: 2021-03-19 06:57:33 UTC by tinaa
++## Last commit: 2021-03-19 07:04:51 UTC by tinaa
+-        description 1234741.CLGRAB21-TST0041.400M;
++        description 1234741.CLGRAB21-TST0041.300M;
+-            description 1234741.CLGRAB21-TST0041.HS.400M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            description 1234741.CLGRAB21-TST0041.HS.300M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
+-                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_400M ];
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_300M ];
+-                    input-list [ 500-IPV6-NEXT-TERM BI_IN_400M_V6 ];
++                    input-list [ 500-IPV6-NEXT-TERM BI_IN_300M_V6 ];
+-                output-traffic-control-profile BI_400M;
++                output-traffic-control-profile BI_300M;

@@ -1,0 +1,39 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: aaa authentication login success
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: aaa authentication login default properly configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Successful Audit
+  
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - aaa new-model
+        - aaa authentication login default group tacacs+ local-case
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: AAA_AUTHENTICATION_LOGIN_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 
+

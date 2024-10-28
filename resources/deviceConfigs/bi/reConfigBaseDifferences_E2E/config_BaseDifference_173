@@ -1,0 +1,134 @@
+-## Last changed: 2021-09-27 09:40:52 UTC
++## Last changed: 2021-09-27 09:55:49 UTC
+-        description SPARE;
++        description 1234741.CLGRAB21-TST0041.4M;
++        disable;
+-        speed 1g;
++        speed 10m;
++        }
++        unit 500 {
++            description CLGRAB21-TST0041.MGT;
++            encapsulation vlan-vpls;
++            no-traps;
++            vlan-id 500;
++            family vpls;
++        }
++        unit 1500 {
++            description 1234741.CLGRAB21-TST0041.HS.4M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            no-traps;
++            vlan-id 1500;
++            family inet {
++                filter {
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_4M ];
++                }
++                address 192.168.41.0/31;
++            }
++            family inet6 {
++                filter {
++                    input-list [ 500-IPV6-NEXT-TERM BI_IN_4M_V6 ];
++                }
++                address 2001:db4::/127;
++                address ::ffff:c0a8:2900/127;
++            }
++        }
++            neighbor 192.168.41.1 {
++                description 1234741.CLGRAB21-TST0041...BICI..V6..PRI;
++                metric-out 80;
++                hold-time 45;
++                import [ CUSTOMER-IN-BI-V4-V6 CUSTIN-V4V6_CLGRAB21-TST0041_PRI ];
++                authentication-key "$9$gboUjk.PQ36q.RhcyKv4aJ";
++                export [ DEFAULT-ONLY-V4-V6 DEFAULTONLYV6_CLGRAB21-TST0041_P ];
++                peer-as 64004;
++            }
++        192.168.41.0/31;
++        2001:db4::/127;
++    }
++    prefix-list PREFIX-IPV4-E_CLGRAB21-TST0041 {
++        10.74.1.0/26;
++        100.74.1.0/26;
++    }
++    prefix-list PREFIX-IPV6-E_CLGRAB21-TST0041 {
++        2001:db4::/126;
++    policy-statement CUSTIN-V4V6_CLGRAB21-TST0041_PRI {
++        term ENTRY_5 {
++            then {
++                local-preference 350;
++            }
++        }
++        term ENTRY_7 {
++            from community 680;
++            then {
++                local-preference 80;
++            }
++        }
++        term ENTRY_8 {
++            from community 670;
++            then {
++                local-preference 230;
++            }
++        }
++        term ENTRY_9 {
++            from community 675;
++            then {
++                local-preference 150;
++            }
++        }
++        term ENTRY_40 {
++            from {
++                prefix-list PREFIX-IPV4-E_CLGRAB21-TST0041;
++            }
++            then {
++                community add BICI-EXPORT-EDTNABTFRE32;
++                accept;
++            }
++        }
++        term ENTRY_60 {
++            from {
++                prefix-list PREFIX-IPV6-E_CLGRAB21-TST0041;
++            }
++            then {
++                community add IPV6;
++            }
++        }
++        term ENTRY_80 {
++            from {
++                prefix-list PREFIX-IPV6-E_CLGRAB21-TST0041;
++            }
++            then {
++                community add BICI-EXPORT-EDTNABTFRE32;
++                next-hop 2001:db4::1;
++                accept;
++            }
++        }
++        term ENTRY_1000 {
++            then reject;
++        }
++    }
++            then reject;
++        }
++    }
++    policy-statement DEFAULTONLYV6_CLGRAB21-TST0041_P {
++        term ENTRY_10 {
++            from {
++                family inet6;
++                prefix-list DEFAULT-IPV6;
++            }
++            then {
++                next-hop 2001:db4::;
++                accept;
++            }
++        }
++        term ENTRY_1000 {
++        ge-5/3/2 {
++            unit 500 {
++                forwarding-class FC_LOW_LATENCY_DATA;
++                output-traffic-control-profile L2VPN_NID_MGMT;
++                rewrite-rules {
++                    ieee-802.1ad L2VPN_NID;
++                }
++            }
++            unit 1500 {
++                output-traffic-control-profile BI_4M;
++            }
++        }
++        interface ge-5/3/2.500;

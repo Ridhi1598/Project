@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n    \"request-id\": \"req_Id\",\n    \"user-id\": \"x235417\",\n    \"callback-url\": \"cs-portal/delete-olt-config\",\n    \"type\": \"DELETE\",\n    \"path\": \"/tinaa-olt-services/olt=EDTNABTFOT39\",\n    \"query-parameters\": [],\n    \"payload\": {}\n}",
+  "payload_encoding": "string"
+}

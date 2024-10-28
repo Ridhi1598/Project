@@ -1,0 +1,12 @@
+{
+   "request-id":"read-evpn-services",
+   "type":"READ",
+   "path":"/evpn-services",
+   "callback-url":"cs-orchestrator/mock-extension",
+   "query-parameters":[
+
+   ],
+   "payload":{
+
+   }
+}

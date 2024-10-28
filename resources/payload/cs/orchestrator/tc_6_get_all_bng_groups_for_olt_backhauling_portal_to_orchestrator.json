@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n    \"request-id\": \"req_Id\",\n    \"callback-url\": \"cs-portal/get-bng-groups\",\n    \"user-id\": \"x231081\",\n    \"type\": \"READ\",\n    \"path\": \"/get-bng-groups\",\n    \"query-parameters\": [],\n    \"payload\": {}\n}",
+  "payload_encoding": "string"
+}

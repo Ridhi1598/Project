@@ -1,0 +1,1858 @@
+ {
+         config {
+             configure {
+                 eth-cfm {
++                    domain 2 {
++                        level 1;
++                        name 2001;
++                        association 2001 {
++                            icc-based TELUS.2001;
++                            bridge-identifier CMCS2001 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2065 {
++                            icc-based TELUS.2065;
++                            bridge-identifier CMCS2065 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2066 {
++                            icc-based TELUS.2066;
++                            bridge-identifier CMCS2066 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2067 {
++                            icc-based TELUS.2067;
++                            bridge-identifier CMCS2067 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2068 {
++                            icc-based TELUS.2068;
++                            bridge-identifier CMCS2068 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2069 {
++                            icc-based TELUS.2069;
++                            bridge-identifier CMCS2069 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2070 {
++                            icc-based TELUS.2070;
++                            bridge-identifier CMCS2070 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2071 {
++                            icc-based TELUS.2071;
++                            bridge-identifier CMCS2071 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                        association 2072 {
++                            icc-based TELUS.2072;
++                            bridge-identifier CMCS2072 {
++                                mhf-creation default;
++                            }
++                            remote-mep 3;
++                            remote-mep 4;
++                            remote-mep 7;
++                            remote-mep 8;
++                        }
++                    }
+                 }
+                 qos {
+                     sap-ingress 3600 {
++                        policy-id 3600;
++                        description 3600;
++                        queue 11 {
++                            multipoint true;
++                        }
+                         fc be {
++                            multicast-queue 11;
+                         }
+                         fc ef {
++                            multicast-queue 11;
+                         }
+                         fc h1 {
++                            multicast-queue 11;
+                         }
+                         fc h2 {
++                            multicast-queue 11;
+                         }
+                         fc l1 {
++                            multicast-queue 11;
+                         }
+                         fc l2 {
++                            multicast-queue 11;
+                         }
+                     }
++                    sap-egress 129 {
++                        policy-id 129;
++                        dscp cs5 {
++                            fc ef;
++                        }
++                        queue 1 {
++                            port-parent {
++                                cir-level 1;
++                            }
++                        }
++                        queue 3 {
++                            rate {
++                                pir max;
++                                cir max;
++                            }
++                            port-parent {
++                                cir-level 6;
++                            }
++                        }
++                        fc be {
++                            queue 1;
++                            dot1p {
++                                in-profile 0;
++                                out-profile 0;
++                                exceed-profile 0;
++                            }
++                        }
++                        fc ef {
++                            queue 3;
++                            dot1p {
++                                in-profile 5;
++                                out-profile 5;
++                                exceed-profile 5;
++                            }
++                        }
++                    }
+                     sap-egress 3600 {
++                        policy-id 3600;
+                     }
+                     scheduler-policy EVPN-WLN-BACKHAUL {
+                         tier 3 {
+                             scheduler H1 {
+-                                description " Derived Voice traffic";
++                                description "Derived Voice traffic";
+                             }
+                         }
+                     }
+                 }
+                 service {
+                     customer "CMCS EVPN Backhaul" {
++                        multi-service-site EDTNABTFNG03 {
++                            description "MSS EDTNABTFNG03";
++                            assignment {
++                                port lag-57;
++                            }
++                            ingress {
++                                scheduler-policy {
++                                    policy-name EVPN-WLN-BACKHAUL;
++                                    overrides {
++                                        scheduler WLN-EVPN-ROOT {
++                                            rate {
++                                                pir max;
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                            egress {
++                                scheduler-policy {
++                                    policy-name EVPN-WLN-BACKHAUL;
++                                    overrides {
++                                        scheduler WLN-EVPN-ROOT {
++                                            rate {
++                                                pir max;
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        }
++                        multi-service-site EDTNABTFNG04 {
++                            description "MSS EDTNABTFNG04";
++                            assignment {
++                                port lag-58;
++                            }
++                            ingress {
++                                scheduler-policy {
++                                    policy-name EVPN-WLN-BACKHAUL;
++                                    overrides {
++                                        scheduler WLN-EVPN-ROOT {
++                                            rate {
++                                                pir max;
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                            egress {
++                                scheduler-policy {
++                                    policy-name EVPN-WLN-BACKHAUL;
++                                    overrides {
++                                        scheduler WLN-EVPN-ROOT {
++                                            rate {
++                                                pir max;
++                                            }
++                                        }
++                                    }
++                                }
++                            }
++                        }
+                     }
+                     system {
+                         bgp {
+                             evpn {
++                                ethernet-segment EDTNABTFNG03 {
++                                    esi 01:e4:41:64:e3:b2:3f:00:00:57;
++                                    multi-homing-mode all-active;
++                                    df-election {
++                                        service-carving-mode auto;
++                                    }
++                                    association {
++                                        lag lag-57;
++                                    }
++                                }
++                                ethernet-segment EDTNABTFNG04 {
++                                    esi 01:e4:41:64:e4:8a:3f:00:00:58;
++                                    multi-homing-mode all-active;
++                                    df-election {
++                                        service-carving-mode auto;
++                                    }
++                                    association {
++                                        lag lag-58;
++                                    }
++                                }
+                             }
+                         }
+                     }
++                    vpls CMCS2001 {
++                        service-id 62001;
++                        description EDTNABTFOT39-DV;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2001;
++                            route-target {
++                                export target:852:502001;
++                                import target:852:502001;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2001;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:3901.21 {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2001 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:3901.21 {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2001 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2065 {
++                        service-id 2065;
++                        description EDTNABTFOT39-2065;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2065;
++                            route-target {
++                                export target:852:502065;
++                                import target:852:502065;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2065;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2001.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2065 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2001.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2065 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2066 {
++                        service-id 2066;
++                        description EDTNABTFOT39-2066;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2066;
++                            route-target {
++                                export target:852:502066;
++                                import target:852:502066;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2066;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2002.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2066 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2002.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2066 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2067 {
++                        service-id 2067;
++                        description EDTNABTFOT39-2067;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2067;
++                            route-target {
++                                export target:852:502067;
++                                import target:852:502067;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2067;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2003.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2067 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2003.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2067 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2068 {
++                        service-id 2068;
++                        description EDTNABTFOT39-2068;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2068;
++                            route-target {
++                                export target:852:502068;
++                                import target:852:502068;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2068;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2004.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2068 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2004.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2068 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2069 {
++                        service-id 2069;
++                        description EDTNABTFOT39-2069;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2069;
++                            route-target {
++                                export target:852:502069;
++                                import target:852:502069;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2069;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2005.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2069 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2005.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2069 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2070 {
++                        service-id 2070;
++                        description EDTNABTFOT39-2070;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2070;
++                            route-target {
++                                export target:852:502070;
++                                import target:852:502070;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2070;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2006.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2070 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2006.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2070 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2071 {
++                        service-id 2071;
++                        description EDTNABTFOT39-2071;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2071;
++                            route-target {
++                                export target:852:502071;
++                                import target:852:502071;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2071;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2007.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2071 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2007.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2071 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS2072 {
++                        service-id 2072;
++                        description EDTNABTFOT39-2072;
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:2072;
++                            route-target {
++                                export target:852:502072;
++                                import target:852:502072;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 2072;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        split-horizon-group 1;
++                        split-horizon-group 2;
++                        sap lag-57:2008.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG03;
++                            split-horizon-group 2;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2072 8 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                        sap lag-58:2008.* {
++                            admin-state enable;
++                            multi-service-site EDTNABTFNG04;
++                            split-horizon-group 1;
++                            ingress {
++                                qos {
++                                    sap-ingress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            egress {
++                                qos {
++                                    sap-egress {
++                                        policy-name 3600;
++                                    }
++                                }
++                            }
++                            eth-cfm {
++                                collect-lmm-stats true;
++                                mep 2 2072 7 {
++                                    direction up;
++                                    admin-state enable;
++                                    ccm true;
++                                    ccm-ltm-priority 6;
++                                }
++                            }
++                        }
++                    }
++                    vpls CMCS4081 {
++                        service-id 4081;
++                        description "Voice ODD srrp group msg-path";
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:4081;
++                            route-target {
++                                export target:852:504081;
++                                import target:852:504081;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 4081;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        sap lag-57:4004.4081 {
++                            admin-state enable;
++                        }
++                        sap lag-58:4004.4081 {
++                            admin-state enable;
++                        }
++                    }
++                    vpls CMCS4082 {
++                        service-id 4082;
++                        description "Voice EVEN srrp group msg-path";
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:4082;
++                            route-target {
++                                export target:852:504082;
++                                import target:852:504082;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 4082;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        sap lag-57:4004.4082 {
++                            admin-state enable;
++                        }
++                        sap lag-58:4004.4082 {
++                            admin-state enable;
++                        }
++                    }
++                    vpls CMCS4091 {
++                        service-id 4091;
++                        description "ODD srrp group msg-path";
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:4091;
++                            route-target {
++                                export target:852:504091;
++                                import target:852:504091;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 4091;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        sap lag-57:4004.4091 {
++                            admin-state enable;
++                        }
++                        sap lag-58:4004.4091 {
++                            admin-state enable;
++                        }
++                    }
++                    vpls CMCS4092 {
++                        service-id 4092;
++                        description "EVEN srrp group msg-path";
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:4092;
++                            route-target {
++                                export target:852:504092;
++                                import target:852:504092;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 4092;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        sap lag-57:4004.4092 {
++                            admin-state enable;
++                        }
++                        sap lag-58:4004.4092 {
++                            admin-state enable;
++                        }
++                    }
++                    vpls CMCS64001 {
++                        service-id 64001;
++                        description "EDTNABTFOT39 dynamic srrp message path";
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:64001;
++                            route-target {
++                                export target:852:5064001;
++                                import target:852:5064001;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 64001;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        sap lag-57:4001.9 {
++                            admin-state enable;
++                        }
++                        sap lag-58:4001.9 {
++                            admin-state enable;
++                        }
++                    }
++                    vpls CMCS64002 {
++                        service-id 64002;
++                        description "EDTNABTFOT39 static srrp message path";
++                        customer "CMCS EVPN Backhaul";
++                        admin-state enable;
++                        stp {
++                            admin-state enable;
++                        }
++                        bgp 1 {
++                            route-distinguisher 172.25.212.188:64002;
++                            route-target {
++                                export target:852:5064002;
++                                import target:852:5064002;
++                            }
++                        }
++                        bgp-evpn {
++                            evi 64002;
++                            mpls 1 {
++                                admin-state enable;
++                                ecmp 2;
++                                auto-bind-tunnel {
++                                    resolution any;
++                                    resolution-filter {
++                                        ldp true;
++                                    }
++                                }
++                            }
++                        }
++                        sap lag-57:4002.9 {
++                            admin-state enable;
++                        }
++                        sap lag-58:4002.9 {
++                            admin-state enable;
++                        }
++                    }
+                 }
+             }
+         }
+     }
+ }
+ evpn {
+     evpn-services {
++        evpn-service BG2-OG2-ZONE1 {
++            telus-cust-info {
++                cust-id 22;
++                customer-name "CMCS EVPN Backhaul";
++            }
++            evpn {
++                evpn-instances {
++                    evpn-instance CMCS_MCAST_L2 {
++                        evi 20;
++                        re-service-info {
++                            re-service-id 3005020;
++                            re-service-description CMCS_MCAST_L2;
++                            re-service-name CMCS_MCAST_L2;
++                        }
++                        underlay-multicast true;
++                        interface EDTNABTFSE51 lag-109:20.0 {
++                            split-horizon-group 1;
++                            qos-profile 129 {
++                                direction wan-to-site;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:20.0 {
++                            split-horizon-group 1;
++                            qos-profile 129 {
++                                direction wan-to-site;
++                            }
++                        }
++                        profile-id consumer-multicast-evpn;
++                    }
++                    evpn-instance DV-evpn-4081 {
++                        evi 4081;
++                        re-service-info {
++                            re-service-id 4081;
++                            re-service-description "Voice ODD srrp group msg-path";
++                            re-service-name CMCS4081;
++                        }
++                        interface EDTNABTFSE53 lag-57:4004.4081;
++                        interface EDTNABTFSE53 lag-58:4004.4081;
++                        interface EDTNABTFSE54 lag-57:4004.4081;
++                        interface EDTNABTFSE54 lag-58:4004.4081;
++                        profile-id consumer-control-evpn;
++                    }
++                    evpn-instance DV-evpn-4082 {
++                        evi 4082;
++                        re-service-info {
++                            re-service-id 4082;
++                            re-service-description "Voice EVEN srrp group msg-path";
++                            re-service-name CMCS4082;
++                        }
++                        interface EDTNABTFSE53 lag-57:4004.4082;
++                        interface EDTNABTFSE53 lag-58:4004.4082;
++                        interface EDTNABTFSE54 lag-57:4004.4082;
++                        interface EDTNABTFSE54 lag-58:4004.4082;
++                        profile-id consumer-control-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-dyn-svc-evpn {
++                        evi 64001;
++                        re-service-info {
++                            re-service-id 64001;
++                            re-service-description "EDTNABTFOT39 dynamic srrp message path";
++                            re-service-name CMCS64001;
++                        }
++                        interface EDTNABTFSE53 lag-57:4001.9;
++                        interface EDTNABTFSE53 lag-58:4001.9;
++                        interface EDTNABTFSE54 lag-57:4001.9;
++                        interface EDTNABTFSE54 lag-58:4001.9;
++                        profile-id consumer-control-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2065 {
++                        evi 2065;
++                        re-service-info {
++                            re-service-id 2065;
++                            re-service-description EDTNABTFOT39-2065;
++                            re-service-name CMCS2065;
++                        }
++                        interface EDTNABTFSE51 lag-109:1001.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1001.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2001.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2001.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2001.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2001.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2066 {
++                        evi 2066;
++                        re-service-info {
++                            re-service-id 2066;
++                            re-service-description EDTNABTFOT39-2066;
++                            re-service-name CMCS2066;
++                        }
++                        interface EDTNABTFSE51 lag-109:1002.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1002.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2002.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2002.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2002.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2002.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2067 {
++                        evi 2067;
++                        re-service-info {
++                            re-service-id 2067;
++                            re-service-description EDTNABTFOT39-2067;
++                            re-service-name CMCS2067;
++                        }
++                        interface EDTNABTFSE51 lag-109:1003.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1003.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2003.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2003.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2003.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2003.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2068 {
++                        evi 2068;
++                        re-service-info {
++                            re-service-id 2068;
++                            re-service-description EDTNABTFOT39-2068;
++                            re-service-name CMCS2068;
++                        }
++                        interface EDTNABTFSE51 lag-109:1004.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1004.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2004.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2004.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2004.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2004.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2069 {
++                        evi 2069;
++                        re-service-info {
++                            re-service-id 2069;
++                            re-service-description EDTNABTFOT39-2069;
++                            re-service-name CMCS2069;
++                        }
++                        interface EDTNABTFSE51 lag-109:1005.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1005.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2005.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2005.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2005.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2005.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2070 {
++                        evi 2070;
++                        re-service-info {
++                            re-service-id 2070;
++                            re-service-description EDTNABTFOT39-2070;
++                            re-service-name CMCS2070;
++                        }
++                        interface EDTNABTFSE51 lag-109:1006.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1006.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2006.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2006.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2006.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2006.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2071 {
++                        evi 2071;
++                        re-service-info {
++                            re-service-id 2071;
++                            re-service-description EDTNABTFOT39-2071;
++                            re-service-name CMCS2071;
++                        }
++                        interface EDTNABTFSE51 lag-109:1007.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1007.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2007.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2007.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2007.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2007.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-2072 {
++                        evi 2072;
++                        re-service-info {
++                            re-service-id 2072;
++                            re-service-description EDTNABTFOT39-2072;
++                            re-service-name CMCS2072;
++                        }
++                        interface EDTNABTFSE51 lag-109:1008.* {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:1008.* {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:2008.* {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:2008.* {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:2008.* {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:2008.* {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-evpn-DV {
++                        evi 2001;
++                        re-service-info {
++                            re-service-id 62001;
++                            re-service-description EDTNABTFOT39-DV;
++                            re-service-name CMCS2001;
++                        }
++                        interface EDTNABTFSE51 lag-109:21.0 {
++                            mep 3;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE52 lag-109:21.0 {
++                            mep 4;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-57:3901.21 {
++                            mep 6;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE53 lag-58:3901.21 {
++                            mep 5;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-57:3901.21 {
++                            mep 8;
++                            split-horizon-group 2;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        interface EDTNABTFSE54 lag-58:3901.21 {
++                            mep 7;
++                            split-horizon-group 1;
++                            qos-profile 3600 {
++                                direction both;
++                            }
++                        }
++                        profile-id consumer-backhaul-evpn;
++                    }
++                    evpn-instance EDTNABTFOT39-static-svc-evpn {
++                        evi 64002;
++                        re-service-info {
++                            re-service-id 64002;
++                            re-service-description "EDTNABTFOT39 static srrp message path";
++                            re-service-name CMCS64002;
++                        }
++                        interface EDTNABTFSE53 lag-57:4002.9;
++                        interface EDTNABTFSE53 lag-58:4002.9;
++                        interface EDTNABTFSE54 lag-57:4002.9;
++                        interface EDTNABTFSE54 lag-58:4002.9;
++                        profile-id consumer-control-evpn;
++                    }
++                    evpn-instance HSIA-evpn-4091 {
++                        evi 4091;
++                        re-service-info {
++                            re-service-id 4091;
++                            re-service-description "ODD srrp group msg-path";
++                            re-service-name CMCS4091;
++                        }
++                        interface EDTNABTFSE53 lag-57:4004.4091;
++                        interface EDTNABTFSE53 lag-58:4004.4091;
++                        interface EDTNABTFSE54 lag-57:4004.4091;
++                        interface EDTNABTFSE54 lag-58:4004.4091;
++                        profile-id consumer-control-evpn;
++                    }
++                    evpn-instance HSIA-evpn-4092 {
++                        evi 4092;
++                        re-service-info {
++                            re-service-id 4092;
++                            re-service-description "EVEN srrp group msg-path";
++                            re-service-name CMCS4092;
++                        }
++                        interface EDTNABTFSE53 lag-57:4004.4092;
++                        interface EDTNABTFSE53 lag-58:4004.4092;
++                        interface EDTNABTFSE54 lag-57:4004.4092;
++                        interface EDTNABTFSE54 lag-58:4004.4092;
++                        profile-id consumer-control-evpn;
++                    }
++                }
++            }
++            ethernet-segments {
++                ethernet-segment EDTNABTFNG03 {
++                    tinaa-ac EDTNABTFSE53 lag-57;
++                    tinaa-ac EDTNABTFSE54 lag-57;
++                    ethernet-segment-identifier 01:e4:41:64:e3:b2:3f:00:00:57;
++                    all-active-mode;
++                }
++                ethernet-segment EDTNABTFNG04 {
++                    tinaa-ac EDTNABTFSE53 lag-58;
++                    tinaa-ac EDTNABTFSE54 lag-58;
++                    ethernet-segment-identifier 01:e4:41:64:e4:8a:3f:00:00:58;
++                    all-active-mode;
++                }
++                ethernet-segment EDTNABTFOT39 {
++                    tinaa-ac EDTNABTFSE51 lag-109 {
++                        s-tag-range-from 1001;
++                        s-tag-range-to 1008;
++                    }
++                    tinaa-ac EDTNABTFSE52 lag-109 {
++                        s-tag-range-from 1001;
++                        s-tag-range-to 1008;
++                    }
++                    ethernet-segment-identifier 01:3c:8b:cd:7c:05:2e:00:01:09;
++                    all-active-mode;
++                }
++            }
++        }
+     }

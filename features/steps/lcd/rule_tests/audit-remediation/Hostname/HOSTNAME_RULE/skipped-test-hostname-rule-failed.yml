@@ -1,0 +1,46 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Logging monitor rule failed
+  test_suite:
+  device_models:
+    - netsim_cisco_ios
+
+
+  given: failed sample
+  when: parsed
+  then: parsing is failing
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no hostname
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: HOSTNAME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: 
+        filter: logging monitor debugging
+        config:
+          - logging monitor debugging

@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: no ip http server audit fails and gets remediated
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip http server configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit fails
+  then: Remediation is called
+  then: no ip http server configured on device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ip http server
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NO_IP_HTTP_SERVER_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: ip http server
+        config:
+          - no ip http server

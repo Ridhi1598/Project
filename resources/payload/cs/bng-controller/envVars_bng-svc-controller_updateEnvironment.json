@@ -1,0 +1,9 @@
+{
+  "EXECUTOR_URI" : "https://bi-mocking-server.qa.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_LOGS_URI" : "https://bi-mocking-server.qa.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_HOST" : "https://bi-mocking-server.qa.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_Host" : "https://bi-mocking-server.qa.app01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_TIMEOUT" : "120"
+
+}
+

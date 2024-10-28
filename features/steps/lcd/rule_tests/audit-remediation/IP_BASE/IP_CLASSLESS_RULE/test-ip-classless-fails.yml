@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip classless audit fails
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip classless not configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit fails
+  then: Remediation is called
+  then: ip classless is configured on device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip classless
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_CLASSLESS_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+      status: remediated
+      errors:
+      messages:
+      remediation: 
+        - !RuleTestCaseDeviceConfigItem
+          section:
+          filter: ip classless
+          config:
+            - ip classless

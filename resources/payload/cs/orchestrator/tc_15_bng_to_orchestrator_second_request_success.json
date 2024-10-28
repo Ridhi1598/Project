@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"status\":\"completed\",\n   \"response\":{\n      \n   },\n   \"callback-url\":\"cs-orchestrator/commit-bng-config/commit-bng-l3vpn-config\"\n}",
+  "payload_encoding": "string"
+}

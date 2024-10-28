@@ -1,0 +1,18 @@
+Feature: Concurrency Control for Service
+  This feature ensures that a Node update process does not accept another request if
+  it is already in progress. It aims to prevent concurrent update of Nodes to avoid conflicts,
+  resource allocation issues, and potential data corruption.
+
+  Scenario: Testcase for Concurrency Control during node Update
+
+    Given I read test data for testcase
+    Then Adding in-progress service to L3VPN es-record
+    Then Validating that service-record is created in ES
+    And Validating that service-record in-progress is set to True
+    Then Sending create-service payload to L3VPN via RMQ
+    Then Validating that request-record is in rejected state
+    And Validating that error callback is published to orchestrator-response queue
+    Then Validating schema of error callback published in orchestrator
+    And Validating that error callback message in orchestrator-response queue contains 'already exists' string
+  Scenario: Delete the created service record from ES database
+    Then Performing cleanup: service-delete

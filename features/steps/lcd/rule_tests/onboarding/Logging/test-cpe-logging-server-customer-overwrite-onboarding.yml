@@ -1,0 +1,86 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ntp server onboarding success
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: logging servers configures on device and param_tree customer configured
+  when: run onboarding operation on device
+  then: Onboarding success
+
+device_nso_config: !RuleTestCaseDeviceNSOConfig
+  items:
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:logging/host/ipv4
+      config_subtree: '[{"_clear": true}]'
+
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - logging host 100.70.80.226
+        - logging host 209.202.66.43
+        - logging host 209.202.66.44
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key: 
+      path: logging-server
+      subtree: ' [
+            "100.70.80.216",
+            "209.202.66.43"
+          ]'
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key: 
+      path: ""
+      subtree: '{"logging-server-state": "overwrite"}'
+
+
+
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: CPE_LOGGING_SERVER_ONBOARDING
+
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: logging-server-state
+          subtree: overwrite
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: logging-server-state-confirmation
+          subtree: pending-confirmation
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: logging-server
+          subtree: '[
+            "100.70.80.226",
+            "209.202.66.43",
+            "209.202.66.44"
+          ]'

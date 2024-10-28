@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip domain list error with less than three configured param-tree
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip domain list configured on param_tree with less than 3 domains
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit return an error indicating less than three domains are configured in param-tree
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip domain list
+        - ip domain list .
+        - ip domain list core.tac.net
+        - ip domain list osc.net.tac.net
+
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+  - !RuleTestCaseParamTreeItem
+      # level: global | telus_wide | customer | customer_group 
+      #       | device | device_group | vpn | interface | vrf
+      level: region
+      level_key: 
+      path: domain-list
+      subtree: '["osc.net.tac.net"]'
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_DOMAIN_LIST_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: # ADD error
+    messages: 
+  remediation_result:

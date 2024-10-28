@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n    \"request-id\": \"req_Id\",\n    \"user-id\": \"x231081\",\n    \"callback-url\": \"cs-portal/get-active-olts\",\n    \"type\": \"READ\",\n    \"path\": \"/get-active-olts\",\n    \"query-parameters\": [\n  \n    ],\n    \"payload\": {}\n}",
+  "payload_encoding": "string"
+}

@@ -1,0 +1,10 @@
+-# Generated FRI MAR 26 14:42:32 2021 UTC
++# Generated FRI MAR 26 14:50:49 2021 UTC
+-                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.DSL.6144K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
+-                                rate 1000 cir 1000
++                                rate 1024 cir 1024
+-                                rate 6000
++                                rate 6144
+-# Finished FRI MAR 26 14:42:44 2021 UTC
++# Finished FRI MAR 26 14:51:01 2021 UTC

@@ -1,0 +1,111 @@
+-# Generated TUE MAR 30 03:58:03 2021 UTC
++# Generated TUE MAR 30 04:05:02 2021 UTC
+-        static-route-entry 40.40.41.0/32
+-            next-hop 192.168.41.1
+-                no shutdown
+-            exit
+-        exit
+-            description "Customer TST04"
++            description "Service Portal UAT Tester 4"
+-            exit
+-        exit
+-        ies 3087041 name "3087041" customer 700074 create
+-            interface "CLGRAB21-TST0041.1.740" tunnel create
+-        ies 3087041 name "3087041" customer 700074 create
+-            interface "CLGRAB21-TST0041.1.740" tunnel create
+-                description "123.CLGRAB21-TST0041.PRI"
+-                address 192.168.41.0/31
+-                tos-marking-state untrusted
+-                ip-mtu 1476
+-                cflowd-parameters
+-                    sampling unicast type interface
+-                exit
+-                sap tunnel-1.private:740 create
+-                    ingress
+-                        scheduler-policy "MWR Root"
+-                        scheduler-override
+-                            scheduler "MWR-ROOT" create
+-                                rate 1000 cir 1000
+-                            exit
+-                        exit
+-                        qos 63501
+-                        filter ip 504
+-                    exit
+-                    egress
+-                        scheduler-policy "MWR Root"
+-                        scheduler-override
+-                            scheduler "MWR-ROOT" create
+-                                rate 1000 cir 1000
+-                            exit
+-                        exit
+-                        qos 63501
+-                    exit
+-                    collect-stats
+-                    accounting-policy 77
+-                    ip-tunnel "CLGRAB21-TST0041.1.740" create
+-                        description "CLGRAB21-TST0041.R01"
+-                        dest-ip 192.168.41.1
+-                        gre-header
+-                        source 10.10.41.0
+-                        remote-ip 11.11.41.0
+-                        delivery-service 2000720001
+-                        no shutdown
+-                    exit
+-                exit
+-            exit
+-            no shutdown
+-        exit
+-            prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0041"
+-                prefix 10.74.1.0/26 exact
+-                prefix 100.74.1.0/26 exact
+-            exit
+-            exit
+-            prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                prefix 40.40.41.0/32 exact
+-                prefix 192.168.41.0/31 exact
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0041_MWR"
+-                entry 10
+-                    description "IPV4: TELUS-owned - No export entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                    exit
+-                    action next-entry
+-                        community add "NO-EXPORT"
+-                    exit
+-                exit
+-                entry 20
+-                    description "Allow only white-listed IPV4 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                    exit
+-                    action next-policy
+-                        community add "BICI-NO-EXPORT-CLGRABTFRE11"
+-                    exit
+-                exit
+-                entry 30
+-                    description "Allow Customer owned prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0041"
+-                    exit
+-                    action next-policy
+-                        community add "BICI-EXPORT-CLGRABTFRE11"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-                neighbor 40.40.41.0
+-                    description "123.CLGRAB21-TST0041...BICI..V4..MWR"
+-                    family ipv4
+-                    authentication-key "QrXwOWouCpHpm.ZcvojJL4RzY1qopbp5NSkcV8C/3X2obKPaOpF1.6ynN./HxMPC" hash2
+-                    local-preference 40
+-                    prefix-limit ipv4 5
+-                    med-out 180
+-                    multihop 3
+-                    remove-private
+-                    import "CUSTIN-V4_CLGRAB21-TST0041_MWR" "CUSTOMER-IN-BI"
+-                    export "DEFAULT-ONLY"
+-                    peer-as 64004
+-                exit
+-# Finished TUE MAR 30 03:58:19 2021 UTC
++# Finished TUE MAR 30 04:05:18 2021 UTC

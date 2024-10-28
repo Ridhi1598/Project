@@ -1,0 +1,120 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL STANDARD Onboarding no-change Scenario
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+  
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_nso_config: !RuleTestCaseDeviceNSOConfig
+  items:
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:ip/access-list/standard/std-named-acl
+      config_subtree: '[{"_clear": true}]'
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:access-list/access-list
+      config_subtree: '[{"_clear": true},
+                        {"_key": ["id"],
+                        "id": 88,
+                        "rule": [
+                            {
+                                "_key": ["rule"],
+                                "rule": "permit any"
+                            }
+                          ]
+                        },
+                        {"_key": ["id"],
+                        "id": 95,
+                        "rule": [
+                            {
+                                "_key": ["rule"],
+                                "rule": "deny  any log"
+                            }
+                          ]
+                        }
+                      ]'
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 32
+        - no access-list 1301
+        - access-list 32 permit 1.1.1.1
+    - !RuleTestCaseDeviceConfigItem
+      section: ip access-list standard test1
+      config:
+        - permit 1.1.1.1
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+          level: customer
+          level_key:
+          path:
+          subtree: "{
+                      'access_list_standard': [
+                      {
+                        '_key': ['name'],
+                        'name': '32',
+                        'std_access_list_rule': [
+                            {
+                                '_key': ['rule'],
+                                'rule': 'permit 1.1.1.1'
+                            }
+                        ]
+                      },
+                      {
+                      '_key': ['name'],
+                      'name': 'test1', 
+                      'std_access_list_rule': [
+                          {
+                              '_key': ['rule'],
+                              'rule': 'permit 1.1.1.1'
+                          }
+                      ]
+                      }],
+                      'access_list_standard_state':'overwrite'
+                  }"
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: ACCESS_LIST_STANDARD_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-standard-state
+          subtree: 
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-standard-state-confirmation
+          subtree: confirmed
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-standard
+          subtree: '[]'

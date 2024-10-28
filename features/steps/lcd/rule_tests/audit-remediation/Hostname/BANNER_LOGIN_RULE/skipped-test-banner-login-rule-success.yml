@@ -1,0 +1,37 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Logging monitor rule success
+  test_suite:
+  device_models:
+    - "netsim_cisco_ios"
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - banner login testing-device-c15
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+        
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: BANNER_LOGIN_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

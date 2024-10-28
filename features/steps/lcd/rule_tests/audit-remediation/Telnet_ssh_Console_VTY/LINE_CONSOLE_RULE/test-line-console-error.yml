@@ -1,0 +1,56 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line console audit error
+  test_suite:
+  device_models:
+    - "3600"
+    - asr
+  given: line console 0 configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit error
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line console 0
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 10 0
+        - exec-banner
+        - motd-banner
+        - logging synchronous
+        - login authentication default
+        - session-timeout 120
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: line-console
+      subtree: '
+        {"exec_timeout": 
+          {"minutes": null, "seconds": null}, 
+        "session_timeout": null, 
+        "access_class_in": 88}'
+        
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LINE_CONSOLE_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+        assertion_type: 'EXACT'
+        value: |+ 
+          MANDATORY_PARAMETER_MISSING: line-console/exec-timeout/minutes or line-console/exec-timeout/seconds should be set
+          MANDATORY_PARAMETER_MISSING: line-console/session-timeout
+
+    messages:
+  remediation_result:

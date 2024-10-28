@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n  \"request-id\": \"req_Id\",\n  \"user-id\": \"x231081\",\n  \"type\": \"VALIDATE\",\n  \"path\": \"/cs-bng-service/bng\",\n  \"query-parameters\": [],\n  \"payload\": {\n    \"bng-group\": \"EDTNABTFNG00-EDTNABTFNG001\"\n  },\n  \"callback-url\": \"cs-orchestrator/mock-extension\"\n}",
+  "payload_encoding": "string"
+}

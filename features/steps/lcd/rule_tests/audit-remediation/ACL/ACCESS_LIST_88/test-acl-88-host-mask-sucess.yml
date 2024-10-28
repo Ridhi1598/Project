@@ -1,0 +1,71 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL 88 Host Mask success test
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+  
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 88
+        - access-list 88 permit 1.1.1.1
+        - access-list 88 permit 1.1.1.1 0.0.0.255
+        - access-list 88 permit any
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key:
+      path: #subtree path
+      subtree: '{
+                "access_list_88": [{
+                    "_key": ["ip_address", "mask"],
+                    "ip_address":"1.1.1.0",
+                    "mask":"0.0.0.255"
+                },
+                {
+                    "_key": ["ip_address", "mask"],
+                    "ip_address":"0.0.0.0",
+                    "mask":"255.255.255.255"
+                }],
+                "access_list_88_state":"overwrite"
+            }'
+
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path:
+      subtree: '{
+                    "access_list_88": [{
+                        "_key": ["ip_address", "mask"],
+                        "ip_address":"1.1.1.1",
+                        "mask":"0.0.0.0"
+                    }],
+                    "access_list_88_state":"extend",
+                    "access_list_88_state_confirmation":"confirmed"
+                }'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: ACCESS_LIST_88_PERMIT_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

@@ -1,0 +1,37 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: IP CEF RULE success
+  test_suite:
+  device_models:
+    - "1921"
+
+  given: Setting ip cef as is
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ip cef 
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+        
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_CEF_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

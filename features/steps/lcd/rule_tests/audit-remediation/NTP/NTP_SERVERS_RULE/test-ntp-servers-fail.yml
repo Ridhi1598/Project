@@ -1,0 +1,63 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ntp server audit fails
+  test_suite:
+  device_models:
+    - netsim_cisco_ios
+    - "1921"
+    - "3600"
+    - asr
+  given: ntp servers configures on device and param_tree and do not match
+  when: run AUDIT_REMEDIATION operation on device
+  then: 
+    - Audit fails
+    - Call remediation
+    - Device results satisfy standard
+  
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ntp server
+        - ntp server 209.202.67.11 maxpoll 4 
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key: 
+      path: ntp-server
+      subtree: ' [{"_clear": true},
+      {"_key": ["peer"], "peer": "209.202.66.195", "prefer": true}, 
+      {"_key": ["peer"], "peer": "209.202.66.10"}] '
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NTP_SERVERS_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section: ''
+        filter: ntp server 209.202.66.10
+        config:
+          - ntp server 209.202.66.10 maxpoll 4 
+      - !RuleTestCaseDeviceConfigItem
+        section: ''
+        filter: ntp server 209.202.66.195
+        config:
+          - ntp server 209.202.66.195 maxpoll 4 prefer

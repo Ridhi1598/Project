@@ -1,0 +1,816 @@
+{
+   "odd_bng_validation_response":[
+      {
+         "name":"Service Interface NG Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"3005001",
+                     "config":{
+                        "name":"3005001"
+                     },
+                     "vendor":{
+                        "type":"Nokia",
+                        "nokia-attributes":{
+                           "service-id":3005001,
+                           "service-name":"3005001",
+                           "service-type":"ies"
+                        }
+                     },
+                     "interfaces":{
+                        "interface":[
+                           {
+                              "id":"EDTNABTFOT39",
+                              "state":{
+                                 "interface":"EDTNABTFOT39"
+                              }
+                           },
+                           {
+                              "id":"EDTNABTFOT39-FIXED",
+                              "state":{
+                                 "interface":"EDTNABTFOT39"
+                              }
+                           }
+                        ]
+                     }
+                  }
+               ]
+            },
+            "resource-interface":{
+               "interfaces":{
+                  "interface":[
+                     {
+                        "name":"EDTNABTFOT39",
+                        "state":{
+                           "members":{
+                              "member":[
+                                 "pw-300"
+                              ]
+                           },
+                           "name":"EDTNABTFOT39",
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                        }
+                     },
+                     {
+                        "name":"EDTNABTFOT39-FIXED",
+                        "state":{
+                           "members":{
+                              "member":[
+                                 "pw-300"
+                              ]
+                           },
+                           "name":"EDTNABTFOT39-FIXED",
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                        }
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name":"Base Epipe NG Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"global",
+                     "config":{
+                        "name":"global"
+                     },
+                     "evpn":{
+                        "evpn-instances":{
+                           "evpn-instance":[
+                              {
+                                 "evi":"EDTNABTFOT39",
+                                 "config":{
+                                    "evi":"EDTNABTFOT39",
+                                    "admin-state":"enable"
+                                 },
+                                 "state":{
+                                    "oper-state":"up",
+                                    "mtu":9186
+                                 },
+                                 "vendor":{
+                                    "type":"Nokia",
+                                    "nokia-attributes":{
+                                       "service-id":4000002,
+                                       "service-name":"EDTNABTFOT39",
+                                       "customer":"22",
+                                       "service-type":"epipe"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "name":"Oper Group NG Validation",
+         "response":{
+            "service":{
+               "oper-group":[
+                  {
+                     "service-name":"EDTNABTFOT39",
+                     "oper-state":"down",
+                     "member-ethernet-segment":[
+                        {
+                           "id":"EDTNABTFOT39",
+                           "oper-state":"down"
+                        }
+                     ],
+                     "member-sap":[
+                        {
+                           "sap-id":"pw-300:4001.10",
+                           "service-id":3005001,
+                           "admin-state":"enable",
+                           "oper-state":"down"
+                        },
+                        {
+                           "sap-id":"pw-300:4002.110",
+                           "service-id":3005001,
+                           "admin-state":"enable",
+                           "oper-state":"down"
+                        },
+                        {
+                           "sap-id":"pw-300:4004.410",
+                           "service-id":3005004,
+                           "admin-state":"enable",
+                           "oper-state":"down"
+                        }
+                     ]
+                  }
+               ]
+            }
+         }
+      }
+   ],
+   "even_bng_validation_response":[
+      {
+         "name":"Service Interface NG Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"3005001",
+                     "config":{
+                        "name":"3005001"
+                     },
+                     "vendor":{
+                        "type":"Nokia",
+                        "nokia-attributes":{
+                           "service-id":3005001,
+                           "service-name":"3005001",
+                           "service-type":"ies"
+                        }
+                     },
+                     "interfaces":{
+                        "interface":[
+                           {
+                              "id":"EDTNABTFOT39",
+                              "state":{
+                                 "interface":"EDTNABTFOT39"
+                              }
+                           },
+                           {
+                              "id":"EDTNABTFOT39-FIXED",
+                              "state":{
+                                 "interface":"EDTNABTFOT39"
+                              }
+                           }
+                        ]
+                     }
+                  }
+               ]
+            },
+            "resource-interface":{
+               "interfaces":{
+                  "interface":[
+                     {
+                        "name":"EDTNABTFOT39",
+                        "state":{
+                           "members":{
+                              "member":[
+                                 "pw-300"
+                              ]
+                           },
+                           "name":"EDTNABTFOT39",
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                        }
+                     },
+                     {
+                        "name":"EDTNABTFOT39-FIXED",
+                        "state":{
+                           "members":{
+                              "member":[
+                                 "pw-300"
+                              ]
+                           },
+                           "name":"EDTNABTFOT39-FIXED",
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                        }
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name":"Base Epipe NG Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"global",
+                     "config":{
+                        "name":"global"
+                     },
+                     "evpn":{
+                        "evpn-instances":{
+                           "evpn-instance":[
+                              {
+                                 "evi":"EDTNABTFOT39",
+                                 "config":{
+                                    "evi":"EDTNABTFOT39",
+                                    "admin-state":"enable"
+                                 },
+                                 "state":{
+                                    "oper-state":"up",
+                                    "mtu":9186
+                                 },
+                                 "vendor":{
+                                    "type":"Nokia",
+                                    "nokia-attributes":{
+                                       "service-id":4000002,
+                                       "service-name":"EDTNABTFOT39",
+                                       "customer":"22",
+                                       "service-type":"epipe"
+                                    }
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "name":"Oper Group NG Validation",
+         "response":{
+            "service":{
+               "oper-group":[
+                  {
+                     "service-name":"EDTNABTFOT39",
+                     "oper-state":"up",
+                     "member-ethernet-segment":[
+                        {
+                           "id":"EDTNABTFOT39",
+                           "oper-state":"up"
+                        }
+                     ],
+                     "member-sap":[
+                        {
+                           "sap-id":"pw-300:4001.10",
+                           "service-id":3005001,
+                           "admin-state":"enable",
+                           "oper-state":"up"
+                        },
+                        {
+                           "sap-id":"pw-300:4002.110",
+                           "service-id":3005001,
+                           "admin-state":"enable",
+                           "oper-state":"up"
+                        },
+                        {
+                           "sap-id":"pw-300:4004.410",
+                           "service-id":3005004,
+                           "admin-state":"enable",
+                           "oper-state":"up"
+                        }
+                     ]
+                  }
+               ]
+            }
+         }
+      }
+   ],
+   "se1_validation_response":[
+      {
+         "name":"IGMP Interface SE Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"global",
+                     "config":{
+                        "name":"global"
+                     },
+                      "protocols":{
+                        "protocol":[
+                           {
+                              "identifier":"openconfig-policy-types:IGMP",
+                              "name":"igmp-protocol",
+                              "config":{
+                                 "identifier":"openconfig-policy-types:IGMP",
+                                 "name":"igmp-protocol"
+                              },
+                              "igmp":{
+                                 "interfaces":{
+                                    "interface":[
+                                       {
+                                          "interface-id":"CMCS_MCAST_L3",
+                                          "config":{
+                                             "interface-id":"CMCS_MCAST_L3",
+                                             "enabled":"true"
+                                          },
+                                          "state":{
+                                             "enabled":"true"
+                                          }
+                                       }
+                                    ]
+                                 }
+                              }
+                           }
+                        ]
+                     }
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "name":"Base IES SE Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"CMCS_MCAST_L3",
+                     "config":{
+                        "name":"CMCS_MCAST_L3",
+                        "admin-state":"enable"
+                     },
+                     "state":{
+                        "oper-state":"up"
+                     },
+                     "vendor":{
+                        "type":"Nokia",
+                        "nokia-attributes":{
+                           "service-id":3005003,
+                           "service-name":"CMCS_MCAST_L3",
+                           "service-type":"ies"
+                        }
+                     },
+                     "interfaces":{
+                        "interface":[
+                           {
+                              "id":"CMCS_MCAST_L2",
+                              "state":{
+                                 "interface":"CMCS_MCAST_L2"
+                              }
+                           }
+                        ]
+                     }
+                  }
+               ]
+            },
+            "resource-interface":{
+               "interfaces":{
+                  "interface":[
+                     {
+                        "name":"CMCS_MCAST_L2",
+                        "state":{
+                           "name":"CMCS_MCAST_L2",
+                           "type":"iana-if-type:ifVfiType",
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                        }
+                     }
+                  ]
+           
+         
+       
+     
+     
+                                   
+               
+                        
+                          
+              
+                           
+                       
+                             
+                 
+                         
+                          
+                    
+                                                       
+                                       
+                             
+                                                         
+                                         
+                       
+                            
+                                   
+                                    
+                             
+                                                      
+                                      
+                                                        
+                                             
+                                
+                                      
+                                             
+                                
+                             
+                           
+               }
+            }
+                    
+                  
+         }
+              
+           
+         
+       
+      },
+      {
+         "name":"Base Epipe SE Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"global",
+                     "config":{
+                        "name":"global"
+                     },
+                     "evpn":{
+                        "evpn-instances":{
+                           "evpn-instance":[
+                              {
+                                 "evi":"EDTNABTFOT39",
+                                 "config":{
+                                    "evi":"EDTNABTFOT39",
+                                    "admin-state":"enable"
+                                 },
+                                 "state":{
+                                    "oper-state":"up",
+                                    "mtu":9186
+                                 },
+                                 "vendor":{
+                                    "type":"Nokia",
+                                    "nokia-attributes":{
+                                       "service-id":4000230,
+                                       "service-name":"EDTNABTFOT39",
+                                       "customer":"22",
+                                       "service-type":"epipe"
+                                    }
+                                 },
+                                 "members":{
+                                    "member":[
+                                      "lag-109:*.*"
+                                    ]
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               ]
+            },
+            "resource-interface":{
+               "interfaces":{
+                  "interface":[
+                     {
+                        "name":"lag-109:*.*",
+                        "config":{
+                           "mtu":9192
+                        },
+                        "state":{
+                           "name":"lag-109:*.*",
+                           "mtu":9192,
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                           
+                   
+                         
+                           
+                        }
+                     }
+                  ]
+               }
+            }
+         }
+      },
+      {
+         "name":"Ethernet Segment SE Validation",
+         "response":{
+            "ethernet-segments":{
+               "ethernet-segment":[
+                  {
+                     "name":"EDTNABTFOT39",
+                     "member":[
+                        {
+                           "ne-id":"EDTNABTFSE51",
+                           "interface-id":"lag-109",
+                           "df":"true"
+                        }
+                     ]
+                  }
+               ]
+            }
+         }
+      }
+   ],
+   "se2_validation_response":[
+      {
+         "name":"IGMP Interface SE Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"global",
+                     "config":{
+                        "name":"global"
+                     },
+                     "protocols":{
+                        "protocol":[
+                           {
+                              "identifier":"openconfig-policy-types:IGMP",
+                              "name":"igmp-protocol",
+                              "config":{
+                                 "identifier":"openconfig-policy-types:IGMP",
+                                 "name":"igmp-protocol"
+                              },
+                              "igmp":{
+                                 "interfaces":{
+                                    "interface":[
+                                       {
+                                          "interface-id":"CMCS_MCAST_L3",
+                                          "config":{
+                                             "interface-id":"CMCS_MCAST_L3",
+                                             "enabled":"true"
+                                          },
+                                          "state":{
+                                             "enabled":"true"
+                                          }
+                                       }
+                                    ]
+                                 }
+                              }
+                           }
+                        ]
+                     }
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "name":"Base IES SE Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"CMCS_MCAST_L3",
+                     "config":{
+                        "name":"CMCS_MCAST_L3",
+                        "admin-state":"enable"
+                     },
+                     "state":{
+                        "oper-state":"up"
+                     },
+                     "vendor":{
+                        "type":"Nokia",
+                        "nokia-attributes":{
+                           "service-id":3005003,
+                           "service-name":"CMCS_MCAST_L3",
+                           "service-type":"ies"
+                        }
+                     },
+                     "interfaces":{
+                        "interface":[
+                           {
+                              "id":"CMCS_MCAST_L2",
+                              "state":{
+                                 "interface":"CMCS_MCAST_L2"
+                              }
+                           }
+                        ]
+                     }
+                  }
+               ]
+            },
+            "resource-interface":{
+               "interfaces":{
+                  "interface":[
+                     {
+                        "name":"CMCS_MCAST_L2",
+                        "state":{
+                           "name":"CMCS_MCAST_L2",
+                           "type":"iana-if-type:ifVfiType",
+                           "admin-status":"UP",
+                           "oper-status":"UP"
+                        }
+                     }
+                  ]
+           
+         
+       
+     
+     
+                                   
+               
+                        
+                          
+              
+                           
+                       
+                             
+                 
+                         
+                          
+                    
+                                                       
+                                       
+                             
+                                                         
+                                         
+                       
+                            
+                                   
+                                    
+                             
+                                                      
+                                      
+                                                        
+                                             
+                                
+                                      
+                                             
+                                
+                             
+                           
+                         
+                       
+                    
+                  
+               }
+              
+           
+            }
+         }
+      },
+      {
+         "name":"Base Epipe SE Validation",
+         "response":{
+            "network-instances":{
+               "network-instance":[
+                  {
+                     "name":"global",
+                     "config":{
+                        "name":"global"
+                     },
+                     "evpn":{
+                        "evpn-instances":{
+                           "evpn-instance":[
+                              {
+                                 "evi":"EDTNABTFOT39",
+                                 "config":{
+                                    "evi":"EDTNABTFOT39",
+                                    "admin-state":"enable"
+                                 },
+                                 "state":{
+                                    "oper-state":"up",
+                                    "mtu":9186
+                                 },
+                                 "vendor":{
+                                    "type":"Nokia",
+                                    "nokia-attributes":{
+                                       "service-id":4000230,
+                                       "service-name":"EDTNABTFOT39",
+                                       "customer":"22",
+                                       "service-type":"epipe"
+                                    }
+                                 },
+                                 "members":{
+                                    "member":[
+                                      "lag-109:*.*"
+                                    ]
+                                 }
+                              }
+                           ]
+                        }
+                
+              
+           
+                     },
+                     "resource-interface":{
+                        "interfaces":{
+                           "interface":[
+                              {
+                                 "name":"lag-109:*.*",
+                                 "config":{
+                                    "mtu":9192
+                                 },
+                                 "state":{
+                                    "name":"lag-109:*.*",
+                                    "mtu":9192,
+                                    "admin-status":"UP",
+                                    "oper-status":"UP"
+                           
+                   
+                         
+                           
+                                 }
+                              }
+                           ]
+                        }
+                     }
+                  }
+               ]
+            }
+         }
+      },
+      {
+         "name":"Ethernet Segment SE Validation",
+         "response":{
+            "ethernet-segments":{
+               "ethernet-segment":[
+                  {
+                     "name":"EDTNABTFOT39",
+                     "member":[
+                        {
+                           "ne-id":"EDTNABTFSE52",
+                           "interface-id":"lag-109",
+                           "df":"true"
+                        }
+                     ]
+                  }
+               ]
+            }
+         }
+      }
+   ],
+   "validation_result":[
+      {
+         "name":"Ethernet Segment SE Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      },
+      {
+         "name":"IGMP Interface SE Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      },
+      {
+         "name":"Base Epipe SE Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      },
+      {
+         "name":"Base IES SE Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      },
+      {
+         "name":"Base Epipe NG Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      },
+      {
+         "name":"Service Interface NG Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      },
+      {
+         "name":"Oper Group NG Validation",
+         "errors":[
+            
+         ],
+         "status":"completed"
+      }
+   ]
+}

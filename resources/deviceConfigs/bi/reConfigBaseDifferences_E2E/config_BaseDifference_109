@@ -1,0 +1,10 @@
+-## Last commit: 2021-05-12 01:40:53 UTC by tinaa
++## Last commit: 2021-05-12 01:47:53 UTC by tinaa
+-            description 1234741.CLGRAB21-TST0041.PON.5M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            description 1234741.CLGRAB21-TST0041.PON.6M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
+-                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_5M ];
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_6M ];
+-                    input-list [ 500-IPV6-NEXT-TERM BI_IN_5M_V6 ];
++                    input-list [ 500-IPV6-NEXT-TERM BI_IN_6M_V6 ];
+-                output-traffic-control-profile BI_5M;
++                output-traffic-control-profile BI_6M;

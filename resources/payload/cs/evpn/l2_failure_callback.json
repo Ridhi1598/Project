@@ -1,0 +1,44 @@
+{
+   "request-id":"create-multicast-evpn-ft",
+   "type":"CREATE",
+   "path":"/evpn-service",
+   "query-parameters":[
+
+   ],
+   "callback-url":"cs-orchestrator/mock-extension",
+   "payload":{
+      "service-name":"EDTNABTFSE51_EDTNABTFSE52_MULTICAST",
+      "evpn-service-aug:service-profile":"CMCS",
+      "telus-cust-info":{
+         "cust-id":"22",
+         "customer-name":"CMCS_CUSTOMER_BACKHAUL",
+         "description":"CMCS_CUSTOMER_BACKHAUL"
+      },
+      "evpn":{
+         "evpn-instances":{
+            "evpn-instance":[
+               {
+                  "name":"CMCS_MCAST_L2",
+                  "evi":1234,
+                  "re-service-info":{
+                     "re-service-id":3005013,
+                     "re-service-description":"CMCS_MCAST_L2",
+                     "re-service-name":"CMCS_MCAST_L2"
+                  },
+                  "evpn-service-aug:interface":[
+                     {
+                        "interface-name":"lag-109:20.0",
+                        "node":"EDTNABTFSE51"
+                     },
+                     {
+                        "interface-name":"lag-109:20.0",
+                        "node":"EDTNABTFSE52"
+                     }
+                  ],
+                  "evpn-service-aug:profile-id":"CONSUMER-MULTICAST-EVPN"
+               }
+            ]
+         }
+      }
+   }
+}

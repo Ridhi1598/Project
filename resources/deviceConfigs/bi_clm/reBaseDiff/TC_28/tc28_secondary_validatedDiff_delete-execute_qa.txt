@@ -1,0 +1,561 @@
+-# Generated FRI MAY 12 10:01:53 2023 UTC
++# Generated FRI MAY 12 10:13:30 2023 UTC
+-            prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0040"
+-                prefix 11.74.0.0/26 exact
+-                prefix 110.74.0.0/26 exact
+-            exit
+-            prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0040"
+-                prefix 2101:db4::/126 exact
+-            exit
+-            exit
+-            prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
+-                prefix 10.74.0.0/26 exact
+-                prefix 100.74.0.0/26 exact
+-            exit
+-            prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0040"
+-                prefix 2001:db4::/126 exact
+-                prefix 192.169.40.0/31 exact
+-                prefix 2001:db4::/126 exact
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0040_SEC"
+-            exit
+-            exit
+-            policy-statement "CUSTIN-V6_CLGRAB21-TST0040_SEC"
+-        customer 700074 name "TST04" create
+-            description "UAT Tester 4"
+-        exit
+-            exit
+-        exit
+-        ies 3087040 name "3087040" customer 700074 create
+-            interface "CLGRAB21-TST0040.3620.*" create
+-        ies 3087040 name "3087040" customer 700074 create
+-            interface "CLGRAB21-TST0040.3620.*" create
+-                description "1234740.CLGRAB21-TST0040.PON.100000K.BICI..V4V6..SEC..CLM.SEDU...CLGRAB21-TST0040-ALIAS"
+-                address 192.169.40.1/31
+-                ip-mtu 1500
+-                cflowd-parameters
+-                    sampling unicast type interface
+-                exit
+-                ipv6
+-                    address 2001:db4::2/126
+-                exit
+-                vpls "SEC.3087040"
+-                exit
+-            exit
+-            no shutdown
+-        exit
+-        vpls 5600040 name "PRI.3087040" customer 700074 create
+-            description "1234740.CLGRAB21-TST0040.CLM.BICI.PRI.SEDU"
+-            service-mtu 2000
+-            allow-ip-int-bind
+-            exit
+-            fdb-table-size 256
+-            bgp
+-                route-distinguisher 852:25600040
+-                route-target export target:852:5600040 import target:852:5600040
+-            exit
+-            bgp-evpn
+-                evi 5600040
+-                mpls bgp 1
+-                    auto-bind-tunnel
+-                        resolution any
+-                    exit
+-                    no shutdown
+-                exit
+-            exit
+-            stp
+-                shutdown
+-            exit
+-            sap lag-736:3610.* create
+-                ingress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000 cir 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                    filter ip 500
+-                    filter ipv6 500
+-                exit
+-                egress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                exit
+-                collect-stats
+-                accounting-policy 77
+-                no shutdown
+-            exit
+-            no shutdown
+-        exit
+-                exit
+-                collect-stats
+-                accounting-policy 77
+-                no shutdown
+-            exit
+-            no shutdown
+-        exit
+-        vpls 5800040 name "SEC.3087040" customer 700074 create
+-            description "1234740.CLGRAB21-TST0040.CLM.BICI.SEC.SEDU"
+-            service-mtu 2000
+-            allow-ip-int-bind
+-            exit
+-            fdb-table-size 256
+-            bgp
+-                route-distinguisher 852:25800040
+-                route-target export target:852:5800040 import target:852:5800040
+-            exit
+-            bgp-evpn
+-                evi 5800040
+-                mpls bgp 1
+-                    auto-bind-tunnel
+-                        resolution any
+-                    exit
+-                    no shutdown
+-                exit
+-            exit
+-            stp
+-                shutdown
+-            exit
+-            sap lag-736:3620.* create
+-                ingress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000 cir 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                    filter ip 500
+-                    filter ipv6 500
+-                exit
+-                egress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-        vpls 5600040 name "PRI.3087040" customer 700074 create
+-            allow-ip-int-bind
+-            exit
+-        exit
+-            allow-ip-int-bind
+-            exit
+-        exit
+-        vpls 5800040 name "SEC.3087040" customer 700074 create
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0040_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA01_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0040"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA01"
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0040"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA01_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA02_SEC"
+-                entry 40
+-                    description "IPV4: Allow only white-listed IPV4 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA01"
++                entry 50
++                    description "IPV4: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA02"
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
++                        community add "BICI-EXPORT-EDTNABTFSE52"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA02_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA03_SEC"
++                entry 40
++                    description "IPV4: Allow only white-listed IPV4 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA03"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA02"
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA03"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA03_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA04_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA03"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA04"
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA03"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA04_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA06_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA04"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA06"
++                entry 50
++                    description "IPV4: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA06"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA06_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA07_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA06"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA07"
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA06"
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA07"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA07_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA08_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA07"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA08"
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA07"
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA08"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA08_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA10_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA08"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA10"
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA08"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA10_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA11_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA10"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA11"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA11_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA13_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA11"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA13"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA13_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA14_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA13"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA14"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA14_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA17_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA14"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA17"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA17_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA18_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA17"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA18"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA18_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA22_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA18"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA22"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA22_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA23_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA22"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA23"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA23_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA26_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA23"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA26"
++                entry 50
++                    description "IPV4: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA26"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA26_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA29_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA26"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA29"
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCA26"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCA29_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF04_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCA29"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF04"
++                entry 50
++                    description "IPV4: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCF04"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF04_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF22_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF04"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF22"
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SCRCF04"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF22_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF39_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF22"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF39"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF39_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF40_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF39"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF40"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF40_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF43_SEC"
+-                entry 40
+-                    description "IPV4: Allow only white-listed IPV4 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF40"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF43_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF44_SEC"
++                entry 40
++                    description "IPV4: Allow only white-listed IPV4 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF44"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF44_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF46_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF44"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF46"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF46_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF49_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF46"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF49"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF49_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF50_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF49"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF50"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF50_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF51_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF50"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF51"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF51_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF53_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF51"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF53"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF53_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF54_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF53"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF54"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF54_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF56_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF54"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF56"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF56_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF57_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF56"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF57"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF57_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF58_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF57"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF58"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SCRCF58_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SISIO01_SEC"
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SCRCF58"
++                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SISIO01"
++                entry 50
++                    description "IPV4: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SISIO01"
++                        family ipv4 label-ipv4
++                    exit
++                    action accept
++                        community add "BICI-EXPORT-EDTNABTFSE52"
++                    exit
++                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SISIO01_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SISIO03_SEC"
+-                entry 40
+-                    description "IPV4: Allow only white-listed IPV4 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_EDTNABTF-SISIO01"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_EDTNABTF-SISIO01"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SISIO03_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SISIO04_SEC"
+-            policy-statement "CUSTIN-V4_EDTNABTF-SISIO04_SEC"
++            policy-statement "CUSTIN-V4_EDTNABTF-SISIO06_SEC"
+-                default-action drop
+-                exit
+-            exit
+-            policy-statement "CUSTIN-V4_EDTNABTF-SISIO06_SEC"
+-                entry 10
+-                    description "Set prefixes as backup"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-BACKUP"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 20
+-                    description "Set same LP as peering prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-PEERING"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 230
+-                    exit
+-                exit
+-                entry 30
+-                    description "Set same LP as transit prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-TRANSIT"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 150
+-                    exit
+-                exit
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-            policy-statement "CUSTIN-V6_CLGRAB21-TST0040_SEC"
+-                entry 10
+-                    description "Set prefixes as backup"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-BACKUP"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 20
+-                    description "Set same LP as peering prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-PEERING"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 230
+-                    exit
+-                exit
+-                entry 30
+-                    description "Set same LP as transit prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-TRANSIT"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 150
+-                    exit
+-                exit
+-                entry 40
+-                    description "IPV6: Allow only white-listed IPV6 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0040"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV6: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0040"
+-                exit
+-                neighbor 192.169.40.0
+-                    description "1234740.CLGRAB21-TST0040...BICI..V4V6..SEC"
+-                    family ipv4
+-                    authentication-key "3byg3pMuteTGTZJZJMBgxSqu1Cj6f2o=" hash2
+-                    keepalive 60
+-                    hold-time 90 min 45
+-                    local-preference 320
+-                    prefix-limit ipv4 100
+-                    med-out 160
+-                    remove-private
+-                    import "CUSTOMER-IN-BI-V4" "CUSTIN-V4_CLGRAB21-TST0040_SEC"
+-                    export "DEFAULT-CUST-PARTIAL-OUT-V4"
+-                    peer-as 64004
+-                exit
+-                neighbor 2001:db4::1
+-                    description "1234740.CLGRAB21-TST0040...BICI..V4V6..SEC"
+-                    family ipv6
+-                    authentication-key "3byg3pMuteTGTZJZJMBgxakWNQ/3okE=" hash2
+-                    keepalive 60
+-                    hold-time 90 min 45
+-                    local-preference 320
+-                    prefix-limit ipv6 100
+-                    med-out 160
+-                    remove-private
+-                    import "CUSTOMER-IN-BI-V6" "CUSTIN-V6_CLGRAB21-TST0040_SEC"
+-                    export "DEFAULT-CUST-PARTIAL-OUT-V6"
+-                    peer-as 64004
+-# Finished FRI MAY 12 10:01:54 2023 UTC
++# Finished FRI MAY 12 10:13:32 2023 UTC

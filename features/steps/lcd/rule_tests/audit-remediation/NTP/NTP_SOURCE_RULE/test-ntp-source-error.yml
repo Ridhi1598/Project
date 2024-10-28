@@ -1,0 +1,43 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ntp source audit returns an error
+  test_suite:
+  device_models:
+    - netsim_cisco_ios
+    - "1921"
+    - "3600"
+    - asr
+  given: ntp source Loopback0 configured on device and param_tree empty
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit return an error
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - ntp source Loopback0
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus-wide
+      level_key: 
+      path: 
+      subtree: "{'ntp-source':''}"
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: NTP_SOURCE_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+      assertion_type: 'EXACT'
+      value: 'INTERFACE_ERROR: ntp-source in param-tree does not refer to an existing Loopback interface'
+    messages: 
+  remediation_result: 

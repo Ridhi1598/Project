@@ -1,0 +1,254 @@
+-# Generated THU MAY 06 18:18:32 2021 UTC
++# Generated THU MAY 06 18:21:11 2021 UTC
+-                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V6..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
+-                exit
+-                ipv6
+-                    address 2001:db4::/127 
+-                        filter ipv6 500
+-            prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0041"
+-                prefix 2001:db4::/126 exact
+-            exit
+-                prefix 2001:db4::/127 exact
++            policy-statement "CUSTIN-V4_CLGRAB21-TST0041_PRI"
++                entry 5
++                    from
++                        protocol bgp
++                        community "680"
++                    exit
++                    action next-entry
++                        local-preference 80
++                    exit
++                exit
++                entry 10
++                    from
++                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
++                    exit
++                    action next-entry
++                        community add "NO-EXPORT"
++                    exit
++                exit
++                entry 20
++                    description "Allow only white-listed IPV4 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
++                    exit
++                    action next-policy
++                        community add "BICI-NO-EXPORT-SRBHONTFRE27"
++                    exit
++                exit
++                default-action drop
++                exit
++            exit
+-                exit
+-            exit
+-            policy-statement "CUSTFULLOUTV6_CLGRAB21-TST0041_P"
+-                entry 10
+-                    description "IPV6: advertise TELUS customer routes with external community tag 852:300"
+-                    from
+-                        community "COM-BICI-TELUS-CUST"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        community add "COM-BICI-CUST-OUT"
+-                        origin igp
+-                    exit
+-                exit
+-                entry 20
+-                    description "IPV6: Add the maritimes customer region community tag 852:316"
+-                    from
+-                        community "COM-BICI-TELUS-NS"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "COM-BICI-CUST-NS"
+-                        community remove "COM-BICI-AS852"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 30
+-                    description "IPV6: Add the SK/MB customer region community tag 852:313"
+-                    from
+-                        community "COM-BICI-TELUS-SK-MB"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "COM-BICI-CUST-SK-MB"
+-                        community remove "COM-BICI-AS852"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 40
+-                    description "IPV6: Add the Quebec customer region community tag 852:315"
+-                    from
+-                        community "COM-BICI-TELUS-PQ"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "COM-BICI-CUST-PQ"
+-                        community remove "COM-BICI-AS852"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV6: Add the Ontario customer region community tag 852:314"
+-                    from
+-                        community "COM-BICI-TELUS-ON"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "COM-BICI-CUST-ON"
+-                        community remove "COM-BICI-AS852"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 60
+-                    description "IPV6: Add the AB customer region community tag 852:312"
+-                    from
+-                        community "COM-BICI-TELUS-AB"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "COM-BICI-CUST-AB"
+-                        community remove "COM-BICI-AS852"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 70
+-                    description "IPV6 Add the BC customer region community tag 852:311"
+-                    from
+-                        community "COM-BICI-TELUS-BC"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "COM-BICI-CUST-BC"
+-                        community remove "COM-BICI-AS852"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 80
+-                    description "IPV6: advertise TELUS internal routes with external community tag 852:300"
+-                    from
+-                        as-path "AS-BICI-INTERNAL"
+-                        community "COM-BICI-NONE"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community replace "COM-BICI-CUST-OUT"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 90
+-                    description "IPV6: advertise TELUS peering routes with external community tag 852:200"
+-                    from
+-                        community "COM-BICI-TELUS-PEER"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community replace "COM-BICI-PEER-OUT"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                entry 100
+-                    description "IPV6: advertise TELUS transit routes with external community tag 852:100"
+-                    from
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community replace "COM-BICI-TRANSIT-OUT"
+-                        origin igp
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-            exit
+-            policy-statement "CUSTIN-V4V6_CLGRAB21-TST0041_PRI"
+-                entry 5
+-                    from
+-                        protocol bgp
+-                        community "680"
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 10
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                    exit
+-                    action next-entry
+-                        community add "NO-EXPORT"
+-                    exit
+-                exit
+-                entry 20
+-                    from
+-                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0041"
+-                    exit
+-                    action next-entry
+-                        community add "NO-EXPORT"
+-                    exit
+-                exit
+-                entry 40
+-                    description "Allow only white-listed IPV4 prefixes with no-export"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                    exit
+-                    action next-policy
+-                        community add "BICI-NO-EXPORT-SRBHONTFRE27"
+-                    exit
+-                exit
+-                entry 60
+-                    description "Allow only white-listed IPV6 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0041"
+-                    exit
+-                    action next-entry
+-                        community add "IPV6"
+-                    exit
+-                exit
+-                entry 80
+-                    description "Allow only white-listed IPV6 prefixes with no-export"
+-                    from
+-                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0041"
+-                        family ipv6
+-                    exit
+-                    action next-policy
+-                        community add "BICI-NO-EXPORT-SRBHONTFRE27"
+-                        next-hop 2001:db4::1
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-            policy-statement "DEFAULTONLYV6_CLGRAB21-TST0041_P"
+-                entry 10
+-                    from
+-                        prefix-list "DEFAULT-IPV6"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    to
+-                        protocol bgp bgp-label
+-                    exit
+-                    action accept
+-                        next-hop 2001:db4::
+-                    exit
+-                exit
+-                default-action drop
+-                    description "1234741.CLGRAB21-TST0041...BICI..V6..PRI"
+-                    family ipv4 ipv6
++                    description "1234741.CLGRAB21-TST0041...BICI..V4..PRI"
++                    family ipv4
+-                    prefix-limit ipv6 100
+-                    import "CUSTIN-V4V6_CLGRAB21-TST0041_PRI" "CUSTOMER-IN-BI-V4-V6" 
+-                    export "DEFAULT-ONLY-V4-V6" "CUST-FULL-OUT-V4-V6" "DEFAULTONLYV6_CLGRAB21-TST0041_P" "CUSTFULLOUTV6_CLGRAB21-TST0041_P" 
++                    import "CUSTIN-V4_CLGRAB21-TST0041_PRI" "CUSTOMER-IN-BI" 
++                    export "DEFAULT-ONLY-V4-V6" "CUST-FULL-OUT" 
+-# Finished THU MAY 06 18:18:43 2021 UTC
++# Finished THU MAY 06 18:21:23 2021 UTC

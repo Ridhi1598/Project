@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip tacacs source-interface succeess
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: IP_TACACS_SOURCE_INTERFACE_RUL hosts configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit succeeds
+
+
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - tacacs-server host 209.202.66.133
+        - tacacs-server host 198.161.154.43
+        - tacacs-server key test
+        - no ip tacacs source-interface
+        - ip tacacs source-interface loopback0
+        
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus-wide
+      level_key:
+      path: 
+      subtree: '{"tacacs_source_interface":"0"}'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_TACACS_SOURCE_INTERFACE_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

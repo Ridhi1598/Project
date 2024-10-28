@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "callback-url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "request-id": {
+          "type": "string"
+        },
+        "request-state": {
+          "type": "string"
+        },
+        "request-response": {
+          "type": "object",
+          "properties": {
+            "request-id": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "response": {
+              "type": "object"
+            },
+            "callback-url": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "request-id",
+            "status",
+            "response",
+            "callback-url"
+          ]
+        }
+      },
+      "required": [
+        "request-id",
+        "request-state",
+        "request-response"
+      ]
+    }
+  },
+  "required": [
+    "request-id",
+    "callback-url",
+    "status",
+    "response"
+  ]
+}

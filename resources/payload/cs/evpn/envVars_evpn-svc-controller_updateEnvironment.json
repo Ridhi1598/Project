@@ -1,0 +1,8 @@
+{
+  "EXECUTOR_URI" : "https://bi-mocking-server.qa.app01.toll6.tinaa.tlabs.ca",
+  "WRITE_TIMEOUT": "60",
+  "DELETE_TIMEOUT": "60",
+  "ROLLBACK_TIMEOUT": "60",
+  "RESOURCE_VALIDATOR_TIMEOUT": "60",
+  "EXECUTOR_TIMEOUT": "60"
+}

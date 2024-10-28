@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {
+
+    }
+  },
+  "routing_key": "l2_topology_engine_queue",
+  "delivery_mode": "2",
+  "payload": "{\r\n    \"request-id\": \"request-idValue\",\r\n    \"user-id\": \"txxxxxx\",\r\n    \"callback-url\": \"cs-portal/cb-path\",\r\n    \"type\": \"CREATE\",\r\n    \"path\": \"/ietf-network:networks/network=telus_clm_net/node\",\r\n    \"query-parameters\": [],\r\n    \"payload\": {\r\n        \"node-id\": \"node1\",\r\n        \"l2-node-attributes\": {\r\n            \"name\": \"node1\",\r\n            \"flags\": [],\r\n            \"bridge-id\": [],\r\n            \"management-address\": [],\r\n            \"management-mac\": \"20:1F:33:AA:BB:2D\",\r\n            \"management-vlan\": \"1\"\r\n        }\r\n    }\r\n}\r\n\r\n",
+  "headers": {
+
+  },
+  "props": {
+
+  },
+  "payload_encoding": "string"
+}

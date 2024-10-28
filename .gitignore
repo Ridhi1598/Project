@@ -1,0 +1,15 @@
+5
+venv
+allure-reports
+*.pyc
+\reports\
+*.cfg
+*.1
+*.2
+*.gz
+*.conf
+resources/batch/*
+none
+*zip
+*idea
+

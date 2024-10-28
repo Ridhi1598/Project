@@ -1,0 +1,58 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: SNMP Server Chassis ID rule failed
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+
+  given: failed sample
+  when: parsed
+  then: parsing is fails
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no snmp-server chassis-id
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path: 
+      subtree: "{}"
+        
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SNMP_SERVER_CHASSIS_ID_RULE
+
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: snmp-server chassis-id
+        config:
+          - ''
+#When removing snmp-server chassis-id the device defaults back to its original chassis-id
+#to be fixed
+
+
+  

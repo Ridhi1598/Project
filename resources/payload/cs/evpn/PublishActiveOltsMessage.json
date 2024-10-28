@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "amq.default",
+  "properties": {
+    "delivery_mode": 1,
+    "headers": {
+
+    }
+  },
+  "routing_key": "cs_orchestrator_queue",
+  "delivery_mode": "1",
+  "payload": "{\r\n\"request-id\": \"request-idValue\",\r\n\"user-id\": \"txxxxxx\",\r\n\"callback-url\": \"cs-portal/get-active-olts\",\r\n\"type\": \"READ\",\r\n\"path\": \"/get-active-olts\",\r\n\"query-parameters\": [\r\n],\r\n\"payload\": {}\r\n}",
+  "headers": {
+
+  },
+  "props": {
+
+  },
+  "payload_encoding": "string"
+}

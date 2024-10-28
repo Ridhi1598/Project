@@ -1,0 +1,24 @@
+-## Last commit: 2021-03-11 08:28:32 UTC by tinaa
++## Last commit: 2021-03-11 10:03:27 UTC by tinaa
++        unit 3200 {
++            description 1234741.CLGRAB21-TST0041.DSL.6M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            no-traps;
++            vlan-id 3200;
++            family inet {
++                filter {
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_2M ];
++                }
++                address 192.168.41.0/31;
++            }
++        }
++        route 10.74.1.0/26 next-hop 192.168.41.1;
++        route 100.74.1.0/26 next-hop 192.168.41.1;
+-    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32;
++    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32 {
++        10.74.1.0/26;
++        100.74.1.0/26;
++    }
++        192.168.41.0/31;
++        xe-0/3/1 {
++            unit 3200 {
++                output-traffic-control-profile BI_6M;

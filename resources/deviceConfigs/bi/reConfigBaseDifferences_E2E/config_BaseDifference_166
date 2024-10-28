@@ -1,0 +1,112 @@
+-# Generated MON APR 12 11:21:49 2021 UTC
++# Generated MON APR 12 11:26:27 2021 UTC
+-            description "Service Portal UAT Tester 4"
++            description "Customer TST04"
++            exit
++        exit
++        ies 3087041 customer 700074 create
++            interface "CLGRAB21-TST0041.3200" create
++        ies 3087041 customer 700074 create
++            interface "CLGRAB21-TST0041.3200" create
++                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                address 192.168.41.0/31
++                ip-mtu 1500
++                cflowd-parameters
++                    sampling unicast type interface
++                exit
++                sap 4/1/18:3200 create
++                    ingress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 1000 cir 1000
++                            exit
++                        exit
++                        qos 53201
++                        filter ip 500
++                    exit
++                    egress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 6000
++                            exit
++                        exit
++                        qos 53201
++                    exit
++                    collect-stats
++                    accounting-policy 77
++                exit
++            exit
++            no shutdown
++        exit
++            prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
++                prefix 10.74.1.0/26 exact
++                prefix 100.74.1.0/26 exact
++            exit
++                prefix 192.168.41.0/31 exact
++            policy-statement "CUSTIN-V4_CLGRAB21-TST0041_PRI"
++                entry 5
++                    from
++                        protocol bgp
++                        community "680"
++                    exit
++                    action next-entry
++                        local-preference 80
++                    exit
++                exit
++                entry 6
++                    from
++                        protocol bgp
++                        community "670"
++                    exit
++                    action next-entry
++                        local-preference 230
++                    exit
++                exit
++                entry 7
++                    from
++                        protocol bgp
++                        community "675"
++                    exit
++                    action next-entry
++                        local-preference 150
++                    exit
++                exit
++                entry 10
++                    from
++                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
++                    exit
++                    action next-entry
++                        community add "NO-EXPORT"
++                    exit
++                exit
++                entry 20
++                    description "Allow only white-listed IPV4 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
++                    exit
++                    action next-policy
++                        community add "BICI-NO-EXPORT-SRBHONTFRE27"
++                    exit
++                exit
++                default-action drop
++                exit
++            exit
++                exit
++                neighbor 192.168.41.1
++                    description "1234741.CLGRAB21-TST0041...BICI..V4..PRI"
++                    family ipv4
++                    authentication-key "7SnlNlAoRHmpJSLL6jl0.CQ7Kpohc0uk/MiT9lTaarW2vIAMX6Ifq." hash2
++                    keepalive 60
++                    hold-time 90 min 45
++                    local-preference 350
++                    prefix-limit ipv4 100
++                    med-out 80
++                    multihop 1
++                    remove-private
++                    import "CUSTIN-V4_CLGRAB21-TST0041_PRI" "CUSTOMER-IN-BI" 
++                    export "DEFAULT-ONLY-V4-V6" "CUST-FULL-OUT" 
++                    peer-as 64004
+-# Finished MON APR 12 11:22:00 2021 UTC
++# Finished MON APR 12 11:26:39 2021 UTC

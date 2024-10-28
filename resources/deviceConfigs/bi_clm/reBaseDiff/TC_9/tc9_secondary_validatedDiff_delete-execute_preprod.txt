@@ -1,0 +1,295 @@
+-# Generated FRI JAN 27 03:41:58 2023 UTC
+-# Generated FRI JAN 27 03:48:08 2023 UTC
+-            prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0041"
+-                prefix 11.74.1.0/26 exact
+-                prefix 110.74.1.0/26 exact
+-            exit
+-            prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0041"
+-                prefix 2101:db41::/126 exact
+-            exit
+-            prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                prefix 10.74.1.0/26 exact
+-                prefix 100.74.1.0/26 exact
+-            exit
+-            exit
+-            prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0041"
+-                prefix 2001:db41::/126 exact
+-                prefix 192.169.41.0/31 exact
+-                prefix 2001:db41::/126 exact
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0041_SEC"
+-            exit
+-            exit
+-            policy-statement "CUSTIN-V6_CLGRAB21-TST0041_SEC"
+-        customer 700074 name "TST04" create
+-            description "UAT Tester 4"
+-        exit
+-            exit
+-        exit
+-        ies 3087041 name "3087041" customer 700074 create
+-            interface "CLGRAB21-TST0041.3621.*" create
+-        ies 3087041 name "3087041" customer 700074 create
+-            interface "CLGRAB21-TST0041.3621.*" create
+-                description "1234741.CLGRAB21-TST0041.PON.100000K.BICI..V4V6..SEC..CLM.SEDU...CLGRAB21-TST0041-ALIAS"
+-                address 192.169.41.1/31
+-                ip-mtu 1500
+-                cflowd-parameters
+-                    sampling unicast type interface
+-                exit
+-                ipv6
+-                    address 2001:db41::2/126
+-                exit
+-                vpls "SEC.3087041"
+-                exit
+-            exit
+-            no shutdown
+-        exit
+-        vpls 5600041 name "PRI.3087041" customer 700074 create
+-            description "1234741.CLGRAB21-TST0041.CLM.BICI.PRI.SEDU"
+-            service-mtu 2000
+-            allow-ip-int-bind
+-            exit
+-            fdb-table-size 256
+-            bgp
+-                route-distinguisher 852:25600041
+-                route-target export target:852:5600041 import target:852:5600041
+-            exit
+-            bgp-evpn
+-                evi 5600041
+-                mpls bgp 1
+-                    auto-bind-tunnel
+-                        resolution any
+-                    exit
+-                    no shutdown
+-                exit
+-            exit
+-            stp
+-                shutdown
+-            exit
+-            sap lag-736:3611.* create
+-                ingress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000 cir 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                    filter ip 500
+-                    filter ipv6 500
+-                exit
+-                egress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                exit
+-                exit
+-                collect-stats
+-                accounting-policy 77
+-                no shutdown
+-            exit
+-            no shutdown
+-        exit
+-        vpls 5800041 name "SEC.3087041" customer 700074 create
+-            description "1234741.CLGRAB21-TST0041.CLM.BICI.SEC.SEDU"
+-            service-mtu 2000
+-            allow-ip-int-bind
+-            exit
+-            fdb-table-size 256
+-            bgp
+-                route-distinguisher 852:25800041
+-                route-target export target:852:5800041 import target:852:5800041
+-            exit
+-            bgp-evpn
+-                evi 5800041
+-                mpls bgp 1
+-                    auto-bind-tunnel
+-                        resolution any
+-                    exit
+-                    no shutdown
+-                exit
+-            exit
+-            stp
+-                shutdown
+-            exit
+-            sap lag-736:3621.* create
+-                ingress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000 cir 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                    filter ip 500
+-                    filter ipv6 500
+-                exit
+-                egress
+-                    scheduler-policy "BICI-SCHED"
+-                    scheduler-override
+-                        scheduler "BICI-ROOT" create
+-                            rate 100000
+-                        exit
+-                    exit
+-                    qos 53202
+-                exit
+-                collect-stats
+-                accounting-policy 77
+-                no shutdown
+-            exit
+-            no shutdown
+-        exit
+-        vpls 5600041 name "PRI.3087041" customer 700074 create
+-            allow-ip-int-bind
+-            exit
+-        exit
+-            allow-ip-int-bind
+-            exit
+-        exit
+-        vpls 5800041 name "SEC.3087041" customer 700074 create
+-            policy-statement "CUSTIN-V4_CLGRAB21-TST0041_SEC"
+-                entry 10
+-                    description "Set prefixes as backup"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-BACKUP"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 20
+-                    description "Set same LP as peering prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-PEERING"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 230
+-                    exit
+-                exit
+-                entry 30
+-                    description "Set same LP as transit prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-TRANSIT"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action next-entry
+-                        local-preference 150
+-                    exit
+-                exit
+-                entry 40
+-                    description "IPV4: Allow only white-listed IPV4 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV4-NE_CLGRAB21-TST0041"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV4: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV4-E_CLGRAB21-TST0041"
+-                        family ipv4 label-ipv4
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-                    exit
+-                    action accept
+-                        community add "BICI-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                default-action drop
+-                exit
+-            exit
+-            policy-statement "CUSTIN-V6_CLGRAB21-TST0041_SEC"
+-                entry 10
+-                    description "Set prefixes as backup"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-BACKUP"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 80
+-                    exit
+-                exit
+-                entry 20
+-                    description "Set same LP as peering prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-PEERING"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 230
+-                    exit
+-                exit
+-                entry 30
+-                    description "Set same LP as transit prefixes"
+-                    from
+-                        protocol bgp bgp-label
+-                        community "BICI-LP-TRANSIT"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action next-entry
+-                        local-preference 150
+-                    exit
+-                exit
+-                entry 40
+-                    description "IPV6: Allow only white-listed IPV6 prefixes"
+-                    from
+-                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0041"
+-                        family ipv6 label-ipv6
+-                    exit
+-                    action accept
+-                        community add "BICI-NO-EXPORT-EDTNABTFSE52"
+-                    exit
+-                exit
+-                entry 50
+-                    description "IPV6: Customer Owned Prefix entry"
+-                    from
+-                        prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0041"
+-                        family ipv6 label-ipv6
+-                neighbor 192.169.41.0
+-                    description "1234741.CLGRAB21-TST0041...BICI..V4V6..SEC"
+-                    family ipv4
+-                    authentication-key "swVqza1GGoHx8IDoVA7Jc5e-L7NICvQ=" hash2
+-                    keepalive 60
+-                    hold-time 90 min 45
+-                    local-preference 320
+-                    prefix-limit ipv4 100
+-                    med-out 160
+-                    remove-private
+-                    import "CUSTOMER-IN-BI-V4" "CUSTIN-V4_CLGRAB21-TST0041_SEC"
+-                    export "DEFAULT-ONLY-V4"
+-                    peer-as 64004
+-                exit
+-                neighbor 2001:db41::1
+-                    description "1234741.CLGRAB21-TST0041...BICI..V4V6..SEC"
+-                    family ipv6
+-                    authentication-key "swVqza1GGoHx8IDoVA7Jc4i9M6oiUVE=" hash2
+-                    keepalive 60
+-                    hold-time 90 min 45
+-                    local-preference 320
+-                    prefix-limit ipv6 100
+-                    med-out 160
+-                    remove-private
+-                    import "CUSTOMER-IN-BI-V6" "CUSTIN-V6_CLGRAB21-TST0041_SEC"
+-                    export "DEFAULT-ONLY-V6"
+-                    peer-as 64004
+-# Finished FRI JAN 27 03:41:59 2023 UTC
+-# Finished FRI JAN 27 03:48:09 2023 UTC

@@ -1,0 +1,52 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: SNMP Server Enable Traps SNMP BGP Rule failed
+  test_suite: 
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no snmp-server enable traps snmp linkdown linkup coldstart warmstart authentication
+        - no snmp-server enable traps bgp
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+        
+param_tree: !RuleTestCaseParamTree
+  items:
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SNMP_SERVER_ENABLE_TRAPS_SNMP_BGP_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: 
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: 
+        filter: snmp-server enable traps bgp
+        config:
+        - snmp-server enable traps bgp
+      - !RuleTestCaseDeviceConfigItem
+        section: ''
+        filter: snmp-server enable traps snmp
+        config:
+        - snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart

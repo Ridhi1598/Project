@@ -1,0 +1,154 @@
+-# Generated FRI JAN 27 04:20:44 2023 UTC
++# Generated FRI JAN 27 04:26:07 2023 UTC
++                prefix 11.74.1.0/26 exact
++                prefix 110.74.1.0/26 exact
++                prefix 10.74.1.0/26 exact
++                prefix 100.74.1.0/26 exact
++                prefix 192.168.41.0/31 exact
++        static-route-entry 10.74.1.0/26
++            next-hop 192.168.41.0
++                no shutdown
++            exit
++        exit
++        static-route-entry 11.74.1.0/26
++            next-hop 192.168.41.0
++                no shutdown
++            exit
++        exit
++                no shutdown
++            exit
++        exit
++        static-route-entry 100.74.1.0/26
++            next-hop 192.168.41.0
++                no shutdown
++            exit
++        exit
++        static-route-entry 110.74.1.0/26
++            next-hop 192.168.41.0
++        customer 700074 name "TST04" create
++            description "UAT Tester 4"
++        exit
++            exit
++        exit
++        ies 3087041 name "3087041" customer 700074 create
++            interface "CLGRAB21-TST0041.3611.*" create
++        ies 3087041 name "3087041" customer 700074 create
++            interface "CLGRAB21-TST0041.3611.*" create
++                description "1234741.CLGRAB21-TST0041.PON.100000K.BICI..V4..PRI..CLM.SEDU...CLGRAB21-TST0041-ALIAS"
++                address 192.168.41.1/31
++                ip-mtu 1500
++                cflowd-parameters
++                    sampling unicast type interface
++                exit
++                vpls "PRI.3087041"
++                exit
++            exit
++            no shutdown
++        exit
++        vpls 5600041 name "PRI.3087041" customer 700074 create
++            description "1234741.CLGRAB21-TST0041.CLM.BICI.PRI.SEDU"
++            service-mtu 2000
++            allow-ip-int-bind
++            exit
++            fdb-table-size 256
++            bgp
++                route-distinguisher 852:15600041
++                route-target export target:852:5600041 import target:852:5600041
++            exit
++            bgp-evpn
++                evi 5600041
++                mpls bgp 1
++                    auto-bind-tunnel
++                        resolution any
++                    exit
++                    no shutdown
++                exit
++            exit
++            stp
++                shutdown
++            exit
++            sap lag-736:3611.* create
++                ingress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000 cir 100000
++                        exit
++                    exit
++                    qos 53202
++                    filter ip 500
++                exit
++                egress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000
++                        exit
++                    exit
++                    qos 53202
++                exit
++                exit
++                collect-stats
++                accounting-policy 77
++                no shutdown
++            exit
++            no shutdown
++        exit
++        vpls 5800041 name "SEC.3087041" customer 700074 create
++            description "1234741.CLGRAB21-TST0041.CLM.BICI.SEC.SEDU"
++            service-mtu 2000
++            allow-ip-int-bind
++            exit
++            fdb-table-size 256
++            bgp
++                route-distinguisher 852:15800041
++                route-target export target:852:5800041 import target:852:5800041
++            exit
++            bgp-evpn
++                evi 5800041
++                mpls bgp 1
++                    auto-bind-tunnel
++                        resolution any
++                    exit
++                    no shutdown
++                exit
++            exit
++            stp
++                shutdown
++            exit
++            sap lag-736:3621.* create
++                ingress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000 cir 100000
++                        exit
++                    exit
++                    qos 53202
++                    filter ip 500
++                exit
++                egress
++                    scheduler-policy "BICI-SCHED"
++                    scheduler-override
++                        scheduler "BICI-ROOT" create
++                            rate 100000
++                        exit
++                    exit
++                    qos 53202
++                exit
++                collect-stats
++                accounting-policy 77
++                no shutdown
++            exit
++            no shutdown
++        exit
++        vpls 5600041 name "PRI.3087041" customer 700074 create
++            allow-ip-int-bind
++            exit
++        exit
++            allow-ip-int-bind
++            exit
++        exit
++        vpls 5800041 name "SEC.3087041" customer 700074 create
+-# Finished FRI JAN 27 04:20:48 2023 UTC
++# Finished FRI JAN 27 04:26:10 2023 UTC

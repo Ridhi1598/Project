@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"status\":\"failed\",\n   \"response\":{\n      \"exception\":\"Internal server error\"\n   },\n   \"callback-url\":\"cs-orchestrator/revert-olt-config/revert-multicast-config\"\n}",
+  "payload_encoding": "string"
+}

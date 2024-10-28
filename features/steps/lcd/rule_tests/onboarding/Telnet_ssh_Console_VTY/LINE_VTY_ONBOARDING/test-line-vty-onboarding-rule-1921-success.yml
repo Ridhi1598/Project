@@ -1,0 +1,88 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line vty 1921 onboarding success
+  test_suite:
+  device_models:
+    - "1921"
+  given: line vty 0 4 configured on device
+  when: run ONBOARDING operation on device
+  then: onboarding succeeds
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line vty 0 4
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 20 10
+        - exec-banner
+        - motd-banner
+        - timeout login response 130
+        - logging synchronous
+        - login authentication default
+        - session-timeout 120
+        - transport input all # the rule appends input types to it on remediation
+        - transport output all
+        - transport preferred none
+        - logout-warning 110
+    - !RuleTestCaseDeviceConfigItem
+      section: line vty 5 15
+      config:
+        - access-class 88 in
+        - flush-at-activation
+        - exec-timeout 20 10
+        - exec-banner
+        - motd-banner
+        - timeout login response 130
+        - logging synchronous
+        - login authentication default
+        - session-timeout 120
+        - transport input all # the rule appends input types to it on remediation
+        - transport output all
+        - transport preferred none
+        - logout-warning 110
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    # - !RuleTestCaseParamTreeItem
+    #   level: device
+    #   level_key: 
+    #   path: line-vty-device
+    #   subtree: '{"transport_input": ["ssh"], "transport_output": ["ssh"]}'
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: LINE_VTY_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages: #!AssertValue
+      # assertion_type: 'EXACT'
+      # value: 'onboarding line vty values from line vty (0,4)'
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: line-vty-device/transport-input
+          subtree: '["all"]'
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: line-vty-device/transport-output
+          subtree: '["all"]'
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: line-vty-device/logout-warning
+          subtree: 110

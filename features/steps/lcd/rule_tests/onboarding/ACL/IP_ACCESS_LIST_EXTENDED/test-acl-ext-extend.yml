@@ -1,0 +1,136 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL EXTENDED Onboarding Extend Scenario
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+  
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_nso_config: !RuleTestCaseDeviceNSOConfig
+  items:
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:ip/access-list/extended/ext-named-acl
+      config_subtree: '[{"_clear": true}]'
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:access-list/access-list
+      config_subtree: '[{"_clear": true},
+                        {"_key": ["id"],
+                        "id": 88,
+                        "rule": [
+                            {
+                                "_key": ["rule"],
+                                "rule": "permit any"
+                            }
+                          ]
+                        },
+                        {"_key": ["id"],
+                        "id": 95,
+                        "rule": [
+                            {
+                                "_key": ["rule"],
+                                "rule": "deny  any log"
+                            }
+                          ]
+                        }
+                      ]'
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 101
+    - !RuleTestCaseDeviceConfigItem
+      section: ip access-list extended 101
+      config:
+        - permit ip 14.16.251.0 0.0.0.255 any
+    - !RuleTestCaseDeviceConfigItem
+      section: ip access-list extended test_extd_1
+      config:
+        - permit ip host 201.1.1.1 host 101.1.1.1
+    - !RuleTestCaseDeviceConfigItem
+      section: ip access-list extended test_extd_2
+      config:
+        - permit ip 14.16.254.0 0.0.0.255 any
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+          level: customer
+          level_key:
+          path:
+          subtree: "{
+                      'access_list_extended': [{
+                        '_key': ['name'],
+                        'name': 'test_extd_1',
+                        'ext_access_list_rule': [
+                            {
+                                '_key': ['rule'],
+                                'rule': 'permit ip host 201.1.1.1 host 101.1.1.1'
+                            }
+                        ]
+                      }
+                    ],
+                    'access_list_extended_state':'overwrite'
+                  }"
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: ACCESS_LIST_EXTENDED_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-extended-state
+          subtree: extend
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-extended-state-confirmation
+          subtree: pending-confirmation
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-extended
+          subtree: '[{
+                    "_key": ["name"],
+                    "name": 101, 
+                    "ext_access_list_rule": [
+                        {
+                            "_key": ["rule"],
+                            "rule": "permit ip 14.16.251.0 0.0.0.255 any"
+                        }
+                     ]
+                    },
+                    {
+                    "_key": ["name"],
+                    "name": "test_extd_2", 
+                    "ext_access_list_rule": [
+                        {
+                            "_key": ["rule"],
+                            "rule": "permit ip 14.16.254.0 0.0.0.255 any"
+                        }
+                     ]
+                    }
+                  ]'

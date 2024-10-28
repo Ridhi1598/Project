@@ -1,0 +1,55 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line 2 as-is Rule failed
+  test_suite: 
+  device_models:
+    - "1921"
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line 2
+      config:
+        - activation-character
+        - transport preferred ssh
+        - transport output none
+        - stopbits 2
+        - access-class 88 in
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+        
+param_tree: !RuleTestCaseParamTree
+  items:
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LINE_2_AS_IS_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: 
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: '| s line 2'
+        filter:
+        config:
+          - line 2
+          - ' access-class 88 in'
+          - ' exec-timeout 0 0'
+          - ' no activation-character'
+          - ' no exec'
+          - ' transport preferred none'
+          - ' transport output none'
+          - ' stopbits 1'

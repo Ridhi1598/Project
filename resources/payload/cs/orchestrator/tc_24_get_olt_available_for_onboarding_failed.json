@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"x235417\",\n   \"callback-url\":\"cs-portal/get-to-be-onboarded-olts\",\n   \"type\":\"READ\",\n   \"path\":\"/get-to-be-onboarded-olts\",\n   \"query-parameters\":[\n      \n   ],\n   \"payload\":{\n      \n   }\n}",
+  "payload_encoding": "string"
+}

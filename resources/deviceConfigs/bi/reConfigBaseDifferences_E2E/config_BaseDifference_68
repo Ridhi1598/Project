@@ -1,0 +1,37 @@
+-## Last commit: 2021-03-12 07:51:54 UTC by tinaa
++## Last commit: 2021-03-12 07:59:17 UTC by tinaa
+-        description spare;
++        description 1234741.CLGRAB21-TST0041.400M;
++        disable;
+-            no-auto-negotiation;
++            auto-negotiation;
++        }
++        unit 1500 {
++            description 1234741.CLGRAB21-TST0041.HS.400M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            no-traps;
++            vlan-id 1500;
++            family inet {
++                filter {
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_400M ];
++                    output BI_OUT;
++                }
++                address 192.168.41.0/31;
++            }
++        route 10.74.1.0/26 next-hop 192.168.41.1;
++        route 100.74.1.0/26 next-hop 192.168.41.1;
++        route 40.40.41.0/32 next-hop 192.168.41.1;
+-    prefix-list STATIC-BGP-V4-NE-LP350-EDTNABTFRE32;
++    prefix-list STATIC-BGP-V4-NE-LP350-EDTNABTFRE32 {
++        40.40.41.0/32;
++    }
+-    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32;
++    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32 {
++        10.74.1.0/26;
++        100.74.1.0/26;
++    }
++        192.168.41.0/31;
++        xe-0/3/1 {
++            unit 1500 {
++                output-traffic-control-profile BI_400M;
++            }
++        }

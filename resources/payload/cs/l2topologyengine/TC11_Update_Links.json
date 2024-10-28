@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {
+
+    }
+  },
+  "routing_key": "l2_topology_engine_queue",
+  "delivery_mode": "2",
+  "payload": "{\r\n  \"request-id\": \"request-idValue\",\r\n  \"user-id\": \"txxxxxx\",\r\n  \"callback-url\": \"cs-portal/cb-path\",\r\n  \"type\": \"UPDATE\",\r\n  \"path\": \"/ietf-network:networks/network=telus_clm_net/ietf-network-topology:link=node1-termination1-node2-termination2\",\r\n  \"query-parameters\": [\r\n    \r\n  ],\r\n  \"payload\": {\r\n    \"link-id\": \"node1-termination1-node2-termination2\",\r\n    \"source\": {\r\n      \"source-node\": \"node1\",\r\n      \"source-tp\": \"termination1\"\r\n    },\r\n    \"destination\": {\r\n      \"dest-node\": \"node2\",\r\n      \"dest-tp\": \"termination2\"\r\n    },\r\n    \"l2-link-attributes\": {\r\n      \"name\": null,\r\n      \"flags\": [\r\n        \r\n      ],\r\n      \"rate\": null,\r\n      \"delay\": null,\r\n      \"auto-nego\": false,\r\n      \"duplex\": null\r\n    }\r\n  }\r\n}",
+  "headers": {
+
+  },
+  "props": {
+
+  },
+  "payload_encoding": "string"
+}

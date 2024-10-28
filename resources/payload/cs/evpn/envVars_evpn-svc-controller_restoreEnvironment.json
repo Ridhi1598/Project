@@ -1,0 +1,9 @@
+{
+  "EXECUTOR_HOST" : "https://pltf-api.ocp01.toll6.tinaa.tlabs.ca",
+  "EXECUTOR_URI" : "https://pltf-api.ocp01.toll6.tinaa.tlabs.ca",
+  "WRITE_TIMEOUT": "1800",
+  "DELETE_TIMEOUT": "1800",
+  "ROLLBACK_TIMEOUT": "1800",
+  "RESOURCE_VALIDATOR_TIMEOUT": "600",
+  "EXECUTOR_TIMEOUT": "600"
+}

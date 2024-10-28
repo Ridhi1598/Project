@@ -1,0 +1,36 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: aaa new-model rule success
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: aaa new-model configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns succeeded results
+  
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - aaa new-model
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: AAA_NEW_MODEL_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 

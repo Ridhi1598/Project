@@ -1,0 +1,24 @@
+-# Generated TUE SEP 28 12:12:18 2021 UTC
++# Generated TUE SEP 28 12:51:43 2021 UTC
+-        description "1234741.CLGRAB21-TST0041.400000K"
++        description "1234741.CLGRAB21-TST0041.300000K"
+-        static-route-entry 10.74.1.0/26
++        static-route-entry 10.74.6.0/26
+-        static-route-entry 40.40.41.0/32
++        static-route-entry 40.40.46.0/32
+-        static-route-entry 100.74.1.0/26
++        static-route-entry 100.74.6.0/26
+-                description "1234741.CLGRAB21-TST0041.HS.400000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.HS.300000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
+-                                rate 400000 cir 400000
++                                rate 300000 cir 300000
+-                                rate 400000
++                                rate 300000
+-                prefix 10.74.1.0/26 exact
++                prefix 10.74.6.0/26 exact
+-                prefix 100.74.1.0/26 exact
++                prefix 100.74.6.0/26 exact
+-                prefix 40.40.41.0/32 exact
++                prefix 40.40.46.0/32 exact
+-# Finished TUE SEP 28 12:12:30 2021 UTC
++# Finished TUE SEP 28 12:51:55 2021 UTC

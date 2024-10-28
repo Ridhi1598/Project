@@ -1,0 +1,80 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL 95 onboarding overwrite test
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+  
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 95
+        - access-list 95 permit 1.1.1.1
+        - access-list 95 deny any log
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key:
+      path: #subtree path
+      subtree: '{
+                "access_list_95": [{
+                    "_key": ["ip_address", "mask"],
+                    "ip_address":"1.1.1.0",
+                    "mask":"0.0.0.255"
+                },
+                {
+                    "_key": ["ip_address", "mask"],
+                    "ip_address":"1.1.1.1",
+                    "mask":"0.0.0.0"
+                }],
+                "access_list_95_state":"overwrite",
+                "snmp_v3_read_purchased":"true"
+            }'
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: ACCESS_LIST_95_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-95-state
+          subtree: overwrite
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-95-state-confirmation
+          subtree: pending-confirmation
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-95
+          subtree: '[{
+                        "_key": ["ip-address", "mask"],
+                        "ip_address":"1.1.1.1",
+                        "mask":"0.0.0.0"
+                    }]'

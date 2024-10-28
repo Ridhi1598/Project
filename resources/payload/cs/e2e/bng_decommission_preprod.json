@@ -1,0 +1,14 @@
+{
+  "vhost": "/",
+  "name": "rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {}
+  },
+  "routing_key": "bng_svc_controller_queue",
+  "delivery_mode": "2",
+  "payload": "{\r\n   \"request-id\":\"request-idValue\",\r\n   \"user-id\":\"txxxxxx\",\r\n   \"type\":\"DELETE\",\r\n   \"path\":\"/cs-bng-service/cmcs-bng-service:consumer-service/bng-groups/bng-group=BG2\",\r\n   \"query-parameters\":[\r\n   ],\r\n   \"payload\":{\r\n   },\r\n   \"callback-url\":\"cs-portal/mock-extension\"\r\n}",
+  "headers": {},
+  "props": {},
+  "payload_encoding": "string"
+}

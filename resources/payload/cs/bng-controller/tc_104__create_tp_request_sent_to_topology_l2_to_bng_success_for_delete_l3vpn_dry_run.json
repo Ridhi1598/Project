@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"status\":\"success\",\n   \"response\":{\n      \n   },\n   \"callback-url\":\"bng-svc-controller/commit/tp-creation/callback\"\n}",
+  "payload_encoding": "string"
+}

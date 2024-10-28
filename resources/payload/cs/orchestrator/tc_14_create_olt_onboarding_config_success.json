@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n    \"request-id\": \"req_Id\",\n    \"user-id\": \"x235417\",\n    \"callback-url\": \"cs-portal/create-olt-config\",\n    \"type\": \"CREATE\",\n    \"path\": \"/tinaa-olt-services\",\n    \"query-parameters\": [],\n    \"payload\": {\n        \"bng-group\": \"EDTNABTFNG03-EDTNABTFNG04\",\n        \"olt-clli-name\": \"EDTNABTFOT39\",\n        \"olt-mac-address\": \"3c:8b:cd:7c:05:2e\",\n        \"multicast-ies\": {\n            \"se-x1-intf-address\": \"10.157.3.193/27\",\n            \"se-x2-intf-address\": \"10.157.3.194/27\"\n        }\n    }\n}",
+  "payload_encoding": "string"
+}

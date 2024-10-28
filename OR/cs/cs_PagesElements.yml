@@ -1,0 +1,1535 @@
+UserRegistrationPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value:
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+LandingPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //h3[contains(text(), 'Lorem Ipsum Dolor')]
+    - elementName: pageHeading
+      locatorProperty: xpath
+      value: //h3
+    - elementName: Login
+      locatorProperty: xpath
+      value: //a[@class="login_btn"]
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+KeycloakLoginPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //h1[contains(text(), 'Log In')]
+    - elementName: UserName
+      locatorProperty: xpath
+      value: //*[@id='username']
+    - elementName: Password
+      locatorProperty: xpath
+      value: //*[@id='password']
+    - elementName: LoginButton
+      locatorProperty: xpath
+      value: //*[@id='kc-login']
+    - elementName: title
+      locatorProperty: xpath
+      value: //div[contains (@class, 'layout-item') and text() = 'Dashboard']
+    - elementName: loader
+      locatorProperty: xpath
+      value: //*[@id="fountainG"]
+    - elementName: pageHeading
+      locatorProperty: xpath
+      value: //h3
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+HomePage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[contains(@class, 'layout-item') and text() = 'Dashboard']
+    - elementName: L2Topology
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'L2 Topology']
+    - elementName: SideNavigation
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'BNG']
+    - elementName: OLT
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'OLT']
+    - elementName: ButtonAddBNGPair
+      locatorProperty: xpath
+      value: //button[contains(text(),'Add BNG pair')]
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid...')]
+    - elementName: NewNodeGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'New Node')]
+    - elementName: ButtonAddNodeGeneric
+      locatorProperty: xpath
+      value: //button[text()='Add']
+    - elementName: IconDeleteNode<nodeName>
+      locatorProperty: xpath
+      value: //div[text()=' nodeName ']/app-icon[@icon='delete']
+    - elementName: SearchBox
+      locatorProperty: xpath
+      value: //input[@type="search"]
+      # nodeName has to be updated
+    - elementName: Onboarding
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'Onboarding']
+    - elementName: OnboardingOLT
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = ' Onboarding OLT ']
+    - elementName: OnboardingBNG
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = ' Onboarding BNG ']
+    - elementName: ServiceFirstValue
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name='Service Name']//div
+    - elementName: BNGCountFirstValue
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name='BNG Count']//div
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: SideNavigationBNG
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'BNG']
+    - elementName: SideNavigationOnboarding
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'Onboarding']
+    - elementName: onboardingBng
+      locatorProperty: xpath
+      value: //div[contains(@class,"titleOnboarding") and text() = "Onboarding BNG"]
+    - elementName: loader
+      locatorProperty: xpath
+      value: //app-dashboard/div/app-loader/div/div/div/div
+    - elementName: UserManagement
+      locatorProperty: xpath
+      value: //div[contains(text(),"User Management")]
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+
+BNGPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[text()='L2 Topology - BNG']
+    - elementName: AddBNGPair
+      locatorProperty: xpath
+      value: //button[contains(text(),'Add BNG pair')]
+    - elementName: NewNodeGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'New Node')]
+    - elementName: ButtonAddNodeGeneric
+      locatorProperty: xpath
+      value: //button[text()='Add']
+    - elementName: IconDeleteNode<nodeName>
+      locatorProperty: xpath
+      value: //div[text()=' nodeName ']/app-icon[@icon='delete']
+    - elementName: SideNavigationBNG
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'BNG']
+    - elementName: NewNodePlaceHolder
+      locatorProperty: xpath
+      value: //input[@placeholder='New Node']
+    - elementName: AddNewNode
+      locatorProperty: xpath
+      value: //button[text()='+ Add new node']
+    - elementName: AddButton
+      locatorProperty: xpath
+      value: //button[text()='Add']
+    - elementName: BNG1NewAddedNode
+      locatorProperty: xpath
+      value: //div[@class='addedNewNode' and text() = ' EDTNABTFNG03 ']
+    - elementName: BNG2NewAddedNode
+      locatorProperty: xpath
+      value: //div[@class='addedNewNode' and text() = ' EDTNABTFNG04 ']
+    - elementName: SE_Y_1NewAddedNode
+      locatorProperty: xpath
+      value: //div[@class='addedNewNode' and text() = ' EDTNABTFSE53 ']
+    - elementName: SE_Y_2NewAddedNode
+      locatorProperty: xpath
+      value: //div[@class='addedNewNode' and text() = ' EDTNABTFSE54 ']
+      # nodeName has to be updated
+    - elementName: Lag1Box
+      locatorProperty: xpath
+      value: //li[contains(@class,'lagList')][1]
+    - elementName: Lag2Box
+      locatorProperty: xpath
+      value: //li[contains(@class,'lagList')][2]
+    - elementName: Node1Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][1]
+    - elementName: Node2Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][2]
+    - elementName: Node3Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][3]
+    - elementName: Node4Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][4]
+    - elementName: AddNewLag
+      locatorProperty: xpath
+      value: //button[contains(@class, 'button-class primary') and text() = '+ Add new Lag']
+    - elementName: NewLagPlaceHolder
+      locatorProperty: xpath
+      value: //input[@placeholder='New Lag']
+    - elementName: Next
+      locatorProperty: xpath
+      value: //*[@class="nextbutton"]//button
+    - elementName: Node1Value
+      locatorProperty: xpath
+      value: //div[@class='row-0 table-row']//input[@placeholder='Select']
+    - elementName: Node1DropDown
+      locatorProperty: xpath
+      value: //div[@class='row-0 table-row']//input[@placeholder='Select']
+    - elementName: Lag1DropDown
+      locatorProperty: xpath
+      value: //app-topology-bng-list-details/app-grid/div/div/div[2]/div[1]/div/div[2]//app-select/div/div/input
+    - elementName: Node2DropDown
+      locatorProperty: xpath
+      value: //app-topology-bng-list-details/app-grid/div/div/div[2]/div[1]/div/div[3]//app-select/div/div/input
+    - elementName: Lag2DropDown
+      locatorProperty: xpath
+      value: //app-topology-bng-list-details/app-grid/div/div/div[2]/div[1]/div/div[4]//app-select/div/div/input
+    - elementName: BypassClick
+      locatorProperty: xpath
+      value: //div[text()=' Action ']
+    - elementName: Link1Node1
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFNG03')]
+    - elementName: Link1Lag1
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-12')]
+    - elementName: Link1Node2
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFNG04')]
+    - elementName: Link1Lag2
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-12')]
+    - elementName: AddedRow1Node1
+      locatorProperty: xpath
+      value: //div[@class='row-1 table-row']//div[@data-row-colmn-name='Node1']//div
+    - elementName: AddedRow1Lag1
+      locatorProperty: xpath
+      value: //div[@class='row-1 table-row']//div[@data-row-colmn-name='Lag1']//div
+    - elementName: AddedRow1Node2
+      locatorProperty: xpath
+      value: //div[@class='row-1 table-row']//div[@data-row-colmn-name='Node2']//div
+    - elementName: AddedRow1Lag2
+      locatorProperty: xpath
+      value: //div[@class='row-1 table-row']//div[@data-row-colmn-name='Lag2']//div
+    - elementName: Link2Node1
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFNG03')]
+    - elementName: Link2Lag1
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-19')]
+    - elementName: Link2Node2
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFSE53')]
+    - elementName: Link2Lag2
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-57')]
+    - elementName: AddedRow2Node1
+      locatorProperty: xpath
+      value: //div[@class='row-2 table-row']//div[@data-row-colmn-name='Node1']//div
+    - elementName: AddedRow2Lag1
+      locatorProperty: xpath
+      value: //div[@class='row-2 table-row']//div[@data-row-colmn-name='Lag1']//div
+    - elementName: AddedRow2Node2
+      locatorProperty: xpath
+      value: //div[@class='row-2 table-row']//div[@data-row-colmn-name='Node2']//div
+    - elementName: AddedRow2Lag2
+      locatorProperty: xpath
+      value: //div[@class='row-2 table-row']//div[@data-row-colmn-name='Lag2']//div
+    - elementName: Link3Node1
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFNG03')]
+    - elementName: Link3Lag1
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-19')]
+    - elementName: Link3Node2
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFSE54')]
+    - elementName: Link3Lag2
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-57')]
+    - elementName: AddedRow3Node1
+      locatorProperty: xpath
+      value: //div[@class='row-3 table-row']//div[@data-row-colmn-name='Node1']//div
+    - elementName: AddedRow3Lag1
+      locatorProperty: xpath
+      value: //div[@class='row-3 table-row']//div[@data-row-colmn-name='Lag1']//div
+    - elementName: AddedRow3Node2
+      locatorProperty: xpath
+      value: //div[@class='row-3 table-row']//div[@data-row-colmn-name='Node2']//div
+    - elementName: AddedRow3Lag2
+      locatorProperty: xpath
+      value: //div[@class='row-3 table-row']//div[@data-row-colmn-name='Lag2']//div
+    - elementName: Link4Node1
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFNG04')]
+    - elementName: Link4Lag1
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-19')]
+    - elementName: Link4Node2
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFSE53')]
+    - elementName: Link4Lag2
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-58')]
+    - elementName: AddedRow4Node1
+      locatorProperty: xpath
+      value: //div[@class='row-4 table-row']//div[@data-row-colmn-name='Node1']//div
+    - elementName: AddedRow4Lag1
+      locatorProperty: xpath
+      value: //div[@class='row-4 table-row']//div[@data-row-colmn-name='Lag1']//div
+    - elementName: AddedRow4Node2
+      locatorProperty: xpath
+      value: //div[@class='row-4 table-row']//div[@data-row-colmn-name='Node2']//div
+    - elementName: AddedRow4Lag2
+      locatorProperty: xpath
+      value: //div[@class='row-4 table-row']//div[@data-row-colmn-name='Lag2']//div
+    - elementName: Link5Node1
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFNG04')]
+    - elementName: Link5Lag1
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-19')]
+    - elementName: Link5Node2
+      locatorProperty: xpath
+      value: //span[contains(text(),' EDTNABTFSE54')]
+    - elementName: Link5Lag2
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-58')]
+    - elementName: AddedRow5Node1
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Node1']//div
+    - elementName: AddedRow5Lag1
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Lag1']//div
+    - elementName: AddedRow5Node2
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Node2']//div
+    - elementName: AddedRow5Lag2
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Lag2']//div
+    - elementName: TestLinkNode1
+      locatorProperty: xpath
+      value: //span[contains(text(),' MTRLQCTANG01')]
+    - elementName: TestLinkLag1
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-12')]
+    - elementName: TestLinkNode2
+      locatorProperty: xpath
+      value: //span[contains(text(),' MTRLQCTANG02')]
+    - elementName: TestLinkLag2
+      locatorProperty: xpath
+      value: //span[contains(text(),' lag-22')]
+    - elementName: TestRowNode1Added
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Node1']//div
+    - elementName: TestRowLag1Added
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Lag1']//div
+    - elementName: TestRowNode2Added
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Node2']//div
+    - elementName: TestRowLag2Added
+      locatorProperty: xpath
+      value: //div[@class='row-5 table-row']//div[@data-row-colmn-name='Lag2']//div
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: DataList
+      locatorProperty: xpath
+      value: //div[@class='options']//span
+    - elementName: l2topologynode1
+      locatorProperty: xpath
+      value: (//div[@class = "nodeUlWrapper"]//li)[2]//div
+    - elementName: ErrorMessage
+      locatorProperty: xpath
+      value: //p[@class='snackbar-desc font-12']
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+
+
+OLTPage:
+  elements:
+    - elementName: L2Topology
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'L2 Topology']
+    - elementName: OLT
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'OLT']
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[contains(@class, 'layout-item') and text() = 'L2 Topology - OLT']
+    - elementName: AddOLT
+      locatorProperty: xpath
+      value: //button[contains(text(),"Add OLT")]
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid...')]
+    - elementName: OLTNameFirstValue
+      locatorProperty: xpath
+      value: //div[2]/div/div/div[1]/div
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: addNewNode
+      locatorProperty: xpath
+      value: //button[contains(text(),"+ Add new node")]
+    - elementName: newNode
+      locatorProperty: xpath
+      value: //input[@placeholder="New Node"]
+    - elementName: add
+      locatorProperty: xpath
+      value: //button[contains(text(),"Add")]
+    - elementName: emptyNodeErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text(),"Please enter node name")]
+    - elementName: minimumLengthNodeErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text(),"Node name should contain 12 letters")]
+    - elementName: firstOLTName
+      locatorProperty: xpath
+      value: //app-grid-screen/div/div[2]/app-grid/div/div/div[2]/div[1]/div/div[1]
+    - elementName: OLTSearchBar
+      locatorProperty: xpath
+      value: //input[@placeholder = "Type here to search in grid..." ]
+    - elementName: loader
+      locatorProperty: xpath
+      value: //app-dashboard/div/app-loader/div/div/div/div
+    - elementName: firstAddedNewNode
+      locatorProperty: xpath
+      value: //ul/li[2]/div[@class= "addedNewNode"]
+    - elementName: addNewLag
+      locatorProperty: xpath
+      value: //button[(contains(text(),"+ Add new Lag"))]
+    - elementName: newLagInputField
+      locatorProperty: xpath
+      value: //input[@placeholder= "New Lag" ]
+    - elementName: newLagAdd
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[2]/div[2]/div[2]/ul/li[1]/app-button/button
+    - elementName: emptyLagErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text()," Please enter lag name ")]
+    - elementName: lagLowerCaseErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text()," Lag should be lowercase. ")]
+    - elementName: duplicateLagErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text()," The Lag with the name already exist please choose another valid name to add. ")]
+    - elementName: firstDeleteNode
+      locatorProperty: xpath
+      value: //app-new-olt-pair/div[2]/div[1]/div/ul/li[2]/div/app-icon/span
+    - elementName: deleteNodeErrorMessage
+      locatorProperty: xpath
+      value: //app-root/app-snack-bar/div/div[2]/div/p
+    - elementName: addNewNode
+      locatorProperty: xpath
+      value: //button[(contains(text(),"+ Add new node"))]
+    - elementName: emptyNodeErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text()," Please enter node name ")]
+    - elementName: addOLT
+      locatorProperty: xpath
+      value: //button[contains(text(),"Add OLT")]
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+    - elementName: firstOLT
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name="OLT Name"]
+    - elementName: oltHeading
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[1]/h4
+    - elementName: nodes
+      locatorProperty: xpath
+      value: //app-new-olt-pair/div[2]/div[1]/div/ul/li/div
+    - elementName: terminationPoints
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[2]/div[2]/div[2]/ul/li/div
+    - elementName: Next
+      locatorProperty: xpath
+      value: //button[text()="Next"]
+    - elementName: allLinks
+      locatorProperty: xpath
+      value: //app-grid/div/div/div[2]/div/div/div[1]
+    - elementName: deleteIcon
+      locatorProperty: xpath
+      value: //span[contains(text(),"delete")]
+    - elementName: deleteLagIcon
+      locatorProperty: xpath
+      value: //div[@class="addedNewLag"]//app-icon/span
+    - elementName: addLink
+      locatorProperty: xpath
+      value: //button[contains(text(),"Add")]
+
+
+AddOLTPage:
+  elements:
+    - elementName: Onboarding
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'Onboarding']
+    - elementName: OnboardingBNG
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'Onboarding BNG']
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[contains(@class, 'layout-item') and text() = 'L2 Topology - OLT']
+    - elementName: AddNewNode
+      locatorProperty: xpath
+      value: //button[text()='+ Add new node']
+    - elementName: NewNodePlaceHolder
+      locatorProperty: xpath
+      value: //input[@placeholder='New Node']
+    - elementName: AddButton
+      locatorProperty: xpath
+      value: //button[text()='Add']
+    - elementName: Node1Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][1]
+    - elementName: Node2Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][2]
+    - elementName: Node3Box
+      locatorProperty: xpath
+      value: //ul[@class="ul-wrapper"]//li[contains(@style,'margin')][3]
+    - elementName: Lag1Box
+      locatorProperty: xpath
+      value: //li[contains(@class,'lagList')][1]
+    - elementName: Lag2Box
+      locatorProperty: xpath
+      value: //li[contains(@class,'lagList')][2]
+    - elementName: Next
+      locatorProperty: xpath
+      value: //button[text()="Next"]
+    - elementName: AddNewLag
+      locatorProperty: xpath
+      value: //button[contains(@class, 'button-class primary') and text() = '+ Add new Lag']
+    - elementName: NewLagPlaceHolder
+      locatorProperty: xpath
+      value: //input[@placeholder='New Lag']
+    - elementName: Node1Value
+      locatorProperty: xpath
+      value: //div[@class='row-0 table-row']//input[@placeholder='Select']
+#      value: //div[@class='select-wrapper']//app-icon[@class='arrowIcon']
+    - elementName: selectLinkValueDropdown
+      locatorProperty: xpath
+      value: //div[@class="row-0 table-row"]//div[contains(@class,'custom-table-row-cell')]
+    - elementName: Lag1Value
+      locatorProperty: xpath
+      value: //app-topology-olt-list-details/app-grid/div/div/div[2]/div[1]/div/div[2]//app-select/div/div/input
+    - elementName: Node2Value
+      locatorProperty: xpath
+      value: //app-topology-olt-list-details/app-grid/div/div/div[2]/div[1]/div/div[3]//app-select/div/div/input
+    - elementName: Lag2Value
+      locator Property: xpath
+      value: //app-topology-olt-list-details/app-grid/div/div/div[2]/div[1]/div/div[4]//app-select/div/div/input
+    - elementName: DataList
+      locatorProperty: xpath
+      value: //div[@class='options']//span
+    - elementName: NextButton
+      locatorProperty: xpath
+      value: //button[text()="Next"]
+    - elementName: NodeList
+      locatorProperty: xpath
+      value: //div[contains(@class,"addedNewNode")]
+    - elementName: LagList
+      locatorProperty: xpath
+      value: //div[@class="termination-main-item"]//li[@class="lagList"]
+    - elementName: DeleteLagButton
+      locatorProperty: xpath
+      value: //div[@class='addedNewLag']//app-icon[@icon='delete']
+    - elementName: DeleteNodeButton
+      locatorProperty: xpath
+      value: //div[@class='addedNewNode active']//app-icon[@icon='delete']
+    - elementName: LinkRows
+      locatorProperty: xpath
+      value: //div[@class="custom-table-rows"]
+    - elementName: DeleteLinkButton
+      locatorProperty: xpath
+      value: //app-topology-olt-list-details/app-grid/div/div/div[2]/div[2]/div/div[6]/div/app-icon/span
+    - elementProperty: ArrowBackButton
+      locatorProperty: xpath
+      value: //span[contains(@class,"material-icons-outlined mat-lg") and text()="arrow_back_ios_new"]
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid...')]
+    - elementName: OLT1Value
+      locatorProperty: xpath
+      value: //div[@class='table-row row-0']//div[@data-row-colmn-name='OLT Name'][1]//div[@class='flex-1']
+    - elementName: OLTLinksRows
+      locatorProperty: xpath
+      value: //div[@class="custom-table-rows"]
+    - elementName: linkDeleteSuccessMessage
+      locatorProperty: xpath
+      value: //div[@class='snackbar-body pl-2']//p[@class='snackbar-desc font-12']
+    - elementName: OLT
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'OLT']
+    - elementName: NoDataMessage
+      loatorProperty: xpath
+      value: //div[@class='no-data-block']//div[text()='No Data']
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: l2topologynode1
+      locatorProperty: xpath
+      value: (//div[@class = "nodeUlWrapper"]//li)[2]//div
+    - elementName: ErrorMessage
+      locatorProperty: xpath
+      value: //p[@class='snackbar-desc font-12']
+    - elementName: newNodeField
+      locatorProperty: xpath
+      value: //input[@placeholder="New Node"]
+    - elementName: addNode
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[2]/div[1]/div/ul/li[1]/app-button/button
+    - elementName: firstNodeName
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[2]/div[1]/div/ul/li[2]/div
+    - elementName: secondNodeName
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[2]/div[1]/div/ul/li[3]/div
+    - elementName: thirdNodeName
+      locatorProperty: xpath
+      value: //app-new-olt-pair/div[2]/div[1]/div/ul/li[4]/div
+    - elementName: addLag
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-new-olt-pair/div[2]/div[2]/div[2]/ul/li/app-button/button
+    - elementName: next
+      locatorProperty: xpath
+      value: //button[text()="Next"]
+    - elementName: dropdownNodeLag
+      locatorProperty: xpath
+      value: //input[@placeholder="Select"]
+    - elementName: node1
+      locatorProperty: xpath
+      value: //div[2]/div/div/div[1]/div/app-select/div/div/input
+    - elementName: lag1
+      locatorProperty: xpath
+      value: //app-grid/div/div/div[2]/div/div/div[2]/div/app-select/div/div/input
+    - elementName: node2
+      locatorProperty: xpath
+      value: //div[2]/div/div/div[3]/div/app-select/div/div/input
+    - elementName: lag2
+      locatorProperty: xpath
+      value: //div[2]/div/div/div[4]/div/app-select/div/div/input
+    - elementName: add
+      locatorProperty: xpath
+      value: //button[contains(text(),"Add")]
+    - elementName: dropdownList
+      locatorProperty: xpath
+      value: //app-select/div/div[3]/ul/li
+    - elementName: loader
+      locatorProperty: xpath
+      value: //app-dashboard/div/app-loader/div/div/div/div
+    - elementName: errorMessageDuplicateLink
+      locatorProperty: xpath
+      value: //p[contains(text()," Duplicate Links. ")]
+    - elementName: backOltArrow
+      locatorProperty: xpath
+      value: //span[contains(text(),"arrow_back_ios_new")]
+    - elementName: deleteLagIcon
+      locatorProperty: xpath
+      value: //span[contains(text(),"delete")]
+    - elementName: deleteNodeErrorMessage
+      locatorProperty: xpath
+      value: //app-root/app-snack-bar/div/div[2]/div/p
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+
+OnboardingBNGPage:
+  elements:
+    - elementName: L2Topology
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'L2 Topology']
+    - elementName: OLT
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'OLT']
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[contains(@class, 'layout-item') and text() = 'Onboarding - BNG']
+    - elementName: OnboardANewBNGPair
+      locatorProperty: xpath
+      value: //button[contains(text(),'Onboard a new BNG Pair')]
+    - elementName: BNG1DropDown
+      locatorProperty: xpath
+      value: //input[@placeholder="Select BNG1 Address"]
+    - elementName: BNG2DropDown
+      locatorProperty: xpath
+      value: //input[@placeholder="Select BNG2 Address"]
+    - elementName: BNGInputBoxToAddBNG
+      locatorProperty: xpath
+      value: //div[@class="az-input"]//input[@class="ng-untouched ng-pristine ng-valid"]
+    - elementName: AddBNGCTA
+      locatorProperty: xpath
+      value: //div[contains(@id,'dropdown')]//button[contains(text(),"Add")]
+    - elementName: BNGList
+      locatorProperty: xpath
+      value: //ul[@class="dropdown-options"]//li
+    - elementName: discardCTA
+      locatorProperty: xpath
+      value: //button[contains(text(),"Discard")]
+    - elementName: validatedText
+      locatorProperty: xpath
+      value: //div[text()="Validated!"]
+    - elementName: AvailabilityZone
+      locatorProperty: xpath
+      value: //div[@class='input-wrapper']//app-icon[@class='arrowIcon']
+    - elementName: ElementList
+      locatorProperty: xpath
+      value: //div[@class='options']//span
+    - elementName: BNGGroupID
+      locatorProperty: xpath
+      value: //app-input[@label='BNG Group ID']//input
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid...')]
+    - elementName: OnboardingOLT1
+      locatorProperty: xpath
+      value: //app-grid//div[2]/div[1]/div/div[1]/div
+    - elementName: Onboard
+      locatorProperty: xpath
+      value: //app-grid/div/div/div[2]/div/div/div[6]/div/app-button/button
+    - elementName: Next
+      locatorProperty: xpath
+      value: //*[@class="nextbutton"]//button
+    - elementName: IPV4AddressPoolServers
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='IPV4 Address Pool Servers']//input[@class='ng-untouched ng-pristine ng-invalid']
+#      value: //app-section-main-wrapper[@title='IPV4 Address Pool Servers']//input[@class='ng-pristine ng-invalid ng-touched'] [@class='ng-pristine ng-invalid ng-touched']
+    - elementName: IPV6AddressPoolServers
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='IPV6 Address Pool Servers']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: Hostname
+      locatorProperty: xpath
+      value: //app-input[@placeholder='Hostname']
+    - elementName: IPV6AddressPoolServers
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='IPV6 Address Pool Servers']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: MultiChassisSync
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='Multi-chassis Sync']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: RoutingPolicies
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='Routing Policies']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: CommunityDefinitions
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='Community Definitions']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: BNGAddress
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='BNG Addresses']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: AddPrefixButton
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='Routing Policies']//button
+    - elementName: LoopBackAddressBNG1
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='BNG Addresses']//div//div[@class='header']
+    - elementName: LoopBackAddressBNG2
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title='BNG Addresses']//app-input[@placeholder='10.0.0.2']
+    - elementName: CommunityDefinitionsText
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='Community Definitions']//h4[text()= 'Community Definitions']
+    - elementName: CommunityDefinitionAddMemberButton1
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[5]/div/div[2]/app-section-sub-wrapper[1]/div[1]/app-button/button
+    - elementName: CommunityDefinitionAddMemberButton2
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[5]/div/div[2]/app-section-sub-wrapper[2]/div[1]/app-button/button
+    - elementName: PrefixEntry1
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[4]/div/div[2]/app-section-sub-wrapper/div[2]/ul/li[1]/div/app-input/input
+    - elementName: PrefixEntry2
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[4]/div/div[2]/app-section-sub-wrapper/div[2]/ul/li[2]/div/app-input/input
+    - elementName: COM2AddMember
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[5]/div/div[2]/app-section-sub-wrapper[4]/div[1]/app-button/button
+    - elementName: DryRun
+      locatorProperty: xpath
+      value: //app-button//button[text()='Dry Run']
+    - elementName: ValidateButton
+      locatorProperty: xpath
+      value: //app-button//button[text() ='Validate']
+    - elementName: Node2SecondaryMember
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[8]/div[2]/ul/li/div/app-input/input
+    - elementName: OnboardingStatus
+      locatorProperty: xpath
+      value: //app-grid//div[2]/div[1]/div/div[5]/div
+    - elementName: BNGConfig1
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-onboarding-bng-child-config-form/div/div[2]/div/div[1]/pre
+    - elementName: BNGConfig2
+      locatorProperty: xpath
+      value: //app-dashboard-outlet/div/app-onboarding-bng-child-config-form/div/div[2]/div/div[2]/pre
+    - elementName: Commit
+      locatorProperty: xpath
+      value: //button[text() ='Commit']
+    - elementName: RejectButton
+      locatorProperty: xpath
+      value: //button[text() ='Reject']
+    - elementName: DryRuNCompleted
+      locatorProperty: xpath
+      value: //app-onboarding-bng/div/app-grid-screen/div/div[2]/app-grid/div/div/div[2]/div/div/div[5]/div/app-button/button
+    - elementName: LastaddMemberButton
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[5]/div/div[2]/app-section-sub-wrapper[8]/div[1]/app-button/button
+    - elementName: CommunityDefinitionHeadings
+      locatorProperty: xpath
+      value: //div[@class='mainSectionWrpper']//h4[text()='Community Definitions']
+#      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]
+    - elementName: CommunityDefinitionHeadings1
+      locatorProperty: xpath
+      value: .//strong[text()='Consumer - EDTNABTFNG04']/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+#     value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG04']
+    - elementName: CommunityDefinitionHeadings1sub
+      locatorProperty: xpath
+      value: (//strong[text()='Consumer - EDTNABTFNG04']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)[2]
+    - elementName: CommunityDefinitionHeadings2
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG03']
+    - elementName: CommunityDefinitionHeadings3
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG03']
+    - elementName: CommunityDefinitionNG04Primary
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='COM-EDTNABTFNG04 Primary']
+    - elementName: CommunityDefinitionNG04Secondary
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='COM-EDTNABTFNG04 Secondary']
+    - elementName: CommunityDefinitionNG03Primary
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='COM-EDTNABTFNG03 Primary']
+    - elementName: CommunityDefinitionNG03Secondary
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='COM-EDTNABTFNG03 Secondary']
+    - elementName: CommunityDefinitionSubHeadings
+      locatorProperty: xpath
+#      value: ./parent::div/following-sibling::div//input
+      value: /parent::h6/parent::div/parent::app-section-sub-wrapper//input)
+    - elementName: BNGLoopBackAddressNG04
+      locatorProperty: xpath
+      value: //label[contains(text(),'Loopback address EDTNABTFNG04')]/parent::app-input/input
+    - elementName: BNGLoopBackAddressNG03
+      locatorProperty: xpath
+      value: //label[contains(text(),'Loopback address EDTNABTFNG03')]/parent::app-input/input
+    - elementName: BNGCOMs
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//strong[text()='COM-'])/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+    - elementName: BNGCOM1
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//strong[text()='COM-'])[1]/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+    - elementName: BNGCOM2
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//strong[text()='COM-'])[2]/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: NG04Member1
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG04']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)[1]
+    - elementName: NG04Member2
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG04']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)[2]
+    - elementName: NG03Member1
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG03']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)[1]
+    - elementName: NG03Member2
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='Consumer - EDTNABTFNG03']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)[2]
+    - elementName: NG03Primary
+      locatorProperty: xpath
+#      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='COM-EDTNABTFNG04 Primary']/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='NAT444-EDTNABTFNG03 Primary']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)
+    - elementName: NG03Secondary
+      locatorProperty: xpath
+#      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='COM-EDTNABTFNG03 Secondary']/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='NAT444-EDTNABTFNG03  Secondary' or text()='COM-EDTNABTFNG03 Secondary']/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+    - elementName: NG04Primary
+      locatorProperty: xpath
+      value: (//app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='NAT444-EDTNABTFNG04 Primary']/parent::h6/parent::div/parent::app-section-sub-wrapper//input)
+    - elementName: NG04Secondary
+      locatorProperty: xpath
+      value: //app-section-sub-wrapper[@buttonlabel="Add Member"]//div[@class="header"]//strong[text()='NAT444-EDTNABTFNG04 Secondary' or text()='COM-EDTNABTFNG04 Secondary']/parent::h6/parent::div/parent::app-section-sub-wrapper//input
+    - elementName: OnboardingBNG
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'Onboarding BNG']
+    - elementName: CommitConfirmation
+      locatorProperty: xpath
+      value: //div[@class='modal-wrapper']//button[@class='button-class primary']
+    - elementName: UserProfileArrowDown
+      locatorProperty: xpath
+      value: //div[@class='profile-section']//span[text() =' keyboard_arrow_down ']
+    - elementName: DNSServersIPV4Labels
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="DNS Servers"]//*[contains(@title,'IPV4')]//label
+    - elementName: DNSServersIPV6Labels
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="DNS Servers"]//*[contains(@title,'IPV6')]//label
+    - elementName: IPV4localDhcpServerODD
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="IPV4 Information"]//*[contains(@title,'ODD')]//label
+    - elementName: IPV4localDhcpServerEven
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="IPV4 Information"]//*[contains(@title,'EVEN')]//label
+    - elementName: IPV4localDhcpServerDV
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="IPV4 Information"]//*[contains(@title,'DV')]//label
+    - elementName: IPV6V6ODD
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="IPV6 Information"]//*[contains(@title,'V6-ODD')]//label
+    - elementName: IPV6V6Even
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="IPV6 Information"]//*[contains(@title,'V6-EVEN')]//label
+    - elementName: PrefixEntryInp
+      locatorProperty: xpath
+      value: //app-input[@label='Prefix Entry']//input
+    - elementName: BNGAddressesInps
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="BNG Addresses"]//label
+    - elementName: HSIAIESAddress
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="HSIA IES"]//app-input[@label="Address"]//input
+    - elementName: HSIAIESODDSubscriberInterface
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="HSIA IES"]//*[contains(@title,'ODD')]//label
+    - elementName: HSIAIESEvenSubscriberInterface
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="HSIA IES"]//*[contains(@title,'EVEN')]//label
+    - elementName: VOICEIESAddressInps
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title="VOICE IES"]//input
+    - elementName: CommitCTA
+      locatorProperty: xpath
+      value: //button[text()='Commit']
+    - elementName: SuccessBNGGROUPCONFIGONBNGDEVICESMessage
+      locatorProperty: xpath
+      value: //div[@class="title"]//h4
+    - elementName: RejectCTA
+      locatorProperty: xpath
+      value: //button[text()="Reject"]
+    - elementName: DownloadConfigCTA
+      locatorProperty: xpath
+      value: //button[text()="Download Config"]
+    - elementName: YesRejectCTAOnRejectOverlay
+      locatorProperty: xpath
+      value: //button[text()=" Yes, Reject "]
+    - elementName: CancelCTAOnOverlay
+      locatorProperty: xpath
+      value: //button[text()=" Cancel "]
+    - elementName: CommitCTAOnOverlay
+      locatorProperty: xpath
+      value: //button[text()=" Commit "]
+    - elementName: CommitOverlaySuccessMessageText
+      locatorProperty: xpath
+      value: //div[@class="success-modal-wrapper"]//p
+    - elementName: CommitOverlayCloseCTA
+      locatorProperty: xpath
+      value: //button[text()=" Close "]
+    - elementName: BNGStatus
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@data-row-colmn-name='Status']
+    - elementName: BNGNameFirstRow
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name="BNG1"]//div
+    - elementName: BNGRowOnboardCTA
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@data-row-colmn-name='Action']//button
+    - elementName: reloadIpputFieldsToggle
+      locatorProperty: xpath
+      value: //span[text()='toggle_off']
+    - elementName: dashBoardLink
+      locatorProperty: xpath
+      value: //div[text()='Dashboard']
+    - elementName: CONSUMERSTATICPrefixEntryInp1
+      locatorProperty: xpath
+      value: (//app-section-main-wrapper[@title="Routing Policies"]//*[contains(@title,'CONSUMER-STATIC')]//input)[1]
+    - elementName: CONSUMERSTATICPrefixEntryInp2
+      locatorProperty: xpath
+      value: (//app-section-main-wrapper[@title="Routing Policies"]//*[contains(@title,'CONSUMER-STATIC')]//input)[2]
+    - elementName: CONSUMERBVOICEPrefixEntryInp1
+      locatorProperty: xpath
+      value: (//app-section-main-wrapper[@title="Routing Policies"]//*[contains(@title,'CONSUMER-BVOICE')]//input)[1]
+    - elementName: CONSUMERBVOICEPrefixEntryInp2
+      locatorProperty: xpath
+      value: (//app-section-main-wrapper[@title="Routing Policies"]//*[contains(@title,'CONSUMER-BVOICE')]//input)[2]
+    - elementName: CONSUMERSTBPrefixEntryInp1
+      locatorProperty: xpath
+      value: (//app-section-main-wrapper[@title="Routing Policies"]//*[contains(@title,'CONSUMER-STB')]//input)[1]
+    - elementName: CONSUMERSTBPrefixEntryInp2
+      locatorProperty: xpath
+      value: (//app-section-main-wrapper[@title="Routing Policies"]//*[contains(@title,'CONSUMER-STB')]//input)[2]
+    - elementName: onboardNewBNGPair
+      locatorProperty: xpath
+      value: //button[contains(text(),"Onboard a new BNG Pair")]
+    - elementName: firstBNG
+      locatorProperty: xpath
+      value: //input[@placeholder="Select BNG1 Address"]
+    - elementName: secondBNG
+      locatorProperty: xpath
+      value: //input[@placeholder="Select BNG2 Address"]
+    - elementName: firstBNGName
+      locatorProperty: xpath
+      value: //*[@id="bng1-dropdown"]/div/input
+    - elementName: secondBNGName
+      locatorProperty: xpath
+      value: //*[@id="bng2-dropdown"]/div/input
+    - elementName: firstBNGAdd
+      locatorProperty: xpath
+      value: //*[@id="bng1-dropdown"]/div/app-button/button
+    - elementName: minimumLengthErrorMessage
+      locatorProperty: xpath
+      value: //p[contains(text(),"Node name should contain 12 letters")]
+    - elementName: ipv4DNS1ServerLabel1
+      locatorProperty: xpath
+      value: //app-input[@label= "IPV4 DNS-Server-1"]/label
+    - elementName: bng1ListVal
+      locatorProperty: xpath
+      value: //*[@id="bng1-dropdown"]/ul/li[1]
+    - elementName: bng2ListVal
+      locatorProperty: xpath
+      value: //*[@id="bng2-dropdown"]/ul/li[1]
+    - elementName: bng1AddButton
+      locatorProperty: xpath
+      value: //*[@id="bng1-dropdown"]/div/app-button/button
+    - elementName: bng2AddButton
+      locatorProperty: xpath
+      value: //*[@id="bng2-dropdown"]/div/app-button/button
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+
+
+
+
+OnboardingOLTPage:
+  elements:
+    - elementName: L2Topology
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'L2 Topology']
+    - elementName: OLT
+      locatorProperty: xpath
+      value: //div[contains(@class, 'title') and text() = 'OLT']
+    - elementName: OLTRowOnboardCTA
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@data-row-colmn-name='Action']//button
+    - elementName: validatedText
+      locatorProperty: xpath
+      value: //div[text()="Validated!"]
+    - elementName: OLTMacAddressInp
+      locatorProperty: xpath
+      value: //app-input[@label="OLT mac-address"]//input
+    - elementName: SEX1InterfaceAddress
+      locatorProperty: xpath
+      value: //app-input[@label="SE-x1 Interface Address"]//input
+    - elementName: SEX2InterfaceAddress
+      locatorProperty: xpath
+      value: //app-input[@label="SE-x2 Interface Address"]//input
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[contains(@class, 'layout-item') and text() = 'Onboarding - OLT']
+    - elementName: OnboardingOLT1
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@data-row-colmn-name='OLT'][1]//div[@class='flex-1']
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid...')]
+    - elementName: Onboard
+      locatorProperty: xpath
+      value: //app-grid-screen/div/div[2]/app-grid/div/div/div[2]/div/div/div[5]/div/app-button/button
+    - elementName: ElementList
+      locatorProperty: xpath
+      value: //div[@class='options']//span
+    - elementName: AvailabilityZone
+      locatorProperty: xpath
+      value: //div[@class='pl-1 pr-1 font-12']//app-icon
+    - elementName: OLTGroupID
+      locatorProperty: xpath
+      value: //app-select[@label='OLT Group ID']//app-icon[@class='arrowIcon']
+    - elementName: DeviceNumber
+      locatorProperty: xpath
+      value: //app-input[@label='Device Number']//input
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: Commit
+      locatorProperty: xpath
+      value: //button[text() ='Commit']
+    - elementName: OLTLogicalName
+      locatorProperty: xpath
+      value: //app-select[@label='OLT Logical Name']//div//app-icon[@class='arrowIcon']
+    - elementName: Next
+      locatorProperty: xpath
+      value: //*[@class="nextbutton"]//button
+    - elementName: MacAddresses
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='Mac-Addresses']//input
+    - elementName: QSTagRange
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='Q/S-tag-range']//input[@class='ng-untouched ng-pristine ng-invalid']
+    - elementName: SeEvpns
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='SE EVPNs']//input
+    - elementName: SRRPHeartbeat1
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='VPLS/EVPNs for SRRP Heartbeat']//app-input[@label='Dynamic Service VPLS ID']//input
+    - elementName: SRRPHeartbeat2
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='VPLS/EVPNs for SRRP Heartbeat']//app-input[@label='Static Service VPLS ID']//input
+    - elementName: MulticastIES1
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='Multicast IES on SE-x']//app-input[@label='Primary Interface Address']//input
+    - elementName: MulticastIES2
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='Multicast IES on SE-x']//app-input[@label='Secondary Interface Address']//input
+    - elementName: HSIAIES
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='HSIA IES']//input
+    - elementName: VoiceIES1
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='VOICE IES']//app-input[@label= 'Address']//input
+    - elementName: VoiceIES2
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[@title ='VOICE IES']//app-input[@label= 'Spoke-sdp-Subset']//input
+    - elementName: QSTagStartingValue
+      locatorProperty: xpath
+      value: //app-section-main-wrapper[2]//app-input[@label=' Starting Value']//input
+    - elementName: QSTagEndingValue
+      locatorProperty: xpath
+      value: //app-input[@label= 'Ending Value']//input
+    - elementName: OLTGroupID
+      locatorProperty: xpath
+      value: //app-onboarding-olt-config-param-page/div/div[2]/div/ul[1]/div[2]/div/div[3]/div/input
+    - elementName: AddButton
+      locatorProperty: xpath
+      value: //button[text()='Add']
+#      value: //div//div[@class= 'options']//span
+    - elementName: NoOption
+      locatorProperty: xpath
+      value: //div[@class='options']//input[@type='text']
+    - elementName: DryRun
+      locatorProperty: xpath
+      value: //app-button//button[text()='Dry Run']
+    - elementName: OLTConfig1
+      locatorProperty: xpath
+      value: //div[@class='dry-response-preview']
+    - elementName: OLTConfig2
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[2]/pre
+    - elementName: OLTConfig3
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[3]/pre
+    - elementName: OLTConfig4
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[4]/pre
+    - elementName: OLTConfig5
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[5]/pre
+    - elementName: OLTConfig6
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[6]/pre
+    - elementName: OLTConfig7
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[7]/pre
+    - elementName: OLTConfig8
+      locatorProperty: xpath
+      value: //app-dashboard/div/div[2]/app-dashboard-outlet/div/app-olt-dry-run/div/div[2]/div/div[8]/pre
+    - elementName: OnboardingStatus
+      locatorProperty: xpath
+      value: //app-grid-screen/div/div[2]/app-grid/div/div/div[2]/div/div/div[4]/div/app-button/button
+    - elementName: VoiseIESText
+      locatorProperty: xpath
+      value: //div[@class='main-wrapper']//h4[text()='VOICE IES']
+    - elementName: MainLoader
+      locatorProperty: xpath
+      value: //div[@class='main-loader']
+    - elementName: Commit
+      locatorProperty: xpath
+      value: //button[text() ='Commit']
+    - elementName: CommitConfirmation
+      locatorProperty: xpath
+      value: //div[@class='modal-wrapper']//button[@class='button-class primary']
+    - elementName: OnboardingOLT
+      locatorProperty: xpath
+      value: //div[contains(@class,'title') and text() = 'Onboarding OLT']
+    - elementName: UserProfileArrowDown
+      locatorProperty: xpath
+      value: //div[@class='profile-section']//span[text() =' keyboard_arrow_down ']
+    - elementName: BNGGroupCLLIIDDropDown
+      locatorProperty: xpath
+      value: //input[@placeholder="Select BNG Group ID"]
+    - elementName: BNGGroupCLLIIDValues
+      locatorProperty: xpath
+      value: //div[@id="bng1-dropdown"]//li
+    - elementName: SuccessOLTDryRunSuccessMessage
+      locatorProperty: xpath
+      value: //div[@class="title"]//h4
+    - elementName: CommitCTA
+      locatorProperty: xpath
+      value: //button[text()='Commit']
+    - elementName: RejectCTA
+      locatorProperty: xpath
+      value: //button[text()='Reject']
+    - elementName: DownloadConfigCTA
+      locatorProperty: xpath
+      value: //button[text()="Download Config"]
+    - elementName: discardCTA
+      locatorProperty: xpath
+      value: //button[contains(text(),"Discard")]
+    - elementName: YesRejectCTAOnRejectOverlay
+      locatorProperty: xpath
+      value: //button[text()=" Yes, Reject "]
+    - elementName: CancelCTAOnOverlay
+      locatorProperty: xpath
+      value: //button[text()=" Cancel "]
+    - elementName: CommitOverlaySuccessMessageText
+      locatorProperty: xpath
+      value: //div[@class="success-modal-wrapper"]//p
+    - elementName: CommitOverlayCloseCTA
+      locatorProperty: xpath
+      value: //button[text()=" Close "]
+    - elementName: OLTStatus
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@data-row-colmn-name='Status']
+    - elementName: reloadIpputFieldsToggle
+      locatorProperty: xpath
+      value: //span[text()='toggle_off']
+    - elementName: OLTFirstRow
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name="OLT"]//div
+    - elementName: CommitCTAOnOverlay
+      locatorProperty: xpath
+      value: //button[text()=" Commit "]
+    - elementName: indexOutOfRangeError
+      locatorProperty: xpath
+      value: //p[contains(text(),' Internal server error ')]
+    - elementName: DryRunButton
+      locatorProperty: xpath
+      value: //app-onboarding-olt-parent-config-form/div/div[3]/div/div/app-button
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+OLT Mapped DetailsPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[@class="title"]//h3
+    - elementName: OLTsRecords
+      locatorProperty: xpath
+      value: //div[@class="custom-table-rows"]
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+
+
+
+Service DetailsPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //div[@class="title"]//h3
+    - elementName: BNGRecords
+      locatorProperty: xpath
+      value: //div[@class="custom-table-rows"]
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid')]
+    - elementName: SearchedBNGGroupId
+      locatorProperty: xpath
+      value: //div[@class='table-row row-0']//div[@data-row-colmn-name='BNG Group ID']//div
+    - elementName: OLTCount
+      locatorProperty: xpath
+      value: //div[@class='table-row row-0']//div[@data-row-colmn-name='OLT Count']//div
+    - elementName: OLTCountForBNG
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@data-row-colmn-name='OLT Count']//div
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+    - elementName: BNGBirthCertificateAction
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name="Action"]//span
+    - elementName: oltCount
+      locatorProperty: xpath
+      value: //div[@data-row-colmn-name="OLT Count"]
+
+
+
+UserManagementPage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //app-root/app-master-outlet/app-dashboard/div/div[2]/app-navbar/div/div[1]
+    - elementName: searchBox
+      locatorProperty: xpath
+      value: //input[@placeholder="Type here to search in grid..."]
+    - elementName: noData
+      locatorProperty: xpath
+      value: //div[contains(text(),"No Data")]
+    - elementName: firstNameResult
+      locatorProperty: xpath
+      value: //app-users/app-grid-screen/div/div[2]/app-grid/div/div/div[2]/div[1]/div/div[2]
+    - elementName: firstEmailResult
+      locatorProperty: xpath
+      value: //app-users/app-grid-screen/div/div[2]/app-grid/div/div/div[2]/div[1]/div/div[3]
+    - elementName: deleteUser
+      locatorProperty: xpath
+      value: //span[contains(text(),"delete")]
+    - elementName: addNewUser
+      locatorProperty: xpath
+      value: //button[contains(text(),"Add New User")]
+    - elementName: addNewUserTitle
+      locatorProperty: xpath
+      value: //*[@id="exampleModalLabel"]
+    - elementName: telusId
+      locatorProperty: xpath
+      value: //label[contains(text(),"Telus ID")]/following-sibling::input
+    - elementName: userName
+      locatorProperty: xpath
+      value: //label[contains(text(),"User Name")]/following-sibling::input
+    - elementName: emailID
+      locatorProperty: xpath
+      value: //label[contains(text(),"Email ID")]/following-sibling::input
+    - elementName: adminRole
+      locatorProperty: xpath
+      value: //app-user-form/div[2]/div[3]/app-roles/div/div[1]/input
+    - elementName: readRole
+      locatorProperty: xpath
+      value: //*[@id="cdk-overlay-0"]/mdb-modal-container/div/div/app-user-form/div[2]/div[2]/div/div[3]/input
+    - elementName: writeRole
+      locatorProperty: xpath
+      value: //app-user-form/div[2]/div[3]/app-roles/div/div[3]/input
+    - elementName: statusSlider
+      locatorProperty: xpath
+      value: //app-user-form/div[2]/div[4]/app-toggle/div/app-icon/span
+    - elementName: Add
+      locatorProperty: xpath
+      value: //*[@id="cdk-overlay-0"]/mdb-modal-container/div/div/app-user-form/div[3]/div/app-button[2]/button
+    - elementName: Add1
+      locatorProperty: xpath
+      value: //app-user-form/div[3]/div/app-button[2]/button
+    - elementName: deleteConfirmation
+      locatorProperty: xpath
+      value: //h5[contains(text(),"Delete User")]
+    - elementName: deleteConfirm
+      locatorProperty: xpath
+      value: //button[contains(text(),"Confirm")]
+#      value: //*[@id="cdk-overlay-0"]/mdb-modal-container/div/div/app-delete/div[3]/app-button[2]/button
+    - elementName: deleteSuccessMessage
+      locatorProperty: xpath
+      value: //p[contains(text()," Successfully deleted ")]
+    - elementName: loader
+      locatorProperty: xpath
+      value: //app-dashboard/div/app-loader/div/div/div/div
+    - elementName: readRoleMain
+      locatorProperty: xpath
+      value: //*[@id="read"]
+    - elementName: adminRoleMain
+      locatorProperty: xpath
+      value: //*[@id="admin"]
+    - elementName: writeRoleMain
+      locatorProperty: xpath
+      value: //*[@id="write"]
+    - elementName: activeAccountState
+      locatorProperty: xpath
+      value: //span[contains(text(),"toggle_on")]
+    - elementName: inactiveAccountState
+      locatorProperty: xpath
+      value: //span[contains(text(),"toggle_off")]
+    - elementName: newUserErrorMessage
+      locatorProperty: xpath
+      value: //*[@id="cdk-overlay-0"]/mdb-modal-container/div/div/app-user-form/app-snack-bar/div/div[2]/div/p
+    - elementName: userIDValidation
+      locatorProperty: xpath
+      value: //div[contains(text(),"User Id is required")]
+    - elementName: userNameValidation
+      locatorProperty: xpath
+      value: //div[contains(text(),"User Name is required")]
+    - elementName: emailIDValidation
+      locatorProperty: xpath
+      value: //div[contains(text(),"Email Id is required")]
+    - elementName: searchBar
+      locatorProperty: xpath
+      value: //input[@type="search"]
+    - elementName: cancel
+      locatorProperty: xpath
+      value: //button[contains(text(),"Cancel")]
+    - elementName: cancel
+      locatorProperty: xpath
+      value: //button[contains(text(),"Cancel")]
+    - elementName: profileDropdown
+      locatorProperty: xpath
+      value: //span[contains(text()," keyboard_arrow_down ")]
+    - elementName: signOut
+      locatorProperty: xpath
+      value: //button[contains(text(),"Sign out")]
+    - elementName: firstUserRead
+      locatorProperty: xpath
+      value: //*[@id="read"]
+    - elementName: firstUserWrite
+      locatorProperty: xpath
+      value: //*[@id="write"]
+
+BNG birth certificatePage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //app-dashboard-bng-birth-certificate//h4
+    - elementName: BngRowRecords
+      locatorProperty: xpath
+      value: //div[@class="custom-table-rows"]
+    - elementName: regenerateBirthCertificate
+      locatorProperty: xpath
+      value: //span[text()="autorenew"]
+    - elementName: regenerateBirthCertificateHeadline
+      locatorProperty: xpath
+      value: //h4[@class="snackbar-title"]
+    - elementName: regenerateBirthCertificateDesc
+      locatorProperty: xpath
+      value: //p[@class="snackbar-desc font-12"]
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid')]
+    - elementName: EDTNABTFNG03Tab
+      locatorProperty: xpath
+      value: //div[text()='EDTNABTFNG03']
+    - elementName: EDTNABTFNG04Tab
+      locatorProperty: xpath
+      value: //div[text()='EDTNABTFNG04']
+    - elementName: ErrorsTab
+      locatorProperty: xpath
+      value: //div[text()='Errors']
+    - elementName: rowTexts
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@class='flex-1']
+    - elementName: containerRows
+      locatorProperty: xpath
+      value: //div[contains(@class, 'card-container')]//div[@data-row-colmn-name="Validation"]//div
+    - elementName: containerTabs
+      locatorProperty: xpath
+      value: //div[@class="button-container"]//div
+    - elementName: containertexts
+      locatorProperty: xpath
+      value: //div[@class="card-container"]//pre
+
+
+OLT Birth certificatePage:
+  elements:
+    - elementName: PageTitle
+      locatorProperty: xpath
+      value: //app-dashboard-olt-birth-certificate//h4
+    - elementName: BngRowRecords
+      locatorProperty: xpath
+      value: //div[@class="custom-table-rows"]
+    - elementName: regenerateBirthCertificate
+      locatorProperty: xpath
+      value: //span[text()="autorenew"]
+    - elementName: regenerateBirthCertificateHeadline
+      locatorProperty: xpath
+      value: //h4[@class="snackbar-title"]
+    - elementName: regenerateBirthCertificateDesc
+      locatorProperty: xpath
+      value: //p[@class="snackbar-desc font-12"]
+    - elementName: SearchBoxGeneric
+      locatorProperty: xpath
+      value: //input[contains(@placeholder,'Type here to search in grid')]
+    - elementName: EDTNABTFNG03Tab
+      locatorProperty: xpath
+      value: //div[text()='EDTNABTFNG03']
+    - elementName: EDTNABTFNG04Tab
+      locatorProperty: xpath
+      value: //div[text()='EDTNABTFNG04']
+    - elementName: ErrorsTab
+      locatorProperty: xpath
+      value: //div[text()='Errors']
+    - elementName: rowTexts
+      locatorProperty: xpath
+      value: //div[@class='custom-table-rows']//div[@class='flex-1']
+    - elementName: containerRows
+      locatorProperty: xpath
+      value: //div[contains(@class, 'card-container')]//div[@data-row-colmn-name="Validation"]//div
+    - elementName: containerTabs
+      locatorProperty: xpath
+      value: //div[@class="button-container"]//div
+    - elementName: containertexts
+      locatorProperty: xpath
+      value: //div[@class="card-container"]//pre
+
+
+

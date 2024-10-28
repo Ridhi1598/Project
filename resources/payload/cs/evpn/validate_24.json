@@ -1,0 +1,30 @@
+{
+   "request-id":"TC27",
+   "type":"VALIDATE",
+   "path":"/evpn-service",
+   "query-parameters":[
+
+   ],
+   "callback-url":"cs-orchestrator/mock-extension",
+   "payload":{
+      "interfaces":[
+         {
+            "interface-name":"lag-109",
+            "node":"EDTNABTFSE51"
+         },
+         {
+            "interface-name":"lag-109",
+            "node":"EDTNABTFSE52"
+         }
+      ],
+      "vpls-ids":[
+         {
+            "vpls-id":4000002,
+            "node":[
+               "EDTNABTFSE51",
+               "EDTNABTFSE52"
+            ]
+         }
+      ]
+   }
+}

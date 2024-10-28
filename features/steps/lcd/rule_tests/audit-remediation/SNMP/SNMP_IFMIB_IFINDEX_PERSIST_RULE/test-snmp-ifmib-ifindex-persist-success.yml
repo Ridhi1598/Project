@@ -1,0 +1,34 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: SNMP IFMIB IFINDEX PERSIST Rule success
+  test_suite: 
+  device_models:
+    - "3600"
+    - asr
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - snmp ifmib ifindex persist 
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+        
+param_tree: !RuleTestCaseParamTree
+  items:
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SNMP_IFMIB_IFINDEX_PERSIST_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 

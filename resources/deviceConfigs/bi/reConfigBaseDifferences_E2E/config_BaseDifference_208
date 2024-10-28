@@ -1,0 +1,13 @@
+-# Generated WED FEB 02 08:18:53 2022 UTC
++# Generated WED FEB 02 08:28:16 2022 UTC
+-        description "1234744.CLGRAB21-TST0044.400K"
++        description "1234744.CLGRAB21-TST0044.4000K"
+-            speed 10
+-                description "1234744.CLGRAB21-TST0044.HS.400K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0044-ALIAS"
++                description "1234744.CLGRAB21-TST0044.HS.4000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0044-ALIAS"
+-                                rate 400 cir 400
++                                rate 4000 cir 4000
+-                                rate 400
++                                rate 4000
+-# Finished WED FEB 02 08:19:00 2022 UTC
++# Finished WED FEB 02 08:28:22 2022 UTC

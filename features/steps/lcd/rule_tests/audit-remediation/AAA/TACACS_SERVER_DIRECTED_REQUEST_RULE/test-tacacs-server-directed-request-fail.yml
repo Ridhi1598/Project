@@ -1,0 +1,52 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: tacacs-server directed-request fails
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: tacacs-server directed-request not configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns failed results
+  then: initiate remediation
+  then: Assert remediated device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - tacacs-server host 209.202.66.133
+        - tacacs-server host 198.161.154.43
+        - tacacs-server key test
+        - no tacacs-server directed-request
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: TACACS_SERVER_DIRECTED_REQUEST_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: tacacs-server directed-request
+        config:
+          - tacacs-server directed-request
+

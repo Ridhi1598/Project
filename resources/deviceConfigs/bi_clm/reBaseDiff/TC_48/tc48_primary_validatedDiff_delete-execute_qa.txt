@@ -1,0 +1,70 @@
+-# Generated FRI SEP 22 14:06:52 2023 UTC
++# Generated FRI SEP 22 14:17:32 2023 UTC
+-                prefix 11.74.0.0/26 exact
+-                prefix 110.74.0.0/26 exact
+-                prefix 10.74.0.0/26 exact
+-                prefix 100.74.0.0/26 exact
+-                prefix 192.168.40.0/31 exact
+-        static-route-entry 10.74.0.0/26
+-            next-hop 192.168.40.0
+-                no shutdown
+-            exit
+-        exit
+-        static-route-entry 11.74.0.0/26
+-            next-hop 192.168.40.0
+-                no shutdown
+-            exit
+-        exit
+-                no shutdown
+-            exit
+-        exit
+-        static-route-entry 100.74.0.0/26
+-            next-hop 192.168.40.0
+-                no shutdown
+-            exit
+-        exit
+-        static-route-entry 110.74.0.0/26
+-            next-hop 192.168.40.0
+-        customer 700074 name "TST04" create
+-            description "UAT Tester 4"
+-        exit
+-            exit
+-        exit
+-        ies 3087042 name "3087042" customer 700074 create
+-            interface "CLGRAB21-TST0042.3.1500" create
+-        ies 3087042 name "3087042" customer 700074 create
+-            interface "CLGRAB21-TST0042.3.1500" create
+-                description "1234742.CLGRAB21-TST0042.HS.2000000000K.BICI..V4..PRI..CLM.SEDU...CLGRAB21-TST0042ALIAS"
+-                address 192.168.40.1/31
+-                ip-mtu 1500
+-                cflowd-parameters
+-                    sampling unicast type interface
+-                exit
+-                sap lag-736:3.1500 create
+-                    ingress
+-                        scheduler-policy "BICI-SCHED"
+-                        scheduler-override
+-                            scheduler "BICI-ROOT" create
+-                                rate 15000 cir 15000
+-                            exit
+-                        exit
+-                        qos 53202
+-                        filter ip 500
+-                    exit
+-                    egress
+-                        scheduler-policy "BICI-SCHED"
+-                        scheduler-override
+-                            scheduler "BICI-ROOT" create
+-                                rate 15000
+-                            exit
+-                        exit
+-                        qos 53202
+-                    exit
+-                    collect-stats
+-                    accounting-policy 77
+-                exit
+-            exit
+-            no shutdown
+-        exit
+-# Finished FRI SEP 22 14:06:53 2023 UTC
++# Finished FRI SEP 22 14:17:35 2023 UTC

@@ -1,0 +1,77 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ntp server onboarding success, customer configured
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ntp servers configures on device and param_tree customer level and match
+  when: run onboarding operation on device
+  then: Onboarding success
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ntp server
+        - ntp server 209.202.66.195 maxpoll 4 prefer
+        - ntp server 209.202.66.10 maxpoll 4 
+
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key: 
+      path: ntp-server
+      subtree: ' [{"_clear": true}]'
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key: 
+      path: ""
+      subtree: '{"ntp-server-state": "overwrite"}'
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key: 
+      path: ntp-server
+      subtree: ' [{"_clear": true},
+      {"_key": ["peer"], "peer": "209.202.66.195", "prefer": true}, 
+      {"_key": ["peer"], "peer": "209.202.66.10"}] '
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: NTP_SERVER_ONBOARDING
+
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: ntp-server-state
+          subtree: extend
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: ntp-server-state-confirmation
+          subtree: confirmed
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: ntp-server
+          subtree: '[]'

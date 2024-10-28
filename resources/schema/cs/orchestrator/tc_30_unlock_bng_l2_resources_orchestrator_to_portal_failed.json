@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "request-id": {
+      "type": "string"
+    },
+    "callback-url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "exception": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "exception"
+      ]
+    }
+  },
+  "required": [
+    "request-id",
+    "callback-url",
+    "status",
+    "response"
+  ]
+}

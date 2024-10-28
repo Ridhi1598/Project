@@ -1,0 +1,10 @@
+-# Generated MON MAR 22 01:55:56 2021 UTC
++# Generated MON MAR 22 02:05:23 2021 UTC
+-                description "1234741.CLGRAB21-TST0041.PON.6000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.PON.6144K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
+-                                rate 1000 cir 1000
++                                rate 1024 cir 1024
+-                                rate 6000
++                                rate 6144
+-# Finished MON MAR 22 01:56:34 2021 UTC
++# Finished MON MAR 22 02:05:46 2021 UTC

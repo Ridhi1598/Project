@@ -1,0 +1,38 @@
+{
+   "request-id":"TC26",
+   "type":"VALIDATE",
+   "path":"/evpn-service",
+   "query-parameters":[
+
+   ],
+   "callback-url":"cs-orchestrator/mock-extension",
+   "payload":{
+      "interfaces":[
+         {
+            "interface-name":"lag-109",
+            "node":"EDTNABTFSE51"
+         },
+         {
+            "interface-name":"lag-109",
+            "node":"EDTNABTFSE52"
+         },
+         {
+            "interface-name":"pw-300",
+            "node":"EDTNABTFNG22"
+         },
+         {
+            "interface-name":"pw-300",
+            "node":"EDTNABTFNG04"
+         }
+      ],
+      "vpls-ids":[
+         {
+            "vpls-id":4000002,
+            "node":[
+               "EDTNABTFNG22",
+               "EDTNABTFNG04"
+            ]
+         }
+      ]
+   }
+}

@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "consumer_rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {
+
+    }
+  },
+  "routing_key": "cs_orchestrator_queue",
+  "delivery_mode": "2",
+  "payload": "{\r\n    \"request-id\": \"request-idValue\",\r\n    \"user-id\": \"txxxxxx\",\r\n    \"callback-url\": \"cs-portal/get-active-bngs\",\r\n    \"type\": \"READ\",\r\n    \"path\": \"/get-active-bngs\",\r\n    \"query-parameters\": [],\r\n    \"payload\": {}\r\n}\r\n",
+  "payload_encoding": "string",
+  "headers": {
+
+  },
+  "props": {
+
+  }
+}

@@ -1,0 +1,10 @@
+-+        epipe 4000088 name "EDTNABTFNG03" customer 23 create
+++        epipe 4000110 name "EDTNABTFNG03" customer 23 create
+-+        epipe 4000088 name "EDTNABTFNG03" customer 23 create
+++        epipe 4000110 name "EDTNABTFNG03" customer 23 create
+-+                    eth-tag 4000089
+++                    eth-tag 4000111
+-+                    eth-tag 4000088
+-+                evi 30055
+++                    eth-tag 4000110
+++                evi 30070

@@ -1,0 +1,256 @@
+-# Generated FRI MAR 22 11:59:16 2024 UTC
++# Generated FRI MAR 22 12:20:09 2024 UTC
++        oper-group "EDTNABTFOT39" create
++        exit
++    pw-port 300 create
++        description "EDTNABTFOT39_PW"
++        encap-type qinq
++    exit
++                    port pw-300 sync-tag "300" create
++                    exit
++        oper-group "EDTNABTFOT39"
++        exit
++        epipe 4000092 name "EDTNABTFOT39" customer 22 create
++            pw-port 300 fpe 1 create
++                oper-up-on-mhstandby
++                no shutdown
++            exit
++        exit
++                ethernet-segment "EDTNABTFOT39"  create
++                    esi 01:3c:8b:cd:7c:05:2e:00:03:00
++                    service-carving
++                        mode manual
++                        manual
++                            preference create
++                                value 100
++                            exit
++                        exit
++                    exit
++                    multi-homing single-active
++                    pw-port 300 pw-headend
++                    oper-group "EDTNABTFOT39"
++                    no shutdown
++                exit
++                group-interface "EDTNABTFOT39" create
++                exit
++                group-interface "EDTNABTFOT39-FIXED" create
++                exit
++                exit
++                group-interface "EDTNABTFOT39-DV" create
++                group-interface "EDTNABTFOT39" create
++                    icmp
++                        no mask-reply
++                        no redirects
++                        no unreachables
++                    exit
++                    ipv6
++                        router-advertisements
++                            retransmit-time 100
++                            no shutdown
++                        exit
++                        dhcp6
++                            relay
++                                link-address 2001:568:82f::
++                                server 2001:568:801:100::58
++                                no shutdown
++                            exit
++                        exit
++                    exit
++                    srrp-enabled-routing
++                    arp-populate
++                    dhcp
++                        proxy-server
++                            lease-time hrs 4
++                            no shutdown
++                        exit
++                        option
++                            action keep
++                            circuit-id
++                            no remote-id
++                            vendor-specific-option
++                                pool-name
++                            exit
++                        exit
++                        server 10.195.0.58
++                        trusted
++                        lease-populate 10
++                        match-circuit-id
++                        no shutdown
++                    exit
++                    ipoe-session
++                        force-auth cid-change
++                        ipoe-session-policy "CONSUMER_IPOE_POLICY"
++                        min-auth-interval min 5
++                        sap-session-limit 20
++                        no shutdown
++                    exit
++                    redundant-interface "CONSUMER-REINT"
++                    oper-up-while-empty
++                    diameter-application-policy "PCRF_Diameter_App_Policy"
++                    diameter-auth-policy "NASREQ_Diameter_App_Policy"
++                    remote-proxy-arp
++                    sap pw-300:4001.10 create
++                        monitor-oper-group "EDTNABTFOT39"
++                    exit
++                    srrp 10 create
++                        message-path pw-300:4001.10
++                        one-garp-per-sap
++                        no shutdown
++                    exit
++                exit
++                group-interface "EDTNABTFOT39-FIXED" create
++                    icmp
++                        no mask-reply
++                        no redirects
++                        no unreachables
++                    exit
++                    ipv6
++                        router-advertisements
++                            retransmit-time 100
++                            no shutdown
++                        exit
++                        dhcp6
++                            relay
++                                link-address 2001:568:82f::
++                                server 2001:568:801:100::58
++                                no shutdown
++                            exit
++                        exit
++                    exit
++                    srrp-enabled-routing
++                    arp-populate
++                    dhcp
++                        proxy-server
++                            emulated-server 10.160.63.33
++                            lease-time hrs 4
++                            no shutdown
++                        exit
++                        option
++                            action keep
++                            circuit-id
++                            no remote-id
++                            vendor-specific-option
++                                pool-name
++                            exit
++                        exit
++                        server 10.195.0.58
++                        trusted
++                        lease-populate 5
++                        gi-address 10.160.63.33 src-ip-addr
++                        match-circuit-id
++                        no shutdown
++                    exit
++                    ipoe-session
++                        force-auth cid-change
++                        ipoe-session-policy "CONSUMER_IPOE_POLICY"
++                        min-auth-interval min 5
++                        sap-session-limit 20
++                        no shutdown
++                    exit
++                    redundant-interface "CONSUMER-REINT"
++                    oper-up-while-empty
++                    diameter-application-policy "PCRF_Diameter_App_Policy"
++                    diameter-auth-policy "NASREQ_Diameter_App_Policy"
++                    remote-proxy-arp
++                    sap pw-300:4002.110 create
++                        monitor-oper-group "EDTNABTFOT39"
++                    exit
++                    srrp 110 create
++                        message-path pw-300:4002.110
++                        one-garp-per-sap
++                        no shutdown
++                    exit
++                exit
++            sap pw-300:*.* capture-sap create
++                trigger-packet dhcp dhcp6
++                diameter-auth-policy "NASREQ_Diameter_App_Policy"
++                ipoe-session
++                    ipoe-session-policy "CONSUMER_IPOE_POLICY"
++                    no shutdown
++                exit
++                msap-defaults
++                    group-interface "EDTNABTFOT39"
++                    policy "TELUS_MSAP"
++                    service 3005001
++                exit
++                host-lockout-policy "CONSUMER_HOST_LOCKOUT"
++                dist-cpu-protection "CSAP_DCPU"
++                no shutdown
++            exit
++                        one-garp-per-sap
++                        no shutdown
++                    exit
++                exit
++                group-interface "EDTNABTFOT39-DV" create
++                    icmp
++                        no mask-reply
++                        no redirects
++                        no unreachables
++                    exit
++                    srrp-enabled-routing
++                    dhcp
++                        proxy-server
++                            lease-time hrs 4
++                            no shutdown
++                        exit
++                        option
++                            action keep
++                            circuit-id
++                            no remote-id
++                            vendor-specific-option
++                                pool-name
++                            exit
++                        exit
++                        server 10.195.0.24
++                        trusted
++                        lease-populate 3000
++                        no shutdown
++                    exit
++                    redundant-interface "DV-REINT"
++                    oper-up-while-empty
++                    remote-proxy-arp
++                    sap pw-300:21.0 create
++                        ingress
++                            qos 5004
++                            filter ip 17000
++                        exit
++                        egress
++                            qos 5004
++                            filter ip 17001
++                        exit
++                    exit
++                    sap pw-300:4004.410 create
++                        monitor-oper-group "EDTNABTFOT39"
++                    exit
++                    srrp 410 create
++                        message-path pw-300:4004.410
++        epipe 4000092 name "EDTNABTFOT39" customer 22 create
++            description "EDTNABTFOT39_EPIPE_BACKHAUL"
++            service-mtu 9186
++            bgp-evpn
++                local-attachment-circuit EDTNABTFNG03-EDTNABTFNG04 create
++                    eth-tag 4000093
++                exit
++                remote-attachment-circuit EDTNABTFOT39 create
++                    eth-tag 4000092
++                exit
++                evi 30058
++                mpls bgp 1
++                    force-qinq-vc-forwarding s-tag-c-tag
++                    ecmp 2
++                    auto-bind-tunnel
++                        resolution-filter
++                            ldp
++                            sr-isis
++                        exit
++                        resolution filter
++                    exit
++                    no shutdown
++                exit
++            exit
++            no shutdown
++        exit
++        exit
++        oper-group "EDTNABTFOT39"
+-# Finished FRI MAR 22 11:59:18 2024 UTC
++# Finished FRI MAR 22 12:20:10 2024 UTC

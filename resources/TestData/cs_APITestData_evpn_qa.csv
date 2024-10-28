@@ -1,0 +1,27 @@
+TestCase,Test Case,TestType,ScenarioOutput,service_name,l2 publish to rmq
+1,Create dry run success,Create Dry Run,Passed,NG00_NG001,
+2,Create dry run fail at mediation,Create Dry Run,Failed,NG00_NG00440,
+3,Create dry run timeout at mediation,Create Dry Run,Timeout,NG00_NG003,
+4,Create commit success,Create commit,Passed,NG00_NG001,succes res
+5,Create commit fail at mediation,Create commit,Failed,NG00_NG007,
+6,Create commit timeout at mediation,Create commit,Timeout,NG00_NG008,
+7,Create commit fail at L2,Create commit,Failed,NG00_NG001,failed res
+8,Create commit timeout at L2,Create commit,Timeout,NG00_NG001,None
+9,Patch dry run success,Patch dry run,Passed,NG00_NG001,
+10,Patch dry run failure at mediation,Patch dry run,Failed,NG00_NG222,
+11,Patch dry run timeout at mediation,Patch dry run,Timeout,NG00_NG333,
+12,Patch commit success,Patch commit,Passed,NG00_NG001,succes res
+13,Patch commit fail at mediation,Patch commit,Failed,NG00_NG777,
+14,Patch commit timeout at mediation,Patch commit,Timeout,NG00_NG888,
+15,Patch commit fail at L2,Patch commit,Failed,NG00_NG001,failed res
+16,Patch commit timeout at L2,Patch commit,Timeout,NG00_NG001,None
+17,Delete evpn service success,Delete,Passed,NG00_NG001,None
+18,Delete evpn service Failure at ME,Delete,Failed,NG00_NG777,
+19,Delete evpn service timeout at ME,Delete,Timeout,NG00_NG888,
+20,Read all services,Get services,Passed,,
+21,Read a specific service,Get services,Passed,NG00_NG001,
+22,Read a specific service,Get services,Passed,NON_EXISTING_NG00_NG001,failed res
+23,Resource Validation PW LAG VPLS Failure,Resource Validtor,Failed,,
+24,Resource Validation LAG VPLS Failure,Resource Validtor,Failed,,
+25,Resource Validation PW VPLS Success,Resource Validtor,Success,,
+26,Resource Validation PW VPLS Failure,Resource Validtor,Failed,,

@@ -1,0 +1,12 @@
+{
+   "request-id":"commit-patch-multicast-evpn-ft",
+   "type":"COMMIT",
+   "path":"/request/request-id=patch-multicast-evpn-ft",
+   "query-parameters":[
+
+   ],
+   "callback-url":"cs-orchestrator/mock-extension",
+   "payload":{
+
+   }
+}

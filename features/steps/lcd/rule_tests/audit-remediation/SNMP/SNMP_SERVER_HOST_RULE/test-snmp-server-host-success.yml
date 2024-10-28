@@ -1,0 +1,51 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: SNMP Server Host rule success
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - snmp-server host 209.202.66.43 m1bv1ew  snmp
+        - snmp-server host 209.202.66.44 m1bv1ew  snmp
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: region
+      level_key:
+      path: snmp-server-host
+      subtree: "[{'_key': ['snmp_server_host_ip'],
+                  'snmp_server_host_ip': '209.202.66.43',
+                  'snmp_server_host_community_string': 'm1bv1ew'
+                },
+                {'_key': ['snmp_server_host_ip'],
+                  'snmp_server_host_ip': '209.202.66.44',
+                  'snmp_server_host_community_string': 'm1bv1ew'
+                },
+                {'_clear': true}
+                ]"
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SNMP_SERVER_HOST_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors:
+    messages:
+  remediation_result:

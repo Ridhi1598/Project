@@ -1,0 +1,50 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip domain list error no list on param_tree
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip domain list not configured on param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit return an error indicating domain list is not configured
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip domain list
+        - ip domain list .
+        - ip domain list core.tac.net
+        - ip domain list osc.net.tac.net
+
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+  - !RuleTestCaseParamTreeItem
+      # level: global | telus_wide | customer | customer_group 
+      #       | device | device_group | vpn | interface | vrf
+      level: region
+      level_key:
+      path:
+      subtree: "{'domain-list':null}"
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_DOMAIN_LIST_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+      assertion_type: 'EXACT'
+      value: 'MINIMUM_COUNT: min count of 3 for domain-list'
+    messages: 
+  remediation_result:

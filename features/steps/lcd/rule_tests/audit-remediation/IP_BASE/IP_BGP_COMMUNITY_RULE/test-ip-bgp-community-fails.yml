@@ -1,0 +1,48 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: ip bgp-community new-format audit fails and gets remediated
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: ip bgp-community new-format not configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit fails
+  then: Remediation is called
+  then: ip bgp-community new-format configured on device
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip bgp-community new-format
+
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_BGP_COMMUNITY_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+      status: remediated
+      errors:
+      messages:
+      remediation: 
+        - !RuleTestCaseDeviceConfigItem
+          section:
+          filter: ip bgp-community new-format
+          config:
+            - ip bgp-community new-format

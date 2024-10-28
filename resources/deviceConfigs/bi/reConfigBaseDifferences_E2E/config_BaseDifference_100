@@ -1,0 +1,42 @@
+-## Last commit: 2021-04-27 09:08:32 UTC by tinaa
++## Last commit: 2021-04-27 09:11:54 UTC by tinaa
++            }
++        }
++        unit 500 {
++            description CLGRAB21-TST0041.MGT;
++            encapsulation vlan-vpls;
++            no-traps;
++            vlan-id 500;
++            family vpls;
++        }
++        unit 2400 {
++            description 1234741.CLGRAB21-TST0041.PON.6M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            no-traps;
++            vlan-id 2400;
++            family inet {
++                filter {
++                    input-list [ 500-NEXT-TERM CPE-MGT BI_IN_6M ];
++                }
++                address 192.168.41.0/31;
++        route 10.74.1.0/26 next-hop 192.168.41.1;
++        route 100.74.1.0/26 next-hop 192.168.41.1;
+-    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32;
++    prefix-list STATIC-BGP-V4-E-LP350-EDTNABTFRE32 {
++        10.74.1.0/26;
++        100.74.1.0/26;
++    }
++        192.168.41.0/31;
++            }
++        }
++        ae32 {
++            unit 500 {
++                forwarding-class FC_LOW_LATENCY_DATA;
++                output-traffic-control-profile L2VPN_NID_MGMT;
++                rewrite-rules {
++                    ieee-802.1ad L2VPN_NID;
++                }
++            }
++            unit 2400 {
++                output-traffic-control-profile BI_6M;
++                }
++        interface ae32.500;

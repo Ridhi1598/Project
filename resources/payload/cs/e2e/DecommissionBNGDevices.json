@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "consumer_rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {
+
+    }
+  },
+  "routing_key": "cs_orchestrator_queue",
+  "delivery_mode": "2",
+  "payload": "{\"request-id\":\"request-idValue\",\"user-id\":\"txxxxxx\",\"callback-url\":\"cs-portal/delete-bng-config\",\"type\":\"DELETE\",\"path\":\"/tinaa-bng-services/bng-group=EDTNABTFNG03-EDTNABTFNG04\",\"query-parameters\":[],\"payload\":{}}",
+  "headers": {
+
+  },
+  "props": {
+
+  },
+  "payload_encoding": "string"
+}

@@ -1,0 +1,30 @@
+{
+   "request-id":"TC29",
+   "type":"VALIDATE",
+   "path":"/evpn-service",
+   "query-parameters":[
+
+   ],
+   "callback-url":"cs-orchestrator/mock-extension",
+   "payload":{
+      "interfaces":[
+         {
+            "interface-name":"pw-300",
+            "node":"EDTNABTFNG22"
+         },
+         {
+            "interface-name":"pw-300",
+            "node":"EDTNABTFNG04"
+         }
+      ],
+      "vpls-ids":[
+         {
+            "vpls-id":4000002,
+            "node":[
+               "EDTNABTFNG22",
+               "EDTNABTFNG04"
+            ]
+         }
+      ]
+   }
+}

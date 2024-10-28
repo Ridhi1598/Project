@@ -1,0 +1,5 @@
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC100_Add_New_User.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC103_Change_User_Role.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC104_Change_Account_State.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC101_Delete_User.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC105_Add_User_With_No_Values.feature

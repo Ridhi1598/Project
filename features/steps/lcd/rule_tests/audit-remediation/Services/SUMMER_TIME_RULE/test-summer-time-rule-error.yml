@@ -1,0 +1,46 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Summer Time rule error
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - clock summer-time MDT recurring
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: yes
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: region
+      level_key:
+      path: 
+      subtree: "{
+                  'summer-time': null
+                }"
+        
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SUMMER_TIME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+        assertion_type: 'EXACT'
+        value: 'MANDATORY_PARAMETER_MISSING: summer_time'
+    messages:
+  remediation_result:

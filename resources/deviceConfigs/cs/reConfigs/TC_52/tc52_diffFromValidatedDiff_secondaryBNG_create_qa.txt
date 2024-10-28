@@ -1,0 +1,10 @@
+-+        epipe 4000092 name "EDTNABTFOT39" customer 22 create
+++        epipe 4000116 name "EDTNABTFOT39" customer 22 create
+-+        epipe 4000092 name "EDTNABTFOT39" customer 22 create
+++        epipe 4000116 name "EDTNABTFOT39" customer 22 create
+-+                    eth-tag 4000093
+++                    eth-tag 4000117
+-+                    eth-tag 4000092
+-+                evi 30058
+++                    eth-tag 4000116
+++                evi 30075

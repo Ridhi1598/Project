@@ -1,0 +1,197 @@
+-## Last commit: 2021-04-27 08:33:21 UTC by tinaa
++## Last commit: 2021-04-27 08:36:30 UTC by tinaa
+-            description 1234741.CLGRAB21-TST0041.HS.300M.BICI..V6..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
++            description 1234741.CLGRAB21-TST0041.HS.300M.BICI..V4..PRI..JCE.REDI...CLGRAB21-TST0041-ALIAS;
+-            }
+-            family inet6 {
+-                filter {
+-                    input-list [ 500-IPV6-NEXT-TERM BI_IN_300M_V6 ];
+-                }
+-                address 2001:db4::/127;
+-                address ::ffff:c0a8:2900/127;
+-                description 1234741.CLGRAB21-TST0041...BICI..V6..PRI;
++                description 1234741.CLGRAB21-TST0041...BICI..V4..PRI;
+-                import [ CUSTOMER-IN-BI-V4-V6 CUSTIN-V4V6_CLGRAB21-TST0041_PRI ];
++                import [ CUSTOMER-IN-BI-V4-V6 CUSTIN-V4_CLGRAB21-TST0041_PRI ];
+-                export [ DEFAULT-ONLY-V4-V6 CUST-FULL-OUT-V4-V6 DEFAULTONLYV6_CLGRAB21-TST0041_P CUSTFULLOUTV6_CLGRAB21-TST0041_P ];
++                export [ DEFAULT-ONLY-V4-V6 CUST-FULL-OUT ];
++    prefix-list PREFIX-IPV4-E_CLGRAB21-TST0041 {
++        10.74.1.0/26;
++        100.74.2.0/26;
++    }
++    prefix-list PREFIX-IPV4-NE_CLGRAB21-TST0041 {
++        40.40.41.0/32;
++    }
+-        2001:db4::/127;
+-    }
+-    prefix-list PREFIX-IPV4-E_CLGRAB21-TST0041 {
+-        10.74.1.0/26;
+-        100.74.2.0/26;
+-    }
+-    prefix-list PREFIX-IPV6-E_CLGRAB21-TST0041 {
+-        2001:2db4::/126;
+-    }
+-    prefix-list PREFIX-IPV4-NE_CLGRAB21-TST0041 {
+-        40.40.41.0/32;
+-    policy-statement CUSTFULLOUTV6_CLGRAB21-TST0041_P {
+-        term ENTRY_10 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-CUST;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-OUT;
+-                next term;
+-            }
+-        }
+-        term ENTRY_20 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-NS;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-NS;
+-                community delete COM-BICI-AS852;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_30 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-SK-MB;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-SK-MB;
+-                community delete COM-BICI-AS852;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_40 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-PQ;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-PQ;
+-                community delete COM-BICI-AS852;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_50 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-ON;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-ON;
+-                community delete COM-BICI-AS852;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_60 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-AB;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-AB;
+-                community delete COM-BICI-AS852;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_70 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-BC;
+-            }
+-            then {
+-                origin igp;
+-                community add COM-BICI-CUST-BC;
+-                community delete COM-BICI-AS852;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_80 {
+-            from {
+-                family inet6;
+-                as-path AS-BICI-INTERNAL;
+-                community COM-BICI-NONE;
+-            }
+-            then {
+-                origin igp;
+-                community set COM-BICI-CUST-OUT;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_90 {
+-            from {
+-                family inet6;
+-                community COM-BICI-TELUS-PEER;
+-            }
+-            then {
+-                origin igp;
+-                community set COM-BICI-PEER-OUT;
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_100 {
+-            from family inet6;
+-            then {
+-                origin igp;
+-                community set COM-BICI-TRANSIT-OUT;
+-                accept;
+-            }
+-        }
+-    }
+-    policy-statement CUSTIN-V4V6_CLGRAB21-TST0041_PRI {
++    policy-statement CUSTIN-V4_CLGRAB21-TST0041_PRI {
+-                accept;
+-            }
+-        }
+-        term ENTRY_60 {
+-            from {
+-                prefix-list PREFIX-IPV6-E_CLGRAB21-TST0041;
+-            }
+-            then {
+-                community add IPV6;
+-            }
+-        }
+-        term ENTRY_80 {
+-            from {
+-                prefix-list PREFIX-IPV6-E_CLGRAB21-TST0041;
+-            }
+-            then {
+-                community add BICI-EXPORT-EDTNABTFRE32;
+-                next-hop 2001:db4::1;
+-            then reject;
+-        }
+-    }
+-    policy-statement DEFAULTONLYV6_CLGRAB21-TST0041_P {
+-        term ENTRY_10 {
+-            from {
+-                family inet6;
+-                prefix-list DEFAULT-IPV6;
+-            }
+-            then {
+-                next-hop 2001:db4::;
+-                accept;
+-            }
+-        }
+-        term ENTRY_1000 {
+-                }
+-            }
+-        }

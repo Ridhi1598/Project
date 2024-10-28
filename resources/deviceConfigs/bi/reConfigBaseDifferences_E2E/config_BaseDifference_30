@@ -1,0 +1,17 @@
+-# Generated FRI MAR 26 15:27:27 2021 UTC
++# Generated FRI MAR 26 15:31:35 2021 UTC
++        static-route-entry 2001:db4::/126
++            next-hop 2001:db4::1
++                no shutdown
++            exit
++        exit
+-                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V4..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                description "1234741.CLGRAB21-TST0041.DSL.6000K.BICI..V6..PRI..CE.REDI...CLGRAB21-TST0041-ALIAS"
++                exit
++                ipv6
++                    address 2001:db4::/127 
++                        filter ipv6 500
++                prefix 2001:db4::/126 exact
++                prefix 2001:db4::/127 exact
+-# Finished FRI MAR 26 15:27:39 2021 UTC
++# Finished FRI MAR 26 15:31:46 2021 UTC

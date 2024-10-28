@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\"request-id\":\"req_Id\",\"callback-url\":\"cs-orchestrator/commit-bng-config/commit-bng-epipe-config\",\"status\":\"failed\",\"response\":{\"exception\":\"Internal server error\"}}",
+  "payload_encoding": "string"
+}

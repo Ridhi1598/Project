@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"x235417\",\n   \"type\":\"UNLOCK\",\n   \"path\":\"/unlock-olt-bng-resources\",\n   \"callback-url\":\"cs-portal/unlock-olt-resources\",\n   \"query-parameters\":[\n      \n   ],\n   \"payload\":{\n      \"olt-name\":\"EDTNABTFOT39\",\n      \"bng-group\":\"EDTNABTFNG03-EDTNABTFNG04\"\n   }\n}",
+  "payload_encoding": "string"
+}

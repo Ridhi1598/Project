@@ -1,0 +1,62 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: line aux audit error
+  test_suite:
+  device_models:
+    - "1921"
+  given: line aux 0 configured on device and param_tree
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit error
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section: line aux 0
+      config:
+        - access-class 88 in
+        - exec-timeout 10 0
+        - modem InOut
+        - logging synchronous
+        - login authentication default
+        - logout-warning 20
+        - transport input telnet
+        - transport preferred none
+
+device_teardown_config: !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: telus_wide
+      level_key: 
+      path: line-aux
+      subtree: '
+        {"exec_timeout": 
+          {"minutes": null, "seconds": null},
+          "access_class_in": 88}'
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key: 
+      path: line-aux-device
+      subtree: '{"transport_input": ["telnet"],
+                 "logout_warning": null,
+                 "aux_port_connected": null,
+                 "using_1x_modem": null}'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LINE_AUX_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: aborted
+    errors: !AssertValue
+        assertion_type: 'EXACT'
+        value: |+ 
+          MANDATORY_PARAMETER_MISSING: line-aux/exec-timeout/minutes or line-aux/exec-timeout/seconds should be set
+          MANDATORY_PARAMETER_MISSING: aux_port_connected
+          MANDATORY_PARAMETER_MISSING: using_1x_modem
+  
+    messages:
+  remediation_result:

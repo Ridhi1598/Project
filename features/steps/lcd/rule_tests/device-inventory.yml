@@ -1,0 +1,53 @@
+!Inventory
+  devices:
+    - !DeviceInfo
+      name: LCDBehavetesting-device-1921
+      executor_name: LCDBehavetesting-device-1921  # This is used in audit param tree
+      executor_group_name: LCDBehavetesting-group-1921
+      executor_customer_name: LCDBehavetesting-customer-1921
+      executor_customer_region: eastern
+      executor_customer_group_name: LCDBehavetesting-customergroup-1921
+      executor_auth_group: LCDBehavetesting-authgroup-1921
+      model_family: "1921"
+      device_type: cisco_ios  # used for netmiko
+      ned_id: cisco-ios-cli-6.67
+      ip: 172.18.232.122
+      port: 22
+      user: cisco
+      password: cisco
+      secret: 'cisco'
+
+    - !DeviceInfo
+      name: LCDBehavetestingteam-device-3600
+      executor_name: LCDBehavetestingteam-device-3600  # This is used in audit param tree
+      executor_group_name: LCDBehavetestingteam-group-3600
+      executor_customer_name: LCDBehavetestingteam-customer-3600
+      executor_customer_region: eastern
+      executor_customer_group_name: LCDBehavetestingteam-customergroup-3600
+      executor_auth_group: LCDBehavetestingteam-authgroup-3600
+      model_family: "3600"
+      device_type: cisco_ios  # used for netmiko
+      ned_id: cisco-ios-cli-6.67
+      ip: 172.18.132.54
+      port: 22
+      user: cisco
+      password: cisco
+      secret: 'cisco'
+
+    - !DeviceInfo
+      name: LCDBehavetestingteam-device-ASR
+      executor_name: LCDBehavetestingteam-device-ASR  # This is used in audit param tree
+      executor_group_name: LCDBehavetestingteam-group-ASR
+      executor_customer_name: LCDBehavetestingteam-customer-ASR
+      executor_customer_region: eastern
+      executor_customer_group_name: LCDBehavetestingteam-customergroup-ASR
+      executor_auth_group: LCDBehavetestingteam-authgroup-ASR
+      model_family: asr
+      device_type: cisco_ios  # used for netmiko
+      ned_id: cisco-ios-cli-6.67
+      ip: 172.18.232.116
+      port: 22
+      user: cisco
+      password: cisco
+      secret: 'cisco'
+

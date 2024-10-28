@@ -1,0 +1,5288 @@
+# TiMOS-B-22.10.R6 both/hops64 Nokia 7750 SR Copyright (c) 2000-2023 Nokia.
+# All rights reserved. All use subject to applicable license agreements.
+# Built on Wed Aug 16 21:54:59 UTC 2023 by builder in /builds/2210B/R6/panos/main/sros
+# Configuration format version 22.10 revision 0
+
+# Generated WED APR 24 05:48:44 2024 UTC
+
+exit all
+configure
+#--------------------------------------------------
+echo "System Configuration"
+#--------------------------------------------------
+    system
+        name "EDTNABTFNG03"
+        contact "Tinaa executor | 2022-01-27, 06:48PM"
+        location "Toll, Edmonton Lab, Edmonton, AB"
+        load-balancing
+            l4-load-balancing
+            lsr-load-balancing lbl-ip
+            system-ip-load-balancing
+        exit
+        management-interface
+            cli
+                md-cli
+                    auto-config-save
+                exit
+            exit
+            yang-modules
+                no nokia-combined-modules
+                nokia-submodules
+            exit
+        exit
+        netconf
+            auto-config-save
+            port 22
+            no shutdown
+        exit
+        persistence
+            subscriber-mgmt
+                location cf2:
+            exit
+            dhcp-server
+                location cf2:
+            exit
+        exit
+        rollback
+            rollback-location "cf3:\rollback\rollback.rb"
+            rescue-location "cf3:/sdn_net_dev_configs\day0_pre"
+            local-max-checkpoints 5
+        exit
+        snmp
+            packet-size 9216
+        exit
+        time
+            ntp
+                no shutdown
+            exit
+            sntp
+                shutdown
+            exit
+            zone UTC
+        exit
+        thresholds
+            rmon
+                alarm 100 variable-oid sgiCpuUsage.0 interval 300 startup-alarm rising rising-event 1001 rising-threshold 60 falling-event 1002 falling-threshold 59
+                alarm 101 variable-oid sgiKbMemoryUsed.0 interval 300 startup-alarm rising rising-event 1003 rising-threshold 9500000 falling-event 1004 falling-threshold 9499999
+                alarm 102 variable-oid tmnxCpmFlashUsed.1.11.3 interval 300 rising-event 1005 rising-threshold 1800000 falling-threshold 1799999
+                alarm 103 variable-oid tmnxCpmFlashUsed.1.12.3 interval 300 rising-event 1005 rising-threshold 1800000 falling-threshold 1799999
+                event 1001 description "CPU utilization alarm"
+                event 1002 description "CPU Utilization alarm clear"
+                event 1003 description "memory utilization alarm"
+                event 1004 description "memory utilization alarm clear"
+                event 1005 description "TiMOS CLI - cflash capacity warning rising event"
+                event 1006 description "TiMOS CLI - cflash capacity warning falling event"
+            exit
+            cflash-cap-alarm-pct cf3-A: rising-threshold 97 falling-threshold 96 interval 300
+            cflash-cap-warn-pct cf3-A: rising-threshold 90 falling-threshold 89 interval 300
+            kb-memory-use-alarm rising-threshold 108000000 falling-threshold 107999999 interval 300
+            kb-memory-use-warn rising-threshold 9500000 falling-threshold 9499999 interval 300
+        exit
+        lldp
+            tx-interval 20
+            tx-hold-multiplier 3
+        exit
+        script-control
+            script "AUTO_RB"
+                description "Auto rollback job"
+                location "cf3:\rollback_save.txt"
+                no shutdown
+            exit
+            script "DELETE_RB"
+                description "delete RB script results"
+                location "cf3:\rb_delete.txt"
+                no shutdown
+            exit
+            script-policy "AUTO_RB"
+                results "cf2:\RB\results"
+                script "AUTO_RB"
+                max-completed 255
+                no shutdown
+            exit
+            script-policy "DELETE_RB"
+                results "cf2:\RB\results"
+                script "DELETE_RB"
+                max-completed 255
+                no shutdown
+            exit
+        exit
+#--------------------------------------------------
+echo "Cron Configuration"
+#--------------------------------------------------
+        cron
+            schedule "AUTO_RB" owner "admin"
+                interval 86400
+                script-policy "AUTO_RB"
+                day-of-month all
+                no shutdown
+            exit
+            schedule "DELETE_RB" owner "admin"
+                interval 604800
+                script-policy "DELETE_RB"
+                day-of-month all
+                no shutdown
+            exit
+        exit
+        bluetooth
+            module A
+            exit
+            power off
+        exit
+    exit
+#--------------------------------------------------
+echo "Filter Match lists Configuration"
+#--------------------------------------------------
+    filter
+        match-list
+            ip-prefix-list "ARBOR-PEAKFLOW" create
+                prefix 96.1.164.240/28
+                prefix 96.1.178.0/24
+                prefix 96.1.183.0/24
+                prefix 154.11.6.0/26
+                prefix 154.11.6.64/26
+                prefix 154.11.7.0/26
+                prefix 204.174.217.0/26
+                prefix 204.174.217.0/27
+                prefix 204.225.241.0/26
+                prefix 204.225.242.64/27
+                prefix 205.233.111.96/27
+                prefix 208.38.16.128/27
+            exit
+            ip-prefix-list "DHCP-SBR-RADIUS" create
+                prefix 75.154.132.49/32
+                prefix 75.154.132.55/32
+                prefix 75.154.133.17/32
+                prefix 75.154.133.23/32
+            exit
+            ip-prefix-list "DSC-RADIUS" create
+                prefix 100.64.111.160/28
+                prefix 100.64.111.176/28
+                prefix 100.64.111.192/28
+                prefix 100.64.111.208/28
+                prefix 100.64.111.224/28
+                prefix 100.64.111.240/28
+            exit
+            ip-prefix-list "GCNET-SNMP-POLLING" create
+                prefix 100.70.15.192/26
+                prefix 100.70.22.0/26
+            exit
+            ip-prefix-list "GONET-SNMP-POLLING" create
+                prefix 100.70.23.160/29
+                prefix 100.70.23.224/29
+                prefix 100.70.54.128/29
+                prefix 100.70.54.144/29
+            exit
+            ip-prefix-list "IANA-BI" create
+                prefix 0.0.0.0/8
+                prefix 127.0.0.0/8
+                prefix 169.254.0.0/16
+                prefix 192.0.0.0/24
+                prefix 192.0.2.0/24
+                prefix 198.18.0.0/15
+                prefix 198.51.100.0/24
+                prefix 203.0.113.0/24
+                prefix 224.0.0.0/3
+            exit
+            ip-prefix-list "NGN" create
+                description "Maint: ipnoc@telus.com | Backbone Subnets"
+                prefix 75.154.208.0/20
+                prefix 75.154.216.0/21
+                prefix 96.1.176.0/20
+                prefix 96.1.208.0/20
+                prefix 154.11.0.0/20
+                prefix 154.11.46.0/24
+                prefix 154.11.47.0/24
+                prefix 154.11.54.0/23
+                prefix 154.11.55.0/24
+                prefix 154.11.63.112/28
+                prefix 154.11.72.0/23
+                prefix 154.11.75.0/24
+                prefix 154.11.76.0/22
+                prefix 154.11.83.0/24
+                prefix 154.11.94.128/25
+                prefix 154.11.136.192/26
+                prefix 173.182.194.96/27
+                prefix 173.182.212.0/23
+                prefix 204.225.240.0/21
+            exit
+            ip-prefix-list "OSS" create
+                description "Maint: ipnoc@telus.com | OSS Subnets"
+                prefix 75.153.170.144/28
+                prefix 75.153.181.0/24
+                prefix 75.153.185.0/24
+                prefix 75.153.189.16/28
+                prefix 75.154.130.0/26
+                prefix 75.154.130.224/27
+                prefix 75.156.196.64/27
+                prefix 75.156.196.96/27
+                prefix 96.1.164.32/27
+                prefix 96.1.250.224/27
+                prefix 96.1.254.0/23
+                prefix 100.64.45.96/27
+                prefix 100.64.108.64/26
+                prefix 100.125.174.88/29
+                prefix 100.125.174.176/28
+                prefix 100.125.184.0/25
+                prefix 100.125.188.216/29
+                prefix 100.125.230.160/29
+                prefix 100.125.230.168/29
+                prefix 100.125.230.176/29
+                prefix 142.169.200.0/25
+                prefix 154.11.169.0/24
+                prefix 192.197.168.96/27
+                prefix 192.197.169.0/24
+                prefix 192.197.176.0/24
+                prefix 198.161.151.0/24
+                prefix 198.161.154.0/25
+                prefix 207.229.63.0/24
+                prefix 209.202.66.0/24
+            exit
+            ip-prefix-list "RFC1918" create
+                description "Maint: ipnoc@telus.com | RFC1918 Subnets"
+                prefix 10.0.0.0/8
+                prefix 172.16.0.0/12
+                prefix 192.168.0.0/16
+            exit
+            ip-prefix-list "ROUTE-REFLECTOR-AUTO" create
+                description "RR BGP auto create list"
+                apply-path
+                exit
+            exit
+            ip-prefix-list "TELUS-INFRASTRUCTURE" create
+                description "TELUS-INFRASTRUCTURE"
+                prefix 10.0.0.2/32
+                prefix 66.110.172.0/24
+                prefix 66.110.174.0/24
+                prefix 75.153.128.0/20
+                prefix 75.154.208.0/20
+                prefix 75.154.208.0/24
+                prefix 75.154.209.192/26
+                prefix 96.1.176.0/20
+                prefix 96.1.208.0/20
+                prefix 154.11.0.0/20
+                prefix 154.11.22.0/24
+                prefix 154.11.46.0/23
+                prefix 154.11.54.0/23
+                prefix 154.11.62.0/24
+                prefix 154.11.63.112/28
+                prefix 154.11.72.0/23
+                prefix 154.11.75.0/24
+                prefix 154.11.76.0/22
+                prefix 154.11.83.0/24
+                prefix 154.11.94.128/25
+                prefix 154.11.136.0/24
+                prefix 154.11.218.64/26
+                prefix 173.182.194.96/27
+                prefix 173.182.194.128/25
+                prefix 173.182.196.0/23
+                prefix 173.182.202.128/25
+                prefix 173.182.206.0/24
+                prefix 173.182.207.192/26
+                prefix 173.182.209.0/24
+                prefix 173.182.212.0/23
+                prefix 204.174.217.0/26
+                prefix 204.225.240.0/21
+                prefix 205.233.111.0/24
+                prefix 208.38.16.128/27
+            exit
+            ip-prefix-list "UMTS_EDGE" create
+                description "Maint: ipnoc@telus.com | UMTS Subnets"
+                prefix 10.179.0.0/16
+                prefix 10.183.0.0/16
+                prefix 10.187.0.0/16
+                prefix 10.191.0.0/16
+                prefix 96.1.136.0/26
+                prefix 96.1.138.0/25
+                prefix 96.1.140.0/22
+                prefix 96.1.144.0/22
+                prefix 96.1.148.0/23
+                prefix 96.1.152.0/22
+                prefix 96.1.156.0/23
+                prefix 96.1.158.0/24
+                prefix 96.1.168.0/24
+                prefix 96.1.200.0/24
+                prefix 96.1.201.0/24
+                prefix 96.1.202.0/23
+                prefix 96.1.204.0/23
+                prefix 96.1.206.0/23
+                prefix 96.1.249.0/24
+                prefix 99.199.208.0/20
+                prefix 99.199.240.0/20
+                prefix 154.11.28.0/22
+                prefix 154.11.63.128/25
+                prefix 154.11.70.0/23
+                prefix 154.11.146.64/26
+                prefix 154.11.146.128/25
+                prefix 154.11.168.0/25
+                prefix 154.11.168.128/26
+                prefix 154.11.182.0/23
+                prefix 154.11.197.128/25
+                prefix 154.11.204.0/22
+                prefix 154.11.213.192/26
+                prefix 154.11.224.0/21
+                prefix 154.11.238.0/24
+                prefix 154.11.248.0/22
+                prefix 173.182.195.128/25
+                prefix 173.182.198.0/23
+            exit
+            ip-prefix-list "VOICE_NGN" create
+                description "Maint: ipnoc@telus.com | Voice Subnets"
+                prefix 75.154.142.0/24
+                prefix 75.154.152.0/21
+                prefix 154.11.23.0/24
+                prefix 154.11.137.0/24
+                prefix 154.11.138.0/23
+                prefix 154.11.140.0/22
+                prefix 154.11.144.0/24
+                prefix 154.11.148.0/22
+                prefix 154.11.152.0/21
+                prefix 154.11.160.0/22
+                prefix 154.11.185.0/24
+                prefix 154.11.186.0/23
+                prefix 154.11.188.0/22
+                prefix 154.11.194.0/23
+                prefix 154.11.196.0/24
+                prefix 154.11.198.0/23
+                prefix 154.11.200.0/21
+                prefix 154.11.208.0/22
+                prefix 154.11.215.0/24
+                prefix 154.11.216.0/24
+                prefix 154.11.241.0/24
+                prefix 154.11.243.0/24
+                prefix 154.11.244.0/23
+            exit
+            ip-prefix-list "WS_ERX_LO0" create
+                prefix 96.1.208.49/32
+                prefix 96.1.208.55/32
+                prefix 96.1.208.56/32
+                prefix 96.1.208.58/32
+                prefix 96.1.209.27/32
+                prefix 96.1.209.29/32
+                prefix 96.1.209.30/32
+                prefix 96.1.209.32/32
+                prefix 96.1.209.38/32
+                prefix 96.1.209.39/32
+                prefix 96.1.209.40/32
+                prefix 96.1.209.143/32
+                prefix 96.1.209.153/32
+                prefix 96.1.209.154/32
+                prefix 142.169.7.52/32
+                prefix 142.169.7.173/32
+                prefix 154.11.98.139/32
+                prefix 154.11.98.141/32
+                prefix 154.11.98.172/32
+                prefix 154.11.98.176/32
+                prefix 154.11.110.2/32
+                prefix 208.181.241.28/32
+                prefix 208.181.242.174/32
+                prefix 208.181.242.175/32
+                prefix 208.181.242.184/32
+                prefix 208.181.242.188/32
+                prefix 208.181.242.189/32
+                prefix 209.202.124.225/32
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "System Security Configuration"
+#--------------------------------------------------
+    system
+        security
+            ftp-server
+            management-access-filter
+                ip-filter
+                    shutdown
+                    default-action permit
+                    entry 1
+                        description "Lab Services"
+                        src-ip 205.206.214.0/24
+                        action permit
+                    exit
+                    entry 2
+                        description "Lab Services"
+                        src-ip 209.20.8.0/24
+                        action permit
+                    exit
+                    entry 3
+                        description "Lab iTest/Velocity Agents"
+                        src-ip 172.19.196.0/24
+                        action permit
+                    exit
+                    entry 4
+                        description "Lab TINAA Executor"
+                        src-ip 172.25.207.0/24
+                        action permit
+                    exit
+                    entry 5
+                        description "LAB EAST VPN"
+                        src-ip 172.18.204.0/24
+                        action permit
+                    exit
+                    entry 6
+                        description "LAB WEST VPN"
+                        src-ip 172.25.169.0/24
+                        action permit
+                    exit
+                    entry 7
+                        description "Toll6 TINA"
+                        src-ip 172.25.116.128/26
+                        action permit
+                    exit
+                    entry 8
+                        description "Allow NLE CICD VM"
+                        src-ip 172.26.20.86/32
+                        action permit
+                    exit
+                    entry 9
+                        description "Allow connections from TINAA GCP"
+                        src-ip 10.17.36.0/24
+                        action permit
+                    exit
+                    entry 100
+                        description "Allow connections from BC NOC 1"
+                        src-ip 192.197.176.0/24
+                        action permit
+                    exit
+                    entry 101
+                        description "Allow connections from BC NOC 2"
+                        src-ip 192.197.169.0/24
+                        action permit
+                    exit
+                    entry 102
+                        description "Allow connections from BC NOC 3"
+                        src-ip 192.197.168.96/27
+                        action permit
+                    exit
+                    entry 103
+                        src-port cpm
+                        src-ip 10.17.36.150/32
+                        action permit
+                    exit
+                    entry 104
+                        src-port cpm
+                        src-ip 172.25.7.92/32
+                        action permit
+                    exit
+                    entry 120
+                        description "Allow connections from AB NOC 1"
+                        src-ip 207.229.63.0/24
+                        action permit
+                    exit
+                    entry 121
+                        description "Allow connections from AB NOC 2"
+                        src-ip 198.161.151.0/24
+                        action permit
+                    exit
+                    entry 122
+                        description "Allow connections from AB NOC 3"
+                        src-ip 154.11.169.0/25
+                        action permit
+                    exit
+                    entry 123
+                        description "Allow connections from AB NOC 4"
+                        src-ip 154.11.169.128/25
+                        action permit
+                    exit
+                    entry 140
+                        description "Allow connections from ON NOC 1"
+                        src-ip 209.202.66.0/24
+                        action permit
+                    exit
+                    entry 141
+                        description "Allow connections from ON NOC 2"
+                        src-ip 198.161.154.0/25
+                        action permit
+                    exit
+                    entry 142
+                        description "Allow connections from ON NOC 3"
+                        src-ip 96.1.164.32/27
+                        action permit
+                    exit
+                    entry 150
+                        description "Allow OSS subnet"
+                        src-ip 207.229.22.0/24
+                        action permit
+                    exit
+                    entry 160
+                        description "Allow connections from PQ NOC 1"
+                        src-ip 142.168.251.0/24
+                        action permit
+                    exit
+                    entry 161
+                        description "Allow connections from PQ NOC 2"
+                        src-ip 142.169.200.0/25
+                        action permit
+                    exit
+                    entry 170
+                        description "Allow connections from New OSS LAN in Calgary/Edmonton/Toronto"
+                        src-ip 96.1.254.0/23
+                        action permit
+                    exit
+                    entry 180
+                        description "Allow connections to OSS Stratum 1 NTP servers"
+                        src-ip 75.154.130.0/26
+                        action permit
+                    exit
+                    entry 181
+                        description "Allow connections to anycast syslog servers"
+                        src-ip 100.125.174.88/29
+                        action permit
+                    exit
+                    entry 200
+                        description "Allow Arbor edtnabxmsv01"
+                        src-ip 205.233.111.106/32
+                        action permit
+                    exit
+                    entry 201
+                        description "Allow Arbor mtrlpqfbsv01"
+                        src-ip 154.11.7.12/32
+                        action permit
+                    exit
+                    entry 202
+                        description "Allow Arbor mtrlpqfbsv02"
+                        src-ip 154.11.7.39/32
+                        action permit
+                    exit
+                    entry 203
+                        description "Allow Arbor nwmrbc01sv01"
+                        src-ip 204.174.217.42/32
+                        action permit
+                    exit
+                    entry 204
+                        description "Allow Arbor nwmrbc01sv03"
+                        src-ip 204.174.217.21/32
+                        action permit
+                    exit
+                    entry 205
+                        description "Allow Arbor toroonnlsv01"
+                        src-ip 154.11.6.82/32
+                        action permit
+                    exit
+                    entry 206
+                        description "Allow Arbor toroonxnsv01"
+                        src-ip 154.11.6.22/32
+                        action permit
+                    exit
+                    entry 207
+                        description "Allow Arbor toroonxnsv02"
+                        src-ip 154.11.6.62/32
+                        action permit
+                    exit
+                    entry 208
+                        description "Allow Arbor vancbc01sv01"
+                        src-ip 204.174.217.3/32
+                        action permit
+                    exit
+                    entry 209
+                        description "Allow Arbor clgrab01sv01"
+                        src-ip 208.38.16.131/32
+                        action permit
+                    exit
+                    entry 210
+                        description "Allow Arbor clgrab21sv01"
+                        src-ip 208.38.16.136/32
+                        action permit
+                    exit
+                    entry 211
+                        description "Allow Arbor QUBCPQAJSV01"
+                        src-ip 142.173.62.2/32
+                        action permit
+                    exit
+                    entry 212
+                        description "Allow Arbor MTRLPQFBSV04"
+                        src-ip 142.173.61.12/32
+                        action permit
+                    exit
+                    entry 215
+                        description "Allow Tinaa Marmac"
+                        src-port cpm
+                        src-ip 172.22.91.128/26
+                        action permit
+                    exit
+                    entry 220
+                        description "Allow Arbor/Peakflow Servers - National"
+                        src-ip 96.1.178.0/24
+                        action permit
+                    exit
+                    entry 225
+                        description "Allow Arbor/Peakflow Servers - National"
+                        src-ip 96.1.183.0/24
+                        action permit
+                    exit
+                    entry 230
+                        description "Allow Arbor/Peakflow Servers - MTRLPQFB"
+                        src-ip 204.225.242.64/27
+                        action permit
+                    exit
+                    entry 235
+                        description "Allow Arbor/Peakflow Servers - National"
+                        src-ip 96.1.164.240/28
+                        action permit
+                    exit
+                    entry 240
+                        description "Allow Arbor/Peakflow Servers - National"
+                        src-ip 204.225.241.0/26
+                        action permit
+                    exit
+                    entry 245
+                        description "Allow qdc-fgw-01 Riverbed Flow Gateway - GOnet"
+                        src-ip 100.70.23.160/29
+                        action permit
+                    exit
+                    entry 250
+                        description "Allow Riverbed Flow Gateway - GOnet"
+                        src-ip 100.70.54.128/29
+                        action permit
+                    exit
+                    entry 255
+                        description "Allow Riverbed Flow Gateway - GOnet"
+                        src-ip 100.70.54.144/29
+                        action permit
+                    exit
+                    entry 260
+                        description "Allow Riverbed NetProfiler- GOnet"
+                        src-ip 100.70.23.224/29
+                        action permit
+                    exit
+                    entry 265
+                        description "Allow HOMA servers - Edmonton"
+                        src-ip 75.156.196.64/27
+                        action permit
+                    exit
+                    entry 270
+                        description "Allow HOMA servers - Laird"
+                        src-ip 75.156.196.96/27
+                        action permit
+                    exit
+                    entry 271
+                        description "Allow Tinaa servers - Laird (Toll2)"
+                        src-ip 100.125.184.0/25
+                        action permit
+                    exit
+                    entry 280
+                        description "Allow NLE CICD servers - EDTNAB02"
+                        src-ip 100.125.253.64/27
+                        action permit
+                    exit
+                    entry 281
+                        description "Allow NLE CICD servers - MRHMONDR"
+                        src-ip 100.125.253.96/27
+                        action permit
+                    exit
+                    entry 285
+                        description "Allow Nokia CLM servers - EYRKONAE"
+                        src-ip 100.125.178.160/28
+                        action permit
+                    exit
+                    entry 286
+                        description "Allow Nokia CLM servers - EDTNAB02"
+                        src-ip 100.125.178.176/28
+                        action permit
+                    exit
+                    entry 400
+                        description "Allow connections from GCNet Western Riverbed flow Gateway - EDTNAB02"
+                        src-ip 100.70.15.192/26
+                        action permit
+                    exit
+                    entry 401
+                        description "Allow connections from GCNet Eastern Riverbed flow gateway - EYRKONAE"
+                        src-ip 100.125.174.176/28
+                        action permit
+                    exit
+                    entry 405
+                        description "Allow connections from GCNet OSS QIDC"
+                        src-ip 100.70.22.0/26
+                        action permit
+                    exit
+                    entry 410
+                        description "Allow connections from GCNet audit servers located in Laird (Treadstone)"
+                        src-ip 100.70.15.128/28
+                        action permit
+                    exit
+                    entry 411
+                        description "Allow connections from GONet audit servers located in Edmonton (Treadstone)"
+                        src-ip 100.125.167.0/28
+                        action permit
+                    exit
+                    entry 500
+                        description "Deny all telnet"
+                        protocol tcp
+                        dst-port 23 65535
+                        action deny
+                    exit
+                    entry 505
+                        description "Deny all SSH"
+                        protocol tcp
+                        dst-port 22 65535
+                        action deny
+                    exit
+                    entry 510
+                        description "Deny all FTP"
+                        protocol tcp
+                        dst-port 20 65534
+                        action deny
+                    exit
+                    entry 515
+                        description "Deny all TFTP"
+                        protocol tcp
+                        dst-port 69 65535
+                        action deny
+                    exit
+                    entry 520
+                        description "Deny all snmp - tcp"
+                        protocol tcp
+                        dst-port 161 65532
+                        action deny
+                    exit
+                    entry 525
+                        description "Deny all snmp - udp"
+                        protocol udp
+                        dst-port 161 65532
+                        action deny
+                    exit
+                    entry 530
+                        description "Deny all netconf - tcp"
+                        protocol tcp
+                        dst-port 830 65535
+                        action deny
+                    exit
+                    entry 535
+                        description "Deny gsmp-ancp - tcp"
+                        protocol tcp
+                        dst-port 6068 65535
+                        action deny
+                    exit
+                    entry 540
+                        description "Deny snmp streaming - tcp"
+                        protocol tcp
+                        dst-port 1491 65535
+                        action deny
+                    exit
+                    entry 545
+                        description "Deny all gRPC - tcp"
+                        protocol tcp
+                        dst-port 57400 65535
+                        action deny
+                    exit
+                    no shutdown
+                exit
+                ipv6-filter
+                    shutdown
+                    default-action permit
+                    entry 500
+                        description "Deny all telnet"
+                        next-header tcp
+                        dst-port 23 65535
+                        action deny
+                    exit
+                    entry 505
+                        description "Deny all SSH"
+                        next-header tcp
+                        dst-port 22 65535
+                        action deny
+                    exit
+                    entry 510
+                        description "Deny all FTP"
+                        next-header tcp
+                        dst-port 20 65534
+                        action deny
+                    exit
+                    entry 515
+                        description "Deny all TFTP"
+                        next-header udp
+                        dst-port 69 65534
+                        action deny
+                    exit
+                    entry 520
+                        description "Deny all snmp - tcp"
+                        next-header tcp
+                        dst-port 161 65532
+                        action deny
+                    exit
+                    entry 525
+                        description "Deny all snmp - udp"
+                        next-header udp
+                        dst-port 161 65532
+                        action deny
+                    exit
+                    entry 530
+                        description "Deny all netconf - tcp"
+                        next-header tcp
+                        dst-port 830 65535
+                        action deny
+                    exit
+                    entry 535
+                        description "Deny gsmp-ancp - tcp"
+                        next-header tcp
+                        dst-port 6068 65535
+                        action deny
+                    exit
+                    entry 540
+                        description "Deny snmp streaming - tcp"
+                        next-header tcp
+                        dst-port 1491 65535
+                        action deny
+                    exit
+                    entry 545
+                        description "Deny all gRPC - tcp"
+                        next-header tcp
+                        dst-port 57400 65535
+                        action deny
+                    exit
+                    no shutdown
+                exit
+            exit
+            profile "grpc"
+                default-action deny-all
+                grpc
+                    rpc-authorization
+                        gnmi-set deny
+                    exit
+                exit
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        validate
+                    exit
+                exit
+                entry 10
+                    match "configure"
+                    action permit
+                exit
+                entry 20
+                    match "exit"
+                    action permit
+                exit
+                entry 30
+                    match "logout"
+                    action permit
+                exit
+                entry 40
+                    match "state"
+                    action permit
+                exit
+            exit
+            profile "default"
+                default-action deny-all
+                grpc
+                    rpc-authorization
+                        gnmi-set deny
+                    exit
+                exit
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        validate
+                    exit
+                exit
+                entry 10
+                    match "exec"
+                    action permit
+                exit
+                entry 20
+                    match "exit"
+                    action permit
+                exit
+                entry 30
+                    match "help"
+                    action permit
+                exit
+                entry 40
+                    match "logout"
+                    action permit
+                exit
+                entry 50
+                    match "password"
+                    action permit
+                exit
+                entry 60
+                    match "admin display-config"
+                    action permit
+                exit
+                entry 65
+                    match "show li"
+                    action deny
+                exit
+                entry 66
+                    match "clear li"
+                    action deny
+                exit
+                entry 67
+                    match "tools dump li"
+                    action deny
+                exit
+                entry 68
+                    match "state li"
+                    action deny
+                exit
+                entry 70
+                    match "show"
+                    action permit
+                exit
+                entry 75
+                    match "state"
+                    action permit
+                exit
+                entry 80
+                    match "enable-admin"
+                    action permit
+                exit
+                entry 81
+                    match "enable"
+                    action permit
+                exit
+                entry 90
+                    match "ping"
+                    action permit
+                exit
+                entry 100
+                    match "configure li"
+                    action deny
+                exit
+                entry 110
+                    match "environment more"
+                    action permit
+                exit
+                entry 120
+                    match "environment time-stamp"
+                    action permit
+                exit
+                entry 130
+                    match "environment terminal length"
+                    action permit
+                exit
+                entry 140
+                    match "tools perform subscriber-mgmt forcerenew"
+                    action permit
+                exit
+                entry 150
+                    match "monitor"
+                    action permit
+                exit
+                entry 160
+                    match "traceroute"
+                    action permit
+                exit
+                entry 170
+                    match "tools dump system-resources"
+                    action permit
+                exit
+                entry 180
+                    match "oam host-connectivity-verify"
+                    action permit
+                exit
+                entry 190
+                    match "environment alias"
+                    action permit
+                exit
+                entry 200
+                    match "clear service"
+                    action permit
+                exit
+                entry 210
+                    match "clear service id sap queue-depth"
+                    action deny
+                exit
+            exit
+            profile "READONLY"
+                default-action permit-all
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        validate
+                    exit
+                exit
+                entry 10
+                    match "configure"
+                    action deny
+                exit
+                entry 20
+                    match "file dir"
+                    action permit
+                exit
+                entry 30
+                    match "file type"
+                    action permit
+                exit
+                entry 40
+                    match "file"
+                    action deny
+                exit
+                entry 50
+                    match "exec"
+                    action deny
+                exit
+                entry 60
+                    match "bof"
+                    action deny
+                exit
+                entry 70
+                    match "admin tech-support"
+                    action permit
+                exit
+                entry 80
+                    match "admin display-config"
+                    action permit
+                exit
+                entry 90
+                    match "admin"
+                    action deny
+                exit
+                entry 100
+                    match "clear"
+                    action deny
+                exit
+            exit
+            profile "netconfig"
+                default-action permit-all
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        kill-session
+                        lock
+                        validate
+                    exit
+                exit
+            exit
+            profile "nokia_clm"
+                default-action deny-all
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        validate
+                    exit
+                exit
+                entry 10
+                    match "exit"
+                    action permit
+                exit
+                entry 20
+                    match "logout"
+                    action permit
+                exit
+                entry 30
+                    match "show"
+                    action permit
+                exit
+                entry 40
+                    match "file"
+                    action permit
+                exit
+                entry 50
+                    match "bof license-file"
+                    action permit
+                exit
+                entry 60
+                    match "bof save"
+                    action permit
+                exit
+                entry 70
+                    match "admin system license"
+                    action permit
+                exit
+                entry 80
+                    match "environment"
+                    action permit
+                exit
+            exit
+            profile "nokia_nsp"
+                default-action permit-all
+                grpc
+                    rpc-authorization
+                        gnoi-cert-mgmt-rotate permit
+                        gnoi-cert-mgmt-install permit
+                        gnoi-cert-mgmt-getcert permit
+                        gnoi-cert-mgmt-revoke permit
+                        gnoi-cert-mgmt-cangenerate permit
+                        gnoi-system-setpackage permit
+                        gnoi-system-switchcontrolprocessor permit
+                        gnoi-system-reboot permit
+                        gnoi-system-rebootstatus permit
+                        gnoi-system-cancelreboot permit
+                    exit
+                exit
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        kill-session
+                        lock
+                        validate
+                    exit
+                exit
+            exit
+            profile "administrative"
+                netconf
+                    base-op-authorization
+                        action
+                        cancel-commit
+                        close-session
+                        commit
+                        copy-config
+                        create-subscription
+                        delete-config
+                        discard-changes
+                        edit-config
+                        get
+                        get-config
+                        get-data
+                        get-schema
+                        kill-session
+                        lock
+                        validate
+                    exit
+                exit
+                entry 10
+                    match "configure system security"
+                    action permit
+                exit
+                entry 20
+                    match "show system security"
+                    action permit
+                exit
+                entry 30
+                    match "tools perform security"
+                    action permit
+                exit
+                entry 40
+                    match "tools dump security"
+                    action permit
+                exit
+                entry 50
+                    match "admin system security"
+                    action permit
+                exit
+                entry 100
+                    match "configure li"
+                    action deny
+                exit
+                entry 110
+                    match "show li"
+                    action deny
+                exit
+                entry 111
+                    match "clear li"
+                    action deny
+                exit
+                entry 112
+                    match "tools dump li"
+                    action deny
+                exit
+            exit
+            password
+                authentication-order local tacplus
+                admin-password "$2y$10$s.6R3RgSktUIds4YzGIJk.N0vcP3/noIDbrdWpuOwHyuFOXc5RV/."
+            exit
+            tacplus
+                accounting
+                timeout 10
+                server 1 address 205.206.214.252 secret "J8Arce4z6YByGWoB1h3PQcMjCLSMTgQH4A==" hash2
+                server 2 address 209.20.8.252 secret "J8Arce4z6YByGWoB1h3PQc1T/Ih86aKnww==" hash2
+            exit
+            user-template "tacplus_default"
+                access console ftp
+                console
+                    login-exec "cf3:\enable-alias"
+                exit
+            exit
+            user "CLM"
+                password "$2y$10$klocTz.SRE3JulUXxlUfQ.VtmzRJ/E2DF4A1INMEERj5a65xeiYtm"
+            exit
+            user "admin"
+                password "$2y$10$7.T2vSjnWFjdnrqN.5SAo.xQ3234zZmoa7cvvQ8IqQG/QiglMZwrm"
+                access console ftp snmp netconf
+                console
+                    member "administrative"
+                exit
+            exit
+            user "alcatel"
+                password "$2y$10$7vcZVhq2ejB2XYWauYGdc.Xza7Z861uhCC/GolOia3zhKCAMVmPBC"
+                access console ftp snmp
+                console
+                    no member "default"
+                    member "administrative"
+                exit
+            exit
+            user "clm"
+                password "$2y$10$qTnn0qRQ1LfiGQGc2JFYQ.4Cn489kgfFcQu92cuOhUaYG8xDbQziq"
+                access console ftp
+                console
+                    login-exec "cf3:\clm.txt"
+                    no member "default"
+                    member "nokia_clm"
+                exit
+            exit
+            user "console"
+                password "$2y$10$v4hsRLu/JMJbz7wkCSiQY.w/fym8AEkMq007ngSV8E6b8dwiYLkxy"
+                access console ftp
+                console
+                    no member "default"
+                    member "administrative"
+                exit
+            exit
+            user "gnmi"
+                password "$2y$10$GnF7T4LvLzGwjfYZJIro6.TD8pXYWvSB05hF2mUA3O32cGsAC4MlK"
+                access grpc
+                console
+                    no member "default"
+                    member "administrative"
+                exit
+            exit
+            user "homa"
+                password "$2y$10$l7Ujo9xzLdsFl1RU.WZHY.zRYkEeAWFxOJzyEFBxJt4IDd41wHmaa"
+                access console snmp netconf grpc
+                console
+                    no member "default"
+                    member "netconfig"
+                exit
+            exit
+            user "intelliden"
+                password "$2y$10$7B2.CHO2PZRPi80tZZMGA.6N7KRPMfIU9UwtalvEhKI8riUlJ97cC"
+                access console ftp
+                console
+                    member "default"
+                    member "administrative"
+                exit
+            exit
+            user "meerkat"
+                password "$2y$10$EYWE7PdoK7iibCwidfAoA.nNm3eRYOZb3L8GaIg0/bkOzoX4G.WGu"
+                access grpc
+                console
+                    no member "default"
+                    member "grpc"
+                exit
+            exit
+            user "nokia_clm"
+                password "$2y$10$PntNoq5EuC0/TBn2FjviY.QEMhwT8MFuxWMilJMmFKFNdF0FEn0VW"
+                access console ftp
+                console
+                    login-exec "cf3:\clm.txt"
+                    no member "default"
+                    member "nokia_clm"
+                exit
+            exit
+            user "nokia_nsp"
+                password "$2y$10$MugxHhIjHC9gRgWA.aCNQ.Suf3k66806DaFYAp9b1sZ/zZFU57lke"
+                access console ftp snmp netconf grpc
+                console
+                    no member "default"
+                    member "nokia_nsp"
+                exit
+            exit
+            user "tinaa"
+                password "$2y$10$xp.xxgYRspzb/AycBA2zo.ADHRZlpclldI8/nWoVjpD/8WhsY6B0W"
+                access console snmp netconf grpc
+                console
+                    no member "default"
+                    member "netconfig"
+                exit
+            exit
+            snmp
+                view "iso" subtree "1.3.6.1.4.1.6527.3.1.2.3.68"
+                    mask ff type excluded
+                exit
+                view "iso" subtree "1.3.6.1.4.1.6527.3.1.2.3.81"
+                    mask ff type excluded
+                exit
+                view "CUTDOWN" subtree "1.3.6.1"
+                    mask ff
+                exit
+                view "CUTDOWN" subtree "1.3.6.1.2.1.3"
+                    mask ff type excluded
+                exit
+                view "CUTDOWN" subtree "1.3.6.1.2.1.4.21"
+                    mask ff type excluded
+                exit
+                view "CUTDOWN" subtree "1.3.6.1.2.1.4.22"
+                    mask ff type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.4.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.5.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.6.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.7.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.15.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.23.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.31.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.68.0"
+                    mask fe type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.10"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.11"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.12"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.13"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.14"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.15"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.16"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.17"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.18"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.19"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.20"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.21"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.2.1.2.2.1.22"
+                    mask ffc0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.3.81"
+                    mask ff type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.3.7.0"
+                    mask fff0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.3.11.0"
+                    mask fff0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.3.30.0"
+                    mask fff0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.3.68.0"
+                    mask fff0 type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.3.68.1"
+                    mask ff type excluded
+                exit
+                view "vprn-view" subtree "1.3.6.1.4.1.6527.3.1.2.20.1.0"
+                    mask fff0 type excluded
+                exit
+                view "no-security" subtree "1.3.6.1.4.1.6527.3.1.2.3.68"
+                    mask ff type excluded
+                exit
+                view "no-security" subtree "1.3.6.1.4.1.6527.3.1.2.3.81"
+                    mask ff type excluded
+                exit
+                access group "TELUS-RO" security-model snmpv2c security-level no-auth-no-privacy read "CUTDOWN" notify "CUTDOWN"
+                access group "TELUS-RW" security-model snmpv2c security-level no-auth-no-privacy read "CUTDOWN" write "CUTDOWN" notify "CUTDOWN"
+                attempts 5 time 30 lockout 10
+                community "/2CVcD9+iNNzu/+rIsfmSHpHmi1EkAMF7v21" hash2 r version v2c
+                usm-community "KQ2Dl73CIkaGbJFhBxg9QViAkQjO9kxX" hash2 group "TELUS-RO"
+                community "pI1XgPvzajgvVGC0LY4G0Z7nmnRN" hash2 r version both
+            exit
+            ssh
+                preserve-key
+            exit
+            per-peer-queuing
+            cpm-queue
+                queue 33 create
+                    rate 100000 cir 100000
+                exit
+                queue 34 create
+                    rate 5000 cir 5000
+                exit
+                queue 35 create
+                    rate 1000 cir 1000
+                exit
+                queue 36 create
+                    rate 100000 cir 100000
+                exit
+            exit
+            dist-cpu-protection
+                policy "access" create
+                    static-policer "access" create
+                        rate kbps 10000 mbs default
+                        exceed-action discard
+                    exit
+                    protocol all-unspecified create
+                        enforcement static "access"
+                    exit
+                exit
+                policy "network" create
+                    static-policer "bgp" create
+                    exit
+                    static-policer "network" create
+                        rate kbps 10000 mbs default
+                        exceed-action low-priority
+                    exit
+                    protocol all-unspecified create
+                        enforcement static "network"
+                    exit
+                    protocol bgp create
+                        enforcement static "bgp"
+                    exit
+                exit
+                policy "MSAP_DCPU" create
+                    description "Consumer MSAP policy"
+                    protocol dhcp create
+                        dynamic-parameters
+                            detection-time 10
+                            rate packets 30 within 1
+                            exceed-action discard
+                        exit
+                    exit
+                    protocol pppoe-pppoa create
+                        dynamic-parameters
+                            rate packets 20 within 1
+                            exceed-action low-priority
+                        exit
+                    exit
+                exit
+                policy "_default-port-policy" type port create
+                exit
+                policy "_default-access-policy" create
+                exit
+                policy "_default-network-policy" create
+                exit
+            exit
+            vprn-network-exceptions
+        exit
+    exit
+#--------------------------------------------------
+echo "System Login Control Configuration"
+#--------------------------------------------------
+    system
+        login-control
+            ftp
+                inbound-max-sessions 2
+            exit
+            ssh
+                outbound-max-sessions 0
+            exit
+            telnet
+                inbound-max-sessions 0
+                outbound-max-sessions 0
+            exit
+            idle-timeout 20
+            pre-login-message "\n\nThis device is for the exclusive use of TELUS Communications Inc.\nAll unauthorized access or configuration changes\nto this device is subject to prosecution.\n\nCet equipement est reserve a l'usage exclusif de TELUS Communications Inc.\nTout acces ou changement a la configuration sur cet equipement,\nsans autorisation, pourra faire l'objet d'une poursuite.\n\n"
+            motd url motd.txt
+        exit
+    exit
+#--------------------------------------------------
+echo "Log Configuration"
+#--------------------------------------------------
+    log
+        file-id 1 name "1"
+            description "Log ALL changes to CF2 for <= 20days"
+            location cf2:
+            rollover 2880 retention 500
+        exit
+        file-id 3 name "3"
+            description "Combined network ingress/egress octets"
+            location cf2:
+            rollover 30 retention 12
+        exit
+        accounting-policy 3
+            description "Combined network ingress/egress octets"
+            record combined-network-ing-egr-octets
+            to file 3
+            no shutdown
+        exit
+        filter 2 name "2"
+            default-action forward
+            description "Filter out specific entries to reduce syslog"
+            entry 10 name "10"
+                action drop
+                description "DHCP 2004 sapDHCPSuspiciousPcktRcvd"
+                match
+                    application eq "dhcp"
+                    number eq 2004
+                exit
+            exit
+            entry 20 name "20"
+                action drop
+                description "DHCPS 2034 tmnxDhcpsLeaseOfferedExpired"
+                match
+                    application eq "dhcps"
+                    number eq 2034
+                exit
+            exit
+            entry 30 name "30"
+                action drop
+                description "LOGGER 2008 tmnxLogFileRollover"
+                match
+                    application eq "logger"
+                    number eq 2008
+                exit
+            exit
+            entry 40 name "40"
+                action drop
+                description "LOGGER 2009 tmnxLogFileDeleted"
+                match
+                    application eq "logger"
+                    number eq 2009
+                exit
+            exit
+            entry 50 name "50"
+                action drop
+                description "SECURITY 2009 ssh_user_login"
+                match
+                    application eq "security"
+                    number eq 2009
+                exit
+            exit
+            entry 60 name "60"
+                action drop
+                description "SECURITY 2010 ssh_user_logout"
+                match
+                    application eq "security"
+                    number eq 2010
+                exit
+            exit
+            entry 70 name "70"
+                action drop
+                description "svcmgr 2213 msapStateChanged"
+                match
+                    application eq "svcmgr"
+                    number eq 2213
+                exit
+            exit
+            entry 80 name "80"
+                action drop
+                description "svcmgr 2214 msapCreationFailure"
+                match
+                    application eq "svcmgr"
+                    number eq 2214
+                exit
+            exit
+            entry 90 name "90"
+                action drop
+                description "svcmgr 2500 tmnxSubscriberCreated"
+                match
+                    application eq "svcmgr"
+                    number eq 2500
+                exit
+            exit
+            entry 100 name "100"
+                action drop
+                description "svcmgr 2501 tmnxSubscriberDeleted"
+                match
+                    application eq "svcmgr"
+                    number eq 2501
+                exit
+            exit
+            entry 110 name "110"
+                action drop
+                description "svcmgr 2513 tmnxSubRadSapSubAuthError"
+                match
+                    application eq "svcmgr"
+                    number eq 2513
+                exit
+            exit
+        exit
+        filter 98 name "98"
+            default-action forward
+            description "Filter out specific entries from snmp traps sent to collector"
+            entry 10 name "10"
+                action drop
+                description "tmnxLogFileDeleted"
+                match
+                    application eq "logger"
+                    number eq 2009
+                exit
+            exit
+            entry 200 name "200"
+                action forward
+                description "Allow bgpBackwardTransition alarms for route-reflectors"
+                match
+                    application eq "bgp"
+                    number eq 2039
+                    subject eq "(204\.225\.240\.)[0-9]+" regexp
+                exit
+            exit
+            entry 201 name "201"
+                action forward
+                description "Allow bgpBackwardTransition alarms for route-reflectors"
+                match
+                    application eq "bgp"
+                    number eq 2039
+                    subject eq "(154\.11\.0\.)[0-9]+" regexp
+                exit
+            exit
+            entry 210 name "210"
+                action forward
+                description "Allow bgpBackwardTransition alarms for sovereignty route-reflectors"
+                match
+                    application eq "bgp"
+                    number eq 2039
+                    subject eq "96\.1\.2(09|12)\.[0-9]+" regexp
+                exit
+            exit
+            entry 290 name "290"
+                action drop
+                description "Drop all other bgpBackwardTransition alarms"
+                match
+                    application eq "bgp"
+                    number eq 2039
+                exit
+            exit
+            entry 291 name "291"
+                action drop
+                description "Drop IPv6 tBgpNgBackwardTransition alarms"
+                match
+                    application eq "bgp"
+                    number eq 2020
+                exit
+            exit
+            entry 490 name "490"
+                action drop
+                description "Drop all other port alarms"
+                match
+                    application eq "port"
+                exit
+            exit
+            entry 491 name "491"
+                action drop
+                description "Drop all other lag alarms"
+                match
+                    application eq "lag"
+                exit
+            exit
+            entry 492 name "492"
+                action drop
+                description "Drop all other snmp linkDown alarms"
+                match
+                    application eq "snmp"
+                    number eq 2004
+                exit
+            exit
+            entry 493 name "493"
+                action drop
+                description "Drop all other snmp linkUp alarms"
+                match
+                    application eq "snmp"
+                    number eq 2005
+                exit
+            exit
+        exit
+        filter 99 name "99"
+            default-action forward
+            description "Filter out specific entries from log"
+            entry 10 name "10"
+                action drop
+                match
+                    application eq "svcmgr"
+                    severity lte minor
+                exit
+            exit
+            entry 20 name "20"
+                action drop
+                description "message-log file has been rolled over"
+                match
+                    application eq "logger"
+                    number eq 2008
+                exit
+            exit
+            entry 30 name "30"
+                action drop
+                description "message-log file has been deleted"
+                match
+                    application eq "logger"
+                    number eq 2009
+                exit
+            exit
+        exit
+        filter 1500 name "1500"
+            default-action forward
+            description "Netconf config/create/cli log filter"
+            entry 1 name "1"
+                action drop
+                description "To drop system tmnxConfigModify"
+                match
+                    application eq "system"
+                    number eq 2006
+                exit
+            exit
+            entry 2 name "2"
+                action drop
+                description "To drop system tmnxConfigCreate"
+                match
+                    application eq "system"
+                    number eq 2007
+                exit
+            exit
+            entry 3 name "3"
+                action drop
+                description "To drop system tmnxStateChange"
+                match
+                    application eq "system"
+                    number eq 2009
+                exit
+            exit
+            entry 4 name "4"
+                action drop
+                description "To drop security cli_user_login"
+                match
+                    application eq "security"
+                    number eq 2001
+                exit
+            exit
+            entry 5 name "5"
+                action drop
+                description "To drop security cli_user_logout"
+                match
+                    application eq "security"
+                    number eq 2002
+                exit
+            exit
+            entry 6 name "6"
+                action drop
+                description "To drop user netconf_user_login"
+                match
+                    application eq "user"
+                    number eq 2018
+                exit
+            exit
+            entry 7 name "7"
+                action drop
+                description "To drop user netconf_user_logout"
+                match
+                    application eq "user"
+                    number eq 2019
+                exit
+            exit
+            entry 8 name "8"
+                action drop
+                description "To drop security netconf_user_login"
+                match
+                    application eq "security"
+                    number eq 2121
+                exit
+            exit
+            entry 9 name "9"
+                action drop
+                description "To drop security netconf_user_logout"
+                match
+                    application eq "security"
+                    number eq 2122
+                exit
+            exit
+            entry 10 name "10"
+                action drop
+                description "To drop system ssiSaveConfigSucceeded"
+                match
+                    application eq "system"
+                    number eq 2002
+                exit
+            exit
+            entry 11 name "11"
+                action drop
+                description "To drop user cli_config_io"
+                match
+                    application eq "user"
+                    number eq 2011
+                exit
+            exit
+            entry 12 name "19"
+                action drop
+                description "To drop user grpc_user_login notification"
+                match
+                    application eq "user"
+                    number eq 2014
+                exit
+            exit
+            entry 13 name "20"
+                action drop
+                description "To drop user grpc_user_logout notification"
+                match
+                    application eq "user"
+                    number eq 2015
+                exit
+            exit
+            entry 14 name "21"
+                action drop
+                description "To drop security grpc_user_login notification"
+                match
+                    application eq "security"
+                    number eq 2117
+                exit
+            exit
+            entry 15 name "22"
+                action drop
+                description "To drop security grpc_user_logout notification"
+                match
+                    application eq "security"
+                    number eq 2118
+                exit
+            exit
+            entry 16 name "34"
+                action drop
+                description "To drop ISIS tmnxIsisCircMtuTooLow notification"
+                match
+                    application eq "isis"
+                    number eq 2064
+                exit
+            exit
+            entry 17 name "35"
+                action drop
+                description "To drop PTP tmnxPtpMasterClockChangedEvent notification"
+                match
+                    application eq "ptp"
+                    number eq 2003
+                exit
+            exit
+        exit
+        event-control "cflowd" 2006 generate specific-throttle-rate 10 interval 10
+        event-control "cflowd" 2009 generate specific-throttle-rate 10 interval 10
+        event-control "chassis" 2001 generate
+        event-control "chassis" 2002 generate
+        event-control "chassis" 2003 generate
+        event-control "chassis" 2004 generate
+        event-control "chassis" 2005 generate
+        event-control "chassis" 2010 generate
+        event-control "chassis" 2011 generate
+        event-control "chassis" 2012 generate
+        event-control "chassis" 2016 generate
+        event-control "chassis" 2017 generate
+        event-control "chassis" 2018 generate
+        event-control "chassis" 2019 generate
+        event-control "chassis" 2020 generate
+        event-control "chassis" 2021 generate
+        event-control "chassis" 2022 generate
+        event-control "chassis" 2023 generate
+        event-control "chassis" 2024 generate
+        event-control "chassis" 2025 generate
+        event-control "chassis" 2026 generate
+        event-control "chassis" 2027 generate
+        event-control "chassis" 2028 generate
+        event-control "chassis" 2029 generate
+        event-control "chassis" 2030 generate
+        event-control "chassis" 2031 generate
+        event-control "chassis" 2032 generate
+        event-control "chassis" 2033 generate
+        event-control "chassis" 2034 generate
+        event-control "chassis" 2052 generate major
+        event-control "chassis" 2055 generate
+        event-control "chassis" 2056 generate
+        event-control "chassis" 2057 generate
+        event-control "chassis" 2058 generate major
+        event-control "chassis" 2059 generate major
+        event-control "chassis" 2060 generate
+        event-control "chassis" 2061 generate
+        event-control "chassis" 2062 generate
+        event-control "chassis" 2063 generate major
+        event-control "chassis" 2064 generate
+        event-control "chassis" 2065 generate
+        event-control "chassis" 2066 generate
+        event-control "chassis" 2067 generate
+        event-control "chassis" 2068 generate
+        event-control "chassis" 2069 generate
+        event-control "chassis" 2070 generate
+        event-control "chassis" 2071 generate
+        event-control "chassis" 2072 generate
+        event-control "chassis" 2073 generate
+        event-control "chassis" 2074 generate
+        event-control "chassis" 2075 generate
+        event-control "chassis" 2076 generate
+        event-control "chassis" 2077 generate
+        event-control "chassis" 2078 generate
+        event-control "chassis" 2079 generate
+        event-control "chassis" 2080 generate
+        event-control "chassis" 2081 generate
+        event-control "chassis" 2082 generate
+        event-control "chassis" 2083 generate
+        event-control "chassis" 2098 generate major
+        event-control "chassis" 2099 generate major
+        event-control "chassis" 2101 generate major
+        event-control "chassis" 2102 generate major
+        event-control "chassis" 2103 generate major
+        event-control "chassis" 2104 generate
+        event-control "chassis" 2105 generate
+        event-control "chassis" 2110 generate major
+        event-control "chassis" 2117 generate
+        event-control "chassis" 2118 generate
+        event-control "chassis" 2119 generate
+        event-control "chassis" 2120 generate
+        event-control "chassis" 2121 generate
+        event-control "chassis" 2122 generate
+        event-control "chassis" 2123 generate
+        event-control "chassis" 2124 generate
+        event-control "chassis" 2125 generate
+        event-control "chassis" 2126 generate
+        event-control "chassis" 2129 generate
+        event-control "chassis" 2134 generate
+        event-control "chassis" 2135 generate
+        event-control "chassis" 2138 generate
+        event-control "chassis" 2139 generate
+        event-control "chassis" 2140 generate
+        event-control "chassis" 2141 generate
+        event-control "chassis" 2142 generate
+        event-control "chassis" 2143 generate
+        event-control "chassis" 2144 generate
+        event-control "chassis" 2145 generate
+        event-control "chassis" 2146 generate
+        event-control "chassis" 2147 generate
+        event-control "chassis" 2148 generate
+        event-control "chassis" 2149 generate
+        event-control "chassis" 2153 generate
+        event-control "chassis" 2154 generate
+        event-control "chassis" 2159 generate
+        event-control "chassis" 2160 generate
+        event-control "chassis" 2161 generate
+        event-control "chassis" 2162 generate
+        event-control "chassis" 2163 generate
+        event-control "chassis" 2164 generate
+        event-control "chassis" 2167 generate
+        event-control "chassis" 2168 generate
+        event-control "chassis" 2169 generate
+        event-control "chassis" 2170 generate
+        event-control "chassis" 2171 generate
+        event-control "chassis" 2172 generate
+        event-control "chassis" 2173 generate
+        event-control "chassis" 2174 generate
+        event-control "chassis" 2175 generate
+        event-control "chassis" 2176 generate
+        event-control "chassis" 2177 generate
+        event-control "chassis" 2178 generate
+        event-control "chassis" 2179 generate
+        event-control "chassis" 2180 generate
+        event-control "chassis" 2181 generate
+        event-control "chassis" 2182 generate
+        event-control "chassis" 2183 generate
+        event-control "chassis" 2184 generate
+        event-control "chassis" 2185 generate
+        event-control "chassis" 2186 generate
+        event-control "chassis" 2187 generate
+        event-control "chassis" 2200 generate
+        event-control "chassis" 2207 generate
+        event-control "chassis" 2209 generate
+        event-control "chassis" 2210 generate
+        event-control "chassis" 2211 generate
+        event-control "chassis" 2212 generate
+        event-control "chassis" 2213 generate
+        event-control "chassis" 2214 generate
+        event-control "chassis" 2215 generate
+        event-control "chassis" 2216 generate
+        event-control "chassis" 2217 generate
+        event-control "chassis" 2218 generate
+        event-control "chassis" 2221 generate
+        event-control "chassis" 2222 generate
+        event-control "chassis" 2275 generate
+        event-control "chassis" 2276 generate
+        event-control "chassis" 2277 generate
+        event-control "chassis" 2278 generate
+        event-control "chassis" 2279 generate
+        event-control "chassis" 2280 generate
+        event-control "chassis" 2281 generate
+        event-control "chassis" 2282 generate
+        event-control "chassis" 5163 generate
+        event-control "chassis" 5164 generate
+        event-control "dhcp" 2004 suppress
+        event-control "dhcp" 2005 suppress
+        event-control "dhcps" 2001 suppress
+        event-control "dhcps" 2017 suppress
+        event-control "dhcps" 2018 suppress
+        event-control "dhcps" 2019 suppress
+        event-control "dhcps" 2022 suppress
+        event-control "dhcps" 2035 suppress
+        event-control "ip" 2003 generate major
+        event-control "ip" 2008 generate major
+        event-control "ip" 2009 generate major
+        event-control "logger" 2006 generate throttle specific-throttle-rate 1 interval 1200
+        event-control "mc_redundancy" 2001 generate major
+        event-control "mc_redundancy" 2002 generate major
+        event-control "security" 2025 suppress
+        event-control "svcmgr" 2549 suppress
+        event-control "system" 2052 suppress
+        event-control "system" 2053 suppress
+        event-control "system" 2102 suppress
+        syslog 1 name "1"
+            description "Log MAIN, CHANGE and SECURITY events to syslog"
+            address 100.125.174.89
+            log-prefix "EDTNABTFNG03"
+        exit
+        snmp-trap-group 97 name "97"
+            trap-target "172_25_7_92" address 172.25.7.92 snmpv2c notify-community "tinaa"
+        exit
+        snmp-trap-group 98 name "98"
+            trap-target "75.154.130.232" address 75.154.130.232 snmpv2c notify-community "Nucool"
+            trap-target "75.154.130.233" address 75.154.130.233 snmpv2c notify-community "Nucool"
+            trap-target "75.154.130.236" address 75.154.130.236 snmpv2c notify-community "Nucool"
+            trap-target "75.154.130.249" address 75.154.130.249 snmpv2c notify-community "Nucool"
+        exit
+        log-id 1 name "1"
+            description "Full message log"
+            time-format local
+            from main security change
+            to file 1
+            no shutdown
+        exit
+        log-id 2 name "2"
+            shutdown
+            filter 2
+            from main security change
+            to syslog 1
+        exit
+        log-id 5 name "5"
+            description "CLI Changes log"
+            time-format local
+            from change
+            to memory
+            no shutdown
+        exit
+        log-id 50 name "50"
+            shutdown
+            description "Debugs - only use when necessary - shutdown after use"
+            time-format local
+            from debug-trace
+            to memory
+        exit
+        log-id 96 name "96"
+            description "Log to filter out unwanted Netconf logs"
+            filter 1500
+            from main security
+            to netconf 500
+            netconf-stream "nsp-netconf-stream"
+            no shutdown
+        exit
+        log-id 97 name "97"
+            from main
+            to snmp 1024
+            no shutdown
+        exit
+        log-id 98 name "98"
+            description "SNMP traps sent to alarming servers"
+            filter 98
+            from main security change
+            to snmp 1024
+            no shutdown
+        exit
+        log-id 99 name "99"
+            filter 99
+            from main security
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "System Security Cpm Hw Filters, PKI, TLS and LDAP Configuration"
+#--------------------------------------------------
+    system
+        security
+            cpm-filter
+                ip-filter
+                    entry 100 create
+                        action accept
+                        description "<< Permit BGP from Route Reflectors >>"
+                        match protocol tcp
+                            src-ip ip-prefix-list "ROUTE-REFLECTOR-AUTO"
+                            port 179 65535
+                        exit
+                    exit
+                    entry 101 create
+                        action queue 33
+                        description "<< Permit BGP from Peering/BI/CI/L3VPN >>"
+                        match protocol tcp
+                            port 179 65535
+                        exit
+                    exit
+                    entry 110 create
+                        action accept
+                        description "<< Permit LDP discovery from infrastructure >>"
+                        match protocol udp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                            port 646 65535
+                        exit
+                    exit
+                    entry 111 create
+                        action accept
+                        description "<< Permit LDP session from infrastructure >>"
+                        match protocol tcp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                            port 646 65535
+                        exit
+                    exit
+                    entry 120 create
+                        action accept
+                        description "<< Permit RSVP from infrastructure >>"
+                        match protocol rsvp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                        exit
+                    exit
+                    entry 200 create
+                        action queue 35
+                        description "<< TCP-syn-DOS >>"
+                        match protocol tcp
+                            tcp-syn true
+                        exit
+                    exit
+                    entry 201 create
+                        action queue 35
+                        description "<< TCP-ack-DOS >>"
+                        match protocol tcp
+                            tcp-ack true
+                        exit
+                    exit
+                    entry 300 create
+                        action accept
+                        description "<< Permit NTP >>"
+                        match protocol tcp
+                            dst-port 123 65535
+                        exit
+                    exit
+                    entry 301 create
+                        action accept
+                        description "<< Permit NTP >>"
+                        match protocol udp
+                            dst-port 123 65535
+                        exit
+                    exit
+                    entry 310 create
+                        action accept
+                        description "<< Permit LSP ping from infrastructure >>"
+                        match protocol udp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                            port 3503 65535
+                        exit
+                    exit
+                    entry 320 create
+                        action queue 34
+                        description "<< ICMP traffic >>"
+                        match protocol icmp
+                        exit
+                    exit
+                    entry 330 create
+                        action queue 33
+                        description "<< Permit BFD Control Packets - TCP >>"
+                        match protocol tcp
+                            dst-port 3784 65535
+                        exit
+                    exit
+                    entry 331 create
+                        action queue 33
+                        description "<< Permit BFD Control Packets - UDP >>"
+                        match protocol udp
+                            dst-port 3784 65535
+                        exit
+                    exit
+                    entry 332 create
+                        action queue 33
+                        description "<< Permit BFD Echo Packets - TCP >>"
+                        match protocol tcp
+                            dst-port 3785 65535
+                        exit
+                    exit
+                    entry 333 create
+                        action queue 33
+                        description "<< Permit BFD Echo Packets - UDP >>"
+                        match protocol udp
+                            dst-port 3785 65535
+                        exit
+                    exit
+                    entry 334 create
+                        action accept
+                        description "<< Permit microBFD - UDP >>"
+                        match protocol udp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                            port 6784 65535
+                        exit
+                    exit
+                    entry 336 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD control packets - TCP >>"
+                        match protocol tcp
+                            dst-port 4784 65535
+                        exit
+                    exit
+                    entry 337 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD control packets - UDP >>"
+                        match protocol udp
+                            dst-port 4784 65535
+                        exit
+                    exit
+                    entry 338 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD echo packets - TCP >>"
+                        match protocol tcp
+                            dst-port 4785 65535
+                        exit
+                    exit
+                    entry 339 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD echo packets - UDP >>"
+                        match protocol udp
+                            dst-port 4785 65535
+                        exit
+                    exit
+                    entry 340 create
+                        action accept
+                        description "<< Permit PIM from infrastructure>>"
+                        match protocol pim
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                        exit
+                    exit
+                    entry 350 create
+                        action accept
+                        description "<< Permit IGMP >>"
+                        match protocol igmp
+                        exit
+                    exit
+                    entry 360 create
+                        action accept
+                        description "<< Permit VRRP >>"
+                        match protocol vrrp
+                        exit
+                    exit
+                    entry 370 create
+                        action accept
+                        description "<< Permit L2TP >>"
+                        match protocol udp
+                            port 1701 65535
+                        exit
+                    exit
+                    entry 400 create
+                        action accept
+                        description "<< Permit DHCP traffic >>"
+                        match protocol udp
+                            port 67 65535
+                        exit
+                    exit
+                    entry 401 create
+                        action drop
+                        description "<< drop non TELUS dhcp traffic >>"
+                        match protocol udp
+                            dst-port 68 65535
+                        exit
+                    exit
+                    entry 410 create
+                        action accept
+                        description "<< Permit DSC RADIUS Auth/CoA Port 1812 >>"
+                        match protocol udp
+                            src-ip ip-prefix-list "DSC-RADIUS"
+                            port 1812 65535
+                        exit
+                    exit
+                    entry 411 create
+                        action accept
+                        description "<< Permit DSC RADIUS Accounting>>"
+                        match protocol udp
+                            src-ip ip-prefix-list "DSC-RADIUS"
+                            port 1813 65535
+                        exit
+                    exit
+                    entry 412 create
+                        action accept
+                        description "<< Permit DSC RADIUS Auth/CoA Port 3799 >>"
+                        match protocol udp
+                            src-ip ip-prefix-list "DSC-RADIUS"
+                            port 3799 65535
+                        exit
+                    exit
+                    entry 413 create
+                        action accept
+                        description "<< Permit SBR DHCP RADIUS Accounting>>"
+                        match protocol udp
+                            src-ip ip-prefix-list "DHCP-SBR-RADIUS"
+                            port 1813 65535
+                        exit
+                    exit
+                    entry 500 create
+                        action accept
+                        description "<< Allow GCNet Polling >>"
+                        match
+                            src-ip ip-prefix-list "GCNET-SNMP-POLLING"
+                        exit
+                    exit
+                    entry 501 create
+                        action accept
+                        description "<< Allow GoNET Polling >>"
+                        match
+                            src-ip ip-prefix-list "GONET-SNMP-POLLING"
+                        exit
+                    exit
+                    entry 502 create
+                        action accept
+                        description "<< Allow ARBOR-PEAKFLOW >>"
+                        match
+                            src-ip ip-prefix-list "ARBOR-PEAKFLOW"
+                        exit
+                    exit
+                    entry 800 create
+                        action accept
+                        description "<< Permit all TELUS-INFRASTRUCTURE - UDP >>"
+                        match protocol udp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                        exit
+                    exit
+                    entry 801 create
+                        action accept
+                        description "<< Permit all TELUS-INFRASTRUCTURE - TCP >>"
+                        match protocol tcp
+                            src-ip ip-prefix-list "TELUS-INFRASTRUCTURE"
+                        exit
+                    exit
+                    entry 802 create
+                        action accept
+                        description "<< Permit All TELUS TV Mcast for MoFRR - UDP >>"
+                        match protocol udp
+                            dst-ip 224.0.0.0/4
+                        exit
+                    exit
+                    entry 1000 create
+                        action drop
+                        description "<< Drop unknown TCP >>"
+                        match protocol tcp
+                        exit
+                    exit
+                    entry 1001 create
+                        action drop
+                        description "<< Drop unknown UDP >>"
+                        match protocol udp
+                        exit
+                    exit
+                    no shutdown
+                exit
+                ipv6-filter
+                    entry 100 create
+                        action accept
+                        description "<< TELUS Internal Non-Advertised >>"
+                        match
+                            src-ip 2001:568:f000::/36
+                        exit
+                    exit
+                    entry 800 create
+                        action queue 33
+                        description "<< Permit eBGP not sourced from infrastructure >>"
+                        match next-header tcp
+                            src-port 179 65535
+                        exit
+                    exit
+                    entry 801 create
+                        action queue 33
+                        description "<< Permit eBGP not sourced from infrastructure >>"
+                        match next-header tcp
+                            dst-port 179 65535
+                        exit
+                    exit
+                    entry 810 create
+                        action queue 34
+                        description "<< ICMP traffic >>"
+                        match next-header ipv6-icmp
+                        exit
+                    exit
+                    entry 820 create
+                        action queue 35
+                        description "<< TCP-syn-DOS >>"
+                        match next-header tcp
+                            tcp-syn true
+                        exit
+                    exit
+                    entry 825 create
+                        action queue 35
+                        description "<< TCP-ack-DOS >>"
+                        match next-header tcp
+                            tcp-ack true
+                        exit
+                    exit
+                    entry 840 create
+                        action accept
+                        description "<< Permit un-reserved UDP port range >>"
+                        match next-header udp
+                            dst-port 32768 65535
+                        exit
+                    exit
+                    entry 845 create
+                        action accept
+                        description "<< Permit un-reserved TCP port range >>"
+                        match next-header tcp
+                            dst-port 32768 65535
+                        exit
+                    exit
+                    entry 880 create
+                        action accept
+                        description "<< LSP Ping >>"
+                        match next-header udp
+                            dst-port 3503 65535
+                        exit
+                    exit
+                    entry 896 create
+                        action queue 33
+                        description "<< Permit BFD Control Packets - TCP >>"
+                        match next-header tcp
+                            dst-port 3784 65535
+                        exit
+                    exit
+                    entry 897 create
+                        action queue 33
+                        description "<< Permit BFD Control Packets - UDP >>"
+                        match next-header udp
+                            dst-port 3784 65535
+                        exit
+                    exit
+                    entry 898 create
+                        action queue 33
+                        description "<< Permit BFD Echo Packets - TCP >>"
+                        match next-header tcp
+                            dst-port 3785 65535
+                        exit
+                    exit
+                    entry 899 create
+                        action queue 33
+                        description "<< Permit BFD Echo Packets - UDP >>"
+                        match next-header udp
+                            dst-port 3785 65535
+                        exit
+                    exit
+                    entry 900 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD control packets - TCP >>"
+                        match next-header tcp
+                            dst-port 4784 65535
+                        exit
+                    exit
+                    entry 901 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD control packets - UDP >>"
+                        match next-header udp
+                            dst-port 4784 65535
+                        exit
+                    exit
+                    entry 902 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD echo packets - TCP >>"
+                        match next-header tcp
+                            dst-port 4785 65535
+                        exit
+                    exit
+                    entry 903 create
+                        action queue 33
+                        description "<< Permit multi-hop BGP BFD echo packets - UDP >>"
+                        match next-header udp
+                            dst-port 4785 65535
+                        exit
+                    exit
+                    entry 1000 create
+                        action drop
+                        description "<< Drop unknown TCP >>"
+                        match next-header tcp
+                        exit
+                    exit
+                    entry 1001 create
+                        action drop
+                        description "<< Drop unknown UDP >>"
+                        match next-header udp
+                        exit
+                    exit
+                    no shutdown
+                exit
+            exit
+            pki
+                ca-profile "tls-ca" create
+                    cert-file "cacert.crt"
+                    crl-file "cacrl.crt"
+                    no shutdown
+                exit
+            exit
+            tls
+                cert-profile "grpc-tls-certificates" create
+                    entry 1 create
+                        cert "cert.crt"
+                        key "key.crt"
+                    exit
+                    no shutdown
+                exit
+                server-cipher-list "grpc-cipher-list" create
+                    cipher 1 name tls-rsa-with-aes128-cbc-sha
+                exit
+                server-tls-profile "grpc-tls-profile" create
+                    cert-profile "grpc-tls-certificates"
+                    cipher-list "grpc-cipher-list"
+                    no shutdown
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "System gRPC Configuration"
+#--------------------------------------------------
+    system
+        grpc
+            tls-server-profile "grpc-tls-profile"
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "QoS Policy Configuration"
+#--------------------------------------------------
+    qos
+        slope-policy "COLOURED-WRED" create
+            description "MPLS Trunk WRED policy"
+            highplus-slope
+                shutdown
+            exit
+            high-slope
+                start-avg 50
+                max-avg 100
+                no shutdown
+            exit
+            low-slope
+                start-avg 10
+                max-avg 50
+                no shutdown
+            exit
+            exceed-slope
+                shutdown
+            exit
+        exit
+        match-list
+            ip-prefix-list "NGHP_ACCESS_SBG_SIG" create
+            exit
+            ip-prefix-list "NGHP_SERVERS_BGF_RTP" create
+            exit
+            ip-prefix-list "OPTIK_UNCLASSIFIED" create
+            exit
+            ip-prefix-list "TV3_TVX_AZURE_RESERVED_IPS" create
+            exit
+        exit
+        network-queue "network-facing" create
+            queue 1 create
+                port-parent weight 50 cir-level 1 cir-weight 50
+                rate 100 cir 100
+                mbs 50
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 2 create
+                port-parent level 2 weight 13 cir-level 2 cir-weight 13
+                rate 100 cir 100
+                mbs 50
+                cbs 3
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 3 create
+                port-parent level 2 weight 21 cir-level 2 cir-weight 21
+                rate 100 cir 100
+                mbs 50
+                cbs 10
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 4 create
+                port-parent level 2 weight 66 cir-level 2 cir-weight 66
+                rate 100 cir 100
+                mbs 25
+                cbs 3
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 5 create
+                port-parent level 3 weight 50 cir-level 3 cir-weight 50
+                rate 100 cir 100
+                mbs 2
+                cbs 2
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 6 create
+                port-parent level 4 weight 50 cir-level 4 cir-weight 50
+                rate 100 cir 100
+                mbs 1
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 7 create
+                port-parent level 5 weight 50 cir-level 5 cir-weight 50
+                rate 100 cir 100
+                mbs 1
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 8 create
+                port-parent level 6 weight 50 cir-level 6 cir-weight 50
+                rate 100 cir 100
+                mbs 1
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 9 multipoint create
+                mbs 50
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 10 multipoint create
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 11 multipoint create
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 12 multipoint create
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 13 multipoint create
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 14 multipoint create
+                port-parent level 4 weight 50 cir-level 4 cir-weight 50
+                rate 100 cir 100
+                mbs 1
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 15 multipoint create
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            queue 16 multipoint create
+                drop-tail
+                    low
+                        percent-reduction-from-mbs 10
+                    exit
+                exit
+            exit
+            fc af create
+                multicast-queue 11
+                queue 3
+            exit
+            fc be create
+                multicast-queue 9
+                queue 1
+            exit
+            fc ef create
+                multicast-queue 14
+                queue 6
+            exit
+            fc h1 create
+                multicast-queue 15
+                queue 7
+            exit
+            fc h2 create
+                multicast-queue 13
+                queue 5
+            exit
+            fc l1 create
+                multicast-queue 12
+                queue 4
+            exit
+            fc l2 create
+                multicast-queue 10
+                queue 2
+            exit
+            fc nc create
+                multicast-queue 16
+                queue 8
+            exit
+        exit
+        port-scheduler-policy "AccessEgress-100GE" create
+            description "Access port Scheduler Policy GE port"
+            level 1 rate max cir 100000
+            level 2 rate max cir 5000000
+            level 3 rate max cir 10000000
+            level 4 rate max cir 80000000
+            level 5 rate max cir 10000000
+            level 6 rate max cir 20000000
+            level 7 rate max cir 1000000
+            level 8 rate max cir 1000000
+        exit
+        port-scheduler-policy "AccessEgress-10GE" create
+            description "Access port Scheduler Policy GE port"
+            level 1 rate max cir 10000
+            level 2 rate max cir 500000
+            level 3 rate max cir 1000000
+            level 4 rate max cir 8000000
+            level 5 rate max cir 1000000
+            level 6 rate max cir 2000000
+            level 7 rate max cir 100000
+            level 8 rate max cir 100000
+        exit
+        port-scheduler-policy "network-facing-100GE" create
+            description "100GE network facing ports"
+            level 1 rate max cir 15000000
+            level 2 rate max cir 4500000
+            level 3 rate max cir 60000000
+            level 4 rate max cir 5000000
+            level 5 rate max cir 15000000
+            level 6 rate 500000 cir 500000
+        exit
+        port-scheduler-policy "network-facing-10GE" create
+            description "Scheduler policy for 10GE core network ports"
+            level 1 rate max cir 500000
+            level 2 rate max cir 1500000
+            level 3 rate max cir 3000000
+            level 4 rate max cir 3500000
+            level 5 rate max cir 1000000
+            level 6 rate 500000 cir 500000
+        exit
+        scheduler-policy "BICI-ROOT" create
+        exit
+        scheduler-policy "BICI-SCHED" create
+            description "BI/CI root scheduler"
+            tier 1
+                scheduler "BICI-ROOT" create
+                    port-parent level 3
+                exit
+            exit
+        exit
+        scheduler-policy "CMCS_WLN_BACKHAUL" create
+            description "CMCS_WLN_BACKHAUL"
+            frame-based-accounting
+            tier 2
+                scheduler "BE" create
+                    description "Default Internet traffic"
+                    port-parent level 2 cir-level 2 cir-weight 1
+                    rate max cir 0
+                exit
+                scheduler "EF" create
+                    description "TTV traffic"
+                    port-parent level 4 cir-level 4 cir-weight 1
+                    rate max cir max
+                exit
+                scheduler "H1" create
+                    description "Derived Voice traffic"
+                    port-parent level 7 cir-level 7
+                    rate max cir max
+                exit
+                scheduler "H2" create
+                    description "VOD Traffic"
+                    port-parent level 4 cir-level 4 cir-weight 1
+                    rate max cir max
+                exit
+                scheduler "L1" create
+                    description " Management traffic & DHCP DNS etc."
+                    port-parent level 2 cir-level 2 cir-weight 1
+                    rate max cir max
+                exit
+                scheduler "L2" create
+                    description "CDN traffic"
+                    port-parent level 2 cir-level 2 cir-weight 1
+                    rate max cir max
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Oper-Groups (Declarations) Configuration"
+#--------------------------------------------------
+    service
+        oper-group "EDTNABTFOT33" create
+        exit
+        oper-group "EDTNABTFOLT39" create
+        exit
+    exit
+#--------------------------------------------------
+echo "AAA (Declarations) Configuration"
+#--------------------------------------------------
+    aaa
+        diameter
+            node "EDTNABTFNG0102" origin-realm "edtn.tlabs.ca" create
+            exit
+            node "EDTNABTFNG0102.lo.tlabs.ca" origin-realm "edtn.tlabs.ca" create
+            exit
+        exit
+        diameter-peer-policy "HSAIPCRF_diameterPeerPolicy1" create
+            peer "abelabSPS01" create
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Cflowd Configuration"
+#--------------------------------------------------
+    cflowd
+        active-flow-timeout 3600
+        sample-profile 1 create
+            sample-rate 200
+        exit
+    exit
+#--------------------------------------------------
+echo "Card Configuration"
+#--------------------------------------------------
+    card 1
+        card-type iom-1 level cr
+        upgrade 1 path cr-er
+        fail-on-error
+        mda 1
+            mda-type me12-100gb-qsfp28
+            fail-on-error
+            xconnect
+                mac 1 create
+                    loopback 1 create
+                        description "INTERNAL_SERVICE_HOOK_PXC_1"
+                        bandwidth 400
+                    exit
+                exit
+            exit
+            no shutdown
+        exit
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Connector Configuration"
+#--------------------------------------------------
+    port 1/1/c1
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c2
+        shutdown
+    exit
+    port 1/1/c3
+        shutdown
+    exit
+    port 1/1/c4
+        shutdown
+    exit
+    port 1/1/c5
+        shutdown
+    exit
+    port 1/1/c6
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+    port 1/1/c7
+        shutdown
+    exit
+    port 1/1/c8
+        shutdown
+    exit
+    port 1/1/c9
+        shutdown
+    exit
+    port 1/1/c10
+        shutdown
+    exit
+    port 1/1/c11
+        shutdown
+    exit
+    port 1/1/c12
+        connector
+            breakout c1-100g
+        exit
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "Port Cross-Connect Configuration"
+#--------------------------------------------------
+    port-xc
+        pxc 1 create
+            description "PXC internal attachment for CMCS"
+            port 1/1/m1/1
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "Port Configuration"
+#--------------------------------------------------
+    port 1/1/c1/1
+        description "<< EDTNABTFSA10 et-1/0/34:0 >>"
+        network
+            egress
+                pool
+                    slope-policy "COLOURED-WRED"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 9192
+            egress-scheduler-policy "network-facing-100GE"
+            crc-monitor
+                sd-threshold 3
+                sf-threshold 2 multiplier 5
+                window-size 60
+            exit
+            network
+                queue-policy "network-facing"
+                accounting-policy 3
+                collect-stats
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                    port-id-subtype tx-if-name
+                exit
+            exit
+            down-on-internal-error
+            hold-time up 60
+            report-alarm high-ber
+        exit
+        no shutdown
+    exit
+    port 1/1/c6/1
+        description "<< EDTNABTFNG04 1/1/c6/1>>"
+        network
+            egress
+                pool
+                    slope-policy "COLOURED-WRED"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 9192
+            egress-scheduler-policy "network-facing-100GE"
+            crc-monitor
+                sd-threshold 3
+                sf-threshold 2 multiplier 5
+                window-size 60
+            exit
+            network
+                queue-policy "network-facing"
+                accounting-policy 3
+                collect-stats
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                    port-id-subtype tx-if-name
+                exit
+            exit
+            down-on-internal-error
+            hold-time up 60
+            report-alarm high-ber
+        exit
+        no shutdown
+    exit
+    port 1/1/c12/1
+        description "<< EDTNABTFSA11 et-0/2/2:3 >>"
+        network
+            egress
+                pool
+                    slope-policy "COLOURED-WRED"
+                exit
+            exit
+        exit
+        ethernet
+            mtu 9192
+            egress-scheduler-policy "network-facing-100GE"
+            crc-monitor
+                sd-threshold 3
+                sf-threshold 2 multiplier 5
+                window-size 60
+            exit
+            network
+                queue-policy "network-facing"
+                accounting-policy 3
+                collect-stats
+            exit
+            lldp
+                dest-mac nearest-bridge
+                    admin-status tx-rx
+                    tx-tlvs port-desc sys-name sys-desc sys-cap
+                    tx-mgmt-address system
+                    port-id-subtype tx-if-name
+                exit
+            exit
+            down-on-internal-error
+            hold-time up 60
+            report-alarm high-ber
+        exit
+        no shutdown
+    exit
+    port 1/1/m1/1
+        description "mac1 port"
+        no shutdown
+    exit
+    port pxc-1.a
+        description "For lag-100"
+        ethernet
+        exit
+        no shutdown
+    exit
+    port pxc-1.b
+        description "For lag-200"
+        ethernet
+        exit
+        no shutdown
+    exit
+    port A/3
+        shutdown
+        ethernet
+        exit
+    exit
+    port A/4
+        shutdown
+    exit
+#--------------------------------------------------
+echo "System Sync-If-Timing Configuration"
+#--------------------------------------------------
+    system
+        sync-if-timing
+            begin
+            commit
+        exit
+    exit
+#--------------------------------------------------
+echo "LAG Configuration"
+#--------------------------------------------------
+    lag 1
+        description "<< EDTNABTFSA10 ae16 >>"
+        port 1/1/c1/1
+        lacp active administrative-key 1
+        lacp-xmit-interval slow
+        bfd
+            family ipv4
+                bfd-on-distributing-only
+                local-ip-address 172.25.99.144
+                receive-interval 10
+                remote-ip-address 172.25.99.145
+                transmit-interval 10
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    lag 2
+        description "<< EDTNABTFSA11 ae16 >>"
+        port 1/1/c12/1
+        lacp active administrative-key 2
+        lacp-xmit-interval slow
+        bfd
+            family ipv4
+                bfd-on-distributing-only
+                local-ip-address 172.25.99.146
+                receive-interval 10
+                remote-ip-address 172.25.99.147
+                transmit-interval 10
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    lag 3
+        description "<< EDTNABTFNG04 LAG-3 >>"
+        port 1/1/c6/1
+        lacp active administrative-key 3
+        lacp-xmit-interval slow
+        bfd
+            family ipv4
+                local-ip-address 172.25.99.136
+                receive-interval 10
+                remote-ip-address 172.25.99.137
+                transmit-interval 10
+                no shutdown
+            exit
+        exit
+        no shutdown
+    exit
+    lag 12
+        description "to EDTNABTFSE53/EDTNABTFSE54"
+        mode access
+        encap-type qinq
+        lacp active administrative-key 32753
+        lacp-xmit-interval slow
+        no shutdown
+    exit
+    lag 13
+        description "TINAA testing EDTNABTFSE53/EDTNABTFSE54 | OG3"
+        mode access
+        encap-type qinq
+        lacp active administrative-key 32713
+        lacp-xmit-interval slow
+        no shutdown
+    exit
+    lag 19
+        description "to EDTNABTFNG04"
+        mode hybrid
+        encap-type dot1q
+        lacp active administrative-key 32771
+        no shutdown
+    exit
+    lag 100
+        description "For FPE 1"
+        mode hybrid
+        encap-type dot1q
+        access
+            adapt-qos distribute include-egr-hash-cfg
+            per-fp-ing-queuing
+            per-fp-egr-queuing
+            per-fp-sap-instance
+        exit
+        port pxc-1.a
+        no shutdown
+    exit
+    lag 200
+        description "For FPE 1"
+        mode hybrid
+        encap-type dot1q
+        access
+            adapt-qos distribute include-egr-hash-cfg
+            per-fp-ing-queuing
+            per-fp-egr-queuing
+            per-fp-sap-instance
+        exit
+        port pxc-1.b
+        no shutdown
+    exit
+    lag 534
+        description "no actually connected to SE54/SE53 just for testing purpose"
+        mode access
+        encap-type qinq
+        lacp active administrative-key 32755
+        lacp-xmit-interval slow
+        no shutdown
+    exit
+#--------------------------------------------------
+echo "QoS Policy Configuration"
+#--------------------------------------------------
+    qos
+        sap-ingress 3600 name "CMCS_ACCESS_NODE_INGRESS" create
+            description "CMCS_ACCESS_NODE_INGRESS"
+            queue 1 create
+                parent "BE" level 2 weight 13 cir-level 2
+            exit
+            queue 2 create
+                parent "L2" level 2 weight 21 cir-level 2
+            exit
+            queue 4 create
+                parent "L1" level 2 weight 66 cir-level 2
+            exit
+            queue 5 create
+                parent "H2" level 4 weight 30 cir-level 4
+            exit
+            queue 6 create
+                parent "EF" level 4 weight 70 cir-level 4
+            exit
+            queue 7 create
+                parent "H1" level 7 weight 100 cir-level 7
+            exit
+            queue 11 multipoint create
+            exit
+            fc "be" create
+                queue 1
+                multicast-queue 11
+            exit
+            fc "ef" create
+                queue 6
+                multicast-queue 11
+            exit
+            fc "h1" create
+                queue 7
+                multicast-queue 11
+            exit
+            fc "h2" create
+                queue 5
+                multicast-queue 11
+            exit
+            fc "l1" create
+                queue 4
+                multicast-queue 11
+            exit
+            fc "l2" create
+                queue 2
+                multicast-queue 11
+            exit
+            dot1p 0 fc "be"
+            dot1p 4 fc "h2"
+            dot1p 5 fc "ef"
+            dot1p 6 fc "h1"
+            ip-criteria
+                entry 10 create
+                    description "Match DHCP traffic"
+                    match protocol udp
+                        dst-port eq 68
+                    exit
+                    action fc "l1"
+                exit
+            exit
+        exit
+        sap-ingress 53201 name "53201" create
+            description "BICI ingress QoS"
+            queue 1 create
+                parent "BICI-ROOT" cir-level 1
+                rate max cir max
+                cbs 0
+            exit
+            queue 2 expedite create
+                parent "BICI-ROOT" level 3 cir-level 3
+                rate max cir max
+                cbs 0
+            exit
+            queue 11 multipoint create
+                parent "BICI-ROOT" cir-level 1
+                rate max cir max
+                cbs 0
+            exit
+            fc "be" create
+                queue 1
+                broadcast-queue 11
+                multicast-queue 11
+                unknown-queue 11
+            exit
+            fc "l1" create
+                queue 2
+            exit
+            ip-criteria
+                entry 10 create
+                    description "Management network BC EagleNet"
+                    match
+                        dst-ip 192.197.176.0/24
+                    exit
+                    action fc "l1"
+                exit
+                entry 20 create
+                    description "Management network BC CNM"
+                    match
+                        dst-ip 192.197.169.0/24
+                    exit
+                    action fc "l1"
+                exit
+                entry 30 create
+                    description "Management network Kamloops Polling LAN"
+                    match
+                        dst-ip 192.197.168.96/27
+                    exit
+                    action fc "l1"
+                exit
+                entry 40 create
+                    description "Management network AB"
+                    match
+                        dst-ip 207.229.63.0/24
+                    exit
+                    action fc "l1"
+                exit
+                entry 50 create
+                    description "Management network Edmonton"
+                    match
+                        dst-ip 198.161.151.0/24
+                    exit
+                    action fc "l1"
+                exit
+                entry 60 create
+                    description "Management network Edmonton Polling LAN"
+                    match
+                        dst-ip 154.11.169.0/25
+                    exit
+                    action fc "l1"
+                exit
+                entry 70 create
+                    description "Management network Calgary polling LAN"
+                    match
+                        dst-ip 154.11.169.128/25
+                    exit
+                    action fc "l1"
+                exit
+                entry 80 create
+                    description "Management network Toronto"
+                    match
+                        dst-ip 209.202.66.0/24
+                    exit
+                    action fc "l1"
+                exit
+                entry 90 create
+                    description "Management network Bartor Rd"
+                    match
+                        dst-ip 198.161.154.0/25
+                    exit
+                    action fc "l1"
+                exit
+                entry 100 create
+                    description "Management network TQ Legacy"
+                    match
+                        dst-ip 142.168.251.0/24
+                    exit
+                    action fc "l1"
+                exit
+                entry 110 create
+                    description "Management network TQ OSS LAN"
+                    match
+                        dst-ip 142.169.200.0/25
+                    exit
+                    action fc "l1"
+                exit
+                entry 120 create
+                    description "TELUS LAB Network"
+                    match
+                        dst-ip 205.206.166.0/24
+                    exit
+                    action fc "l1"
+                exit
+            exit
+        exit
+        sap-egress 3600 name "CMCS_ACCESS_NODE_EGRESS" create
+            description "CMCS_ACCESS_NODE_EGRESS"
+            queue 1 create
+                parent "BE" level 2 weight 13 cir-level 2
+            exit
+            queue 2 create
+                parent "L2" level 2 weight 21 cir-level 2
+            exit
+            queue 4 create
+                parent "L1" level 2 weight 66 cir-level 2
+            exit
+            queue 5 create
+                parent "H2" level 4 weight 30 cir-level 4
+            exit
+            queue 6 create
+                parent "EF" level 6 weight 100 cir-level 6
+            exit
+            queue 7 create
+                parent "H1" level 7 weight 100 cir-level 7
+            exit
+        exit
+        sap-egress 53201 name "53201" create
+            description "BICI egress QoS"
+            queue 1 create
+                parent "BICI-ROOT" cir-level 1
+                rate max cir max
+            exit
+            queue 2 create
+                parent "BICI-ROOT" level 3 cir-level 3
+                rate max cir max
+            exit
+            fc be create
+                queue 1
+                dot1p 0
+            exit
+            fc l1 create
+                queue 2
+                dot1p 3
+            exit
+        exit
+        network 301 name "301" create
+            description "SE network QoS policy"
+            ingress
+                dscp be fc be profile in
+                dscp ef fc nc profile in
+                dscp cp1 fc be profile out
+                dscp cs2 fc l2 profile in
+                dscp cs3 fc af profile in
+                dscp cs4 fc l1 profile in
+                dscp cs5 fc ef profile in
+                dscp nc1 fc h1 profile in
+                dscp nc2 fc nc profile in
+                dscp af13 fc l2 profile in
+                dscp af23 fc af profile in
+                dscp af33 fc l1 profile in
+                dscp af41 fc h2 profile in
+                dscp af43 fc h2 profile in
+                lsp-exp 0 fc be profile in
+                lsp-exp 1 fc l2 profile in
+                lsp-exp 2 fc af profile in
+                lsp-exp 3 fc l1 profile in
+                lsp-exp 4 fc be profile out
+                lsp-exp 5 fc h2 profile in
+                lsp-exp 6 fc ef profile in
+                lsp-exp 7 fc h1 profile in
+            exit
+            egress
+                remarking
+                fc af
+                    dscp-in-profile cs3
+                    dscp-out-profile cs3
+                    lsp-exp-in-profile 2
+                exit
+                fc be
+                    dscp-out-profile cp1
+                    lsp-exp-out-profile 4
+                exit
+                fc ef
+                    dscp-in-profile cs5
+                    dscp-out-profile cs5
+                    lsp-exp-in-profile 6
+                    lsp-exp-out-profile 6
+                exit
+                fc h1
+                    lsp-exp-in-profile 7
+                    lsp-exp-out-profile 7
+                exit
+                fc h2
+                    dscp-out-profile af41
+                    lsp-exp-in-profile 5
+                    lsp-exp-out-profile 5
+                exit
+                fc l1
+                    dscp-in-profile cs4
+                    dscp-out-profile cs4
+                    lsp-exp-out-profile 3
+                exit
+                fc l2
+                    dscp-in-profile cs2
+                    dscp-out-profile cs2
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Forwarding Path Extensions Configuration"
+#--------------------------------------------------
+    fwd-path-ext
+        sdp-id-range from 1 to 50
+        fpe 1 create
+            path xc-a lag-100 xc-b lag-200
+            pw-port-extension
+                interface-a
+                exit
+                interface-b
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "PW-Port Configuration"
+#--------------------------------------------------
+    pw-port 105 create
+        description "EDTNABTFOLT39_PW"
+        encap-type qinq
+    exit
+#--------------------------------------------------
+echo "Filter Configuration"
+#--------------------------------------------------
+    filter
+        ip-filter 1 name "filter-1" create
+        exit
+        ip-filter 500 name "500" create
+            default-action forward
+            description "Internet customers with no TELUS OSS address space"
+            entry 100 create
+                description "Allow wholesale ERX Lo0"
+                match
+                    dst-ip ip-prefix-list "WS_ERX_LO0"
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 101 create
+                description "Allow wholesale ERX Lo0 - Egress"
+                match
+                    src-ip ip-prefix-list "WS_ERX_LO0"
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 1000 create
+                description "deny RFC1918 sources"
+                match
+                    src-ip ip-prefix-list "RFC1918"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 1100 create
+                description "deny BOGON sources"
+                match
+                    src-ip ip-prefix-list "IANA-BI"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 1200 create
+                description "deny the reserved and null protocols"
+                match protocol 255
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 1300 create
+                description "deny the reserved and null protocols"
+                match protocol 0
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 2000 create
+                description "drop any to Voice Routers"
+                match
+                    dst-ip ip-prefix-list "VOICE_NGN"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 2100 create
+                description "drop any to Voice UE Routers"
+                match
+                    dst-ip ip-prefix-list "UMTS_EDGE"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 2200 create
+                description "drop any to MPLS Routers"
+                match
+                    dst-ip ip-prefix-list "NGN"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 3000 create
+                description "drop any spoofing with Voice Routers subnets as source"
+                match
+                    src-ip ip-prefix-list "VOICE_NGN"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 3100 create
+                description "drop any spoofing with UE Routers subnets as source"
+                match
+                    src-ip ip-prefix-list "UMTS_EDGE"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 3200 create
+                description "drop any spoofing as MPLS Routers sources"
+                match
+                    src-ip ip-prefix-list "NGN"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 3300 create
+                description "drop spoofing with OSS subnets as source"
+                match
+                    src-ip ip-prefix-list "OSS"
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 9999 create
+                description "Allow Everything Else"
+            exit
+        exit
+        ipv6-filter 500 name "500" create
+            default-action forward
+            entry 10 create
+                description "deny rfc4193 sources"
+                match
+                    src-ip fc00::/7
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 20 create
+                description "deny multicast sources"
+                match
+                    src-ip ff00::/8
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 30 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip ::/8
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 40 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 100::/8
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 50 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 200::/7
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 60 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 400::/6
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 70 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 800::/5
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 80 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 1000::/4
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 90 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 4000::/3
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 100 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 6000::/3
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 110 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip 8000::/3
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 120 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip a000::/3
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 130 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip c000::/3
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 140 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip e000::/4
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 150 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip f000::/5
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 160 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip f800::/6
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 170 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip fe00::/9
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 180 create
+                description "deny IANA reserved sources"
+                match
+                    src-ip fec0::/10
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 190 create
+                description "deny packets to TELUS Internal non-Advertised Infrastructure space"
+                match
+                    dst-ip 2001:568:f000::/40
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 200 create
+                description "Managed BI CPE IPv6 Loopback Addresses"
+                match
+                    src-ip 2001:568:ff00::/48
+                exit
+                action
+                    forward
+                exit
+            exit
+            entry 210 create
+                description "deny spoofed to entire TELUS Internal network space"
+                match
+                    src-ip 2001:568::/36
+                exit
+                action
+                    drop
+                exit
+            exit
+            entry 220 create
+                description "deny spoofed to entire TELUS Internal non-Advertised network space"
+                match
+                    src-ip 2001:568:f000::/36
+                exit
+                action
+                    drop
+                exit
+            exit
+        exit
+        ipv6-filter 3552 name "3552" create
+            default-action forward
+            description "redirect profile: TISAA filter"
+            entry 900 create
+                description "Redirect"
+                match next-header tcp
+                    dst-port eq 80
+                exit
+                action
+                    http-redirect "https://registerdevice.telus.com/activation/?type=firstStart"
+                exit
+            exit
+            entry 901 create
+                description "Redirect HTTPS"
+                match next-header tcp
+                    dst-port eq 443
+                exit
+                action
+                    http-redirect "https://registerdevice.telus.com/activation/?type=firstStart"
+                exit
+            exit
+            entry 909 create
+                description "Drop All"
+                action
+                    drop
+                exit
+            exit
+        exit
+        ipv6-filter 3558 name "3558" create
+            default-action forward
+            description "DEFAULT_DSL_INGRESS_FILTER"
+            entry 900 create
+                description "Redirect"
+                match next-header tcp
+                    dst-port eq 80
+                exit
+                action
+                    http-redirect "http://order.fiber.telus.com"
+                exit
+            exit
+            entry 901 create
+                description "Redirect HTTPS"
+                match next-header tcp
+                    dst-port eq 443
+                exit
+                action
+                    http-redirect "http://order.fiber.telus.com"
+                exit
+            exit
+            entry 909 create
+                description "Drop All"
+                action
+                    drop
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Management Router Configuration"
+#--------------------------------------------------
+    router management
+        static-route-entry 10.17.36.150/32
+            next-hop 172.25.207.1
+            exit
+        exit
+        static-route-entry 172.22.91.128/26
+            next-hop 172.25.207.1
+            exit
+        exit
+        static-route-entry 172.25.7.92/32
+            next-hop 172.25.207.1
+            exit
+        exit
+        static-route-entry 172.26.20.86/32
+            next-hop 172.25.207.1
+            exit
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Router (Network Side) Configuration"
+#--------------------------------------------------
+    router Base
+        policy-options
+            begin
+            prefix-list "DIRECT-BGP-V4-EDTNABTFNG03"
+                prefix 75.153.176.40/32 exact
+            exit
+            prefix-list "DIRECT-BGP-V6-EDTNABTFNG03"
+                prefix 2001:568:f00f::1/128 exact
+            exit
+            prefix-list "STATIC-BGP-V4-E-EDTNABTFNG03"
+                prefix 75.153.176.40/32 exact
+            exit
+            prefix-list "STATIC-BGP-V6-E-EDTNABTFNG03"
+                prefix 2001:568:f00f::1/128 exact
+            exit
+            prefix-list "STATIC-BGP-V4-NE-EDTNABTFNG03"
+                prefix 75.153.176.40/32 exact
+            exit
+            prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                prefix 2001:568:f00f::1/128 exact
+            exit
+            community "IPV6"
+                members "852:40000"
+            exit
+            community "AGGREGATE"
+                members "852:31..0"
+            exit
+            community "BLACKHOLE"
+                members "852:59666"
+            exit
+            community "NO-EXPORT"
+                members "no-export"
+            exit
+            community "RPKI-VALID"
+                members "ext:4300:0"
+            exit
+            community "RPKI-INVALID"
+                members "ext:4300:2"
+            exit
+            community "RPKI-UNKNOWN"
+                members "ext:4300:1"
+            exit
+            community "BICI-EXPORT-EDTNABTFNG03"
+                members "852:20403" "852:31214"
+            exit
+            community "BICI-NO-EXPORT-EDTNABTFNG03"
+                members "852:20403" "852:31211" "852:62001"
+            exit
+            as-path "AS852"
+                expression "^$"
+            exit
+            as-path "AS-PATH-TOO-LONG"
+                expression ".{60,}"
+            exit
+            policy-statement "NG-EXPORT-IPV4-EDTNABTFNG03"
+            exit
+            policy-statement "NG-EXPORT-IPV6-EDTNABTFNG03"
+            exit
+            policy-statement "SE-EXPORT-IPV4-EDTNABTFNG03"
+            exit
+            policy-statement "SE-EXPORT-IPV6-EDTNABTFNG03"
+            exit
+            policy-statement "SE-IMPORT-IPV4-EDTNABTFNG03"
+            exit
+            policy-statement "SE-IMPORT-IPV6-EDTNABTFNG03"
+            exit
+            commit
+        exit
+        if-attribute
+            admin-group "GSR-LINK" value 3
+            admin-group "INTER-LINK" value 5
+            admin-group "NORTH-ROUTE" value 1
+            admin-group "SOUTH-ROUTE" value 2
+            admin-group "US-LINK" value 4
+        exit
+        interface "EDTNABTFNG04"
+            address 172.25.99.136/31
+            description "<< EDTNABTFNG04 >>"
+            enable-ingress-stats
+            ldp-sync-timer 15
+            port lag-3
+            icmp
+                no mask-reply
+                no redirects
+            exit
+            qos 301
+            bfd 100 receive 100 multiplier 3
+            no shutdown
+        exit
+        interface "EDTNABTFSA10"
+            shutdown
+            address 172.25.99.144/31
+            description "<< EDTNABTFSA10 >>"
+            enable-ingress-stats
+            ldp-sync-timer 15
+            port lag-1
+            icmp
+                no mask-reply
+                no redirects
+            exit
+            qos 301
+            bfd 100 receive 100 multiplier 3
+        exit
+        interface "EDTNABTFSA11"
+            shutdown
+            address 172.25.99.146/31
+            description "<< EDTNABTFSA11 >>"
+            enable-ingress-stats
+            ldp-sync-timer 15
+            port lag-2
+            icmp
+                no mask-reply
+                no redirects
+            exit
+            qos 301
+            bfd 100 receive 100 multiplier 3
+        exit
+        interface "MZ"
+            no shutdown
+        exit
+        interface "system"
+            address 10.0.0.1/32
+            description "<< Nokia SR-1 SE - SDP ID: 123 >>"
+            icmp
+                no mask-reply
+                no redirects
+                no unreachables
+            exit
+            no shutdown
+        exit
+        autonomous-system 852
+        fib-telemetry
+        ecmp 4
+        ip-fast-reroute
+#--------------------------------------------------
+echo "Static Route Configuration"
+#--------------------------------------------------
+        static-route-entry 0.0.0.0/0
+            black-hole
+                no shutdown
+            exit
+        exit
+        static-route-entry 10.17.36.150/32
+            next-hop 172.25.207.1
+                no shutdown
+            exit
+        exit
+        static-route-entry 154.11.0.255/32
+            black-hole
+                no shutdown
+            exit
+        exit
+        static-route-entry ::/0
+            black-hole
+                no shutdown
+            exit
+        exit
+        static-route-entry ::ffff:154.11.0.255/128
+            black-hole
+                no shutdown
+            exit
+        exit
+        static-route-entry 2001:568:f000::1/128
+            black-hole
+                no shutdown
+            exit
+        exit
+#--------------------------------------------------
+echo "SGT Mapping Configuration"
+#--------------------------------------------------
+        sgt-qos
+            application bgp dscp nc2
+            application cflowd dscp cs2
+            application dhcp dscp cs2
+            application dns dscp cs2
+            application ftp dscp cs2
+            application icmp dscp be
+            application igmp dscp nc2
+            application ldp dscp nc2
+            application mld dscp nc2
+            application msdp dscp nc2
+            application ndis dscp nc2
+            application ntp dscp cs2
+            application ospf dscp nc2
+            application pim dscp nc2
+            application radius dscp cs2
+            application rip dscp nc2
+            application rsvp dscp nc2
+            application snmp dscp cs2
+            application snmp-notification dscp cs2
+            application srrp dscp nc2
+            application ssh dscp cs2
+            application syslog dscp cs2
+            application tacplus dscp cs2
+            application telnet dscp cs2
+            application tftp dscp cs2
+            application traceroute dscp be
+            application vrrp dscp nc2
+            application arp dot1p 7
+            application isis dot1p 7
+            application pppoe dot1p 7
+            dscp cs2 fc l1
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            level-capability level-2
+            area-id 49.0403
+            lsp-lifetime 65535
+            lsp-refresh-interval 32767 half-lifetime enable
+            overload-on-boot timeout 260
+            traffic-engineering
+            advertise-passive-only
+            igp-shortcut
+                tunnel-next-hop
+                    family ipv4
+                        resolution filter
+                        resolution-filter
+                            rsvp
+                        exit
+                    exit
+                exit
+                no shutdown
+            exit
+            timers
+                lsp-wait 1000 lsp-initial-wait 10 lsp-second-wait 1000
+                spf-wait 1000 spf-initial-wait 10 spf-second-wait 50
+            exit
+            level 2
+                wide-metrics-only
+            exit
+            interface "system"
+                level-capability level-2
+                passive
+                no shutdown
+            exit
+            interface "EDTNABTFSA10"
+                level-capability level-2
+                interface-type point-to-point
+                bfd-enable ipv4
+                level 2
+                    hello-authentication-key "OboVVGh8Y3eoNrXwd2y7cLV7jWOHFA==" hash2
+                    hello-authentication-type message-digest
+                    hello-interval 5
+                    metric 20000
+                exit
+                no shutdown
+            exit
+            interface "EDTNABTFSA11"
+                level-capability level-2
+                interface-type point-to-point
+                bfd-enable ipv4
+                level 2
+                    hello-authentication-key "OboVVGh8Y3eoNrXwd2y7cNjEhR0Zvw==" hash2
+                    hello-authentication-type message-digest
+                    hello-interval 5
+                    metric 20000
+                exit
+                no shutdown
+            exit
+            interface "EDTNABTFNG04"
+                level-capability level-2
+                interface-type point-to-point
+                bfd-enable ipv4
+                level 2
+                    hello-authentication-key "OboVVGh8Y3eoNrXwd2y7cDvGoykoxQ==" hash2
+                    hello-authentication-type message-digest
+                    hello-interval 5
+                    metric 20000
+                exit
+                no shutdown
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "IGMP Configuration"
+#--------------------------------------------------
+        igmp
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "PIM Configuration"
+#--------------------------------------------------
+        pim
+            shutdown
+            rp
+                static
+                exit
+                bsr-candidate
+                    shutdown
+                exit
+                rp-candidate
+                    shutdown
+                exit
+            exit
+            multicast-fast-failover
+            mc-ecmp-balance-hold 2
+        exit
+#--------------------------------------------------
+echo "Pcep Configuration"
+#--------------------------------------------------
+        pcep
+            pcc
+                local-address 10.0.0.1
+                peer 172.22.250.108
+                    route-preference inband
+                    no shutdown
+                exit
+                peer 172.25.15.10
+                    route-preference inband
+                    no shutdown
+                exit
+                no shutdown
+            exit
+        exit
+#--------------------------------------------------
+echo "MPLS Configuration"
+#--------------------------------------------------
+        mpls
+            least-fill-reoptim-thd 5
+            p2mp-resignal-timer 1440
+            interface "system"
+                no shutdown
+            exit
+            interface "EDTNABTFSA10"
+                no shutdown
+            exit
+            interface "EDTNABTFSA11"
+                no shutdown
+            exit
+            interface "EDTNABTFNG04"
+                no shutdown
+            exit
+        exit
+#--------------------------------------------------
+echo "RSVP Configuration"
+#--------------------------------------------------
+        rsvp
+            interface "system"
+                no shutdown
+            exit
+            interface "EDTNABTFSA10"
+                refresh-reduction
+                    reliable-delivery
+                exit
+                no shutdown
+            exit
+            interface "EDTNABTFSA11"
+                refresh-reduction
+                    reliable-delivery
+                exit
+                no shutdown
+            exit
+            interface "EDTNABTFNG04"
+                refresh-reduction
+                    reliable-delivery
+                exit
+                no shutdown
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "MPLS LSP Configuration"
+#--------------------------------------------------
+        mpls
+            path "DYNAMIC"
+                no shutdown
+            exit
+            path "P_PATH"
+                no shutdown
+            exit
+            lsp-template "EDTNABTFNG03_P2MP" p2mp
+                default-path "P_PATH"
+                path-computation-method local-cspf
+                include "INTER-LINK"
+                include "NORTH-ROUTE"
+                include "SOUTH-ROUTE"
+                exclude "GSR-LINK"
+                bandwidth 1
+                retry-timer 10
+                no shutdown
+            exit
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "LDP Configuration"
+#--------------------------------------------------
+        ldp
+            shutdown
+            fast-reroute
+            no shortcut-transit-ttl-propagate
+            import-pmsi-routes
+            exit
+            tcp-session-parameters
+            exit
+            interface-parameters
+            exit
+            targeted-session
+            exit
+        exit
+#--------------------------------------------------
+echo "Origin Validation Configuration"
+#--------------------------------------------------
+        origin-validation
+            rpki-session 207.194.85.23
+                description "RPKI_VALIDATOR_kdc-rpkirtr-01"
+                port 3323
+                refresh-time 120 hold-time 240
+                no shutdown
+            exit
+            rpki-session 216.218.30.142
+                description "RPKI_VALIDATOR_qdc-rpkirtr-01"
+                port 3323
+                refresh-time 120 hold-time 240
+                no shutdown
+            exit
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Subscriber-mgmt Configuration"
+#--------------------------------------------------
+    subscriber-mgmt
+        diameter-application-policy "HSIANASREQ-diameterAppPolicy2" create
+            description " new diameter base for redudndancy"
+            application nasreq
+            diameter-node "EDTNABTFNG0102" destination-realm "ab.lab.edtnab02.policy"
+            on-failure handling continue
+            tx-timer 15
+            nasreq
+                mac-format "ab:"
+                user-name-format circuit-id
+                include-avp
+                    called-station-id
+                    calling-station-id type mac
+                    circuit-id
+                    nas-port-id
+                    nas-port-type
+                exit
+            exit
+        exit
+        diameter-application-policy "HSIAOCS-diameterAppPolicy2" create
+            description " Gy using thenew diameter base for redudndancy"
+            application gy
+            diameter-node "EDTNABTFNG0102.lo.tlabs.ca" destination-realm "ab.lab.edtnab01.charging"
+            gy
+                extended-failure-handling
+                    interim-credit
+                        max-attempts infinite
+                        reporting
+                        validity-time 14400
+                        volume 1073741824 bytes
+                    exit
+                    no shutdown
+                exit
+                include-avp
+                    3gpp-ggsn-ipv6-address
+                    no 3gpp-gprs-negotiated-qos-profile
+                    3gpp-imsi circuit-id
+                    3gpp-rat-type 1
+                    3gpp-user-location-info
+                    ggsn-address ipv6
+                    no pdp-context-type
+                    ps-information
+                    radius-user-name
+                    service-context-id "NOKIA"
+                    user-equipment-info type imeisv
+                exit
+            exit
+        exit
+        diameter-application-policy "HSIAPCRF-diameterAppPolicy2" create
+            description " new diameter base for redudndancy"
+            application gx
+            diameter-node "EDTNABTFNG0102" destination-realm "ab.lab.edtnab02.policy"
+            on-failure handling continue
+            tx-timer 15
+            gx
+                avp-subscription-id subscriber-id type nai
+                include-avp
+                    an-gw-address
+                    apn-ambr
+                    called-station-id
+                    calling-station-id
+                    ip-can-type
+                    logical-access-id
+                    nas-port-id
+                    pdn-connection-id
+                    physical-access-id
+                    rai
+                    rat-type
+                    sgsn-mcc-mnc
+                    supported-features
+                    user-equipment-info
+                    user-location-info
+                exit
+            exit
+        exit
+        host-lockout-policy "CONSUMER_HOST_LOCKOUT" create
+            lockout-time min 10 max 180
+            lockout-reset-time 30
+            max-lockout-hosts 100
+        exit
+        msap-policy "TELUS_MSAP" create
+            description "MSAP Policy"
+            sub-sla-mgmt
+                multi-sub-sap limit 10
+                single-sub-parameters
+                    profiled-traffic-only
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Service Configuration"
+#--------------------------------------------------
+    service
+        oper-group "EDTNABTFOT33"
+        exit
+        oper-group "EDTNABTFOLT39"
+        exit
+        customer 1 name "1" create
+            description "Default customer"
+            contact "TAHA"
+        exit
+        customer 14 name "14" create
+            description "RE Infrastructure - IES"
+        exit
+        customer 17 name "17" create
+            description "Brix"
+        exit
+        customer 18 name "18" create
+            description "CES3_Brix_Testing"
+        exit
+        customer 22 name "22" create
+            description "CMCS_CUSTOMER_BACKHAUL"
+        exit
+        customer 48 name "48" create
+            description "Assurance testing HSIA/TTV - NNA / LD-IP"
+        exit
+        customer 49 name "49" create
+            description "Assurance testing HSIA/TTV - NSS"
+        exit
+        pw-template 1 name "1" create
+            limit-mac-move non-blockable
+        exit
+        pw-template 5 name "5" create
+            controlword
+            limit-mac-move non-blockable
+        exit
+        epipe 400000 name "EDTNABTFOLT39" customer 22 create
+            pw-port 105 fpe 1 create
+                oper-up-on-mhstandby
+                no shutdown
+            exit
+        exit
+        system
+            bgp-evpn
+                ethernet-segment "EDTNABTFOLT39"  create
+                    esi 01:3c:8b:cd:7c:0d:ee:00:01:05
+                    service-carving
+                        mode manual
+                        manual
+                            preference create
+                                value 200
+                            exit
+                        exit
+                    exit
+                    multi-homing single-active
+                    pw-port 105 pw-headend
+                    oper-group "EDTNABTFOLT39"
+                    no shutdown
+                exit
+            exit
+        exit
+        epipe 400000 name "EDTNABTFOLT39" customer 22 create
+            description "EDTNABTFNOLT39_EPIPE_BACKHAUL"
+            service-mtu 9186
+            bgp-evpn
+                local-attachment-circuit EDTNABTFNG03-EDTNABTFNG04{ create
+                    eth-tag 40001
+                exit
+                remote-attachment-circuit OLT39 create
+                    eth-tag 40000
+                exit
+                evi 4000
+                mpls bgp 1
+                    force-qinq-vc-forwarding s-tag-c-tag
+                    ecmp 2
+                    auto-bind-tunnel
+                        resolution-filter
+                            ldp
+                            sr-isis
+                        exit
+                        resolution filter
+                    exit
+                    no shutdown
+                exit
+            exit
+            no shutdown
+        exit
+        vpls 3005013 name "CMCS_MCAST_L2" customer 14 create
+            shutdown
+            bgp
+            exit
+            stp
+                shutdown
+            exit
+        exit
+        oper-group "EDTNABTFOT33"
+        exit
+        oper-group "EDTNABTFOLT39"
+        exit
+    exit
+#--------------------------------------------------
+echo "Cflowd Configuration"
+#--------------------------------------------------
+    cflowd
+        collector 96.1.178.70:5000 version 9
+            description "CLGRAB49SV02"
+        exit
+        collector 96.1.178.72:5000 version 9
+            description "AAAAAAAAAA12"
+        exit
+    exit
+#--------------------------------------------------
+echo "CPM Filter Router and Svc-id Match Configuration"
+#--------------------------------------------------
+    system
+        security
+            cpm-filter
+                ip-filter
+                    no shutdown
+                exit
+                ipv6-filter
+                    no shutdown
+                exit
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Filter Match lists Configuration"
+#--------------------------------------------------
+    filter
+        match-list
+            ip-prefix-list "ARBOR-PEAKFLOW" create
+            exit
+            ip-prefix-list "DHCP-SBR-RADIUS" create
+            exit
+            ip-prefix-list "DSC-RADIUS" create
+            exit
+            ip-prefix-list "GCNET-SNMP-POLLING" create
+            exit
+            ip-prefix-list "GONET-SNMP-POLLING" create
+            exit
+            ip-prefix-list "IANA-BI" create
+            exit
+            ip-prefix-list "NGN" create
+            exit
+            ip-prefix-list "OSS" create
+            exit
+            ip-prefix-list "RFC1918" create
+            exit
+            ip-prefix-list "ROUTE-REFLECTOR-AUTO" create
+                apply-path
+                    bgp-peers 1 router "Base" group "ROUTE-REFLECTOR.*" neighbor ".*"
+                exit
+            exit
+            ip-prefix-list "TELUS-INFRASTRUCTURE" create
+            exit
+            ip-prefix-list "UMTS_EDGE" create
+            exit
+            ip-prefix-list "VOICE_NGN" create
+            exit
+            ip-prefix-list "WS_ERX_LO0" create
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Router (Service Side) Configuration"
+#--------------------------------------------------
+    router Base
+#--------------------------------------------------
+echo "Policy Configuration"
+#--------------------------------------------------
+        policy-options
+            begin
+            policy-statement "NG-EXPORT-IPV4-EDTNABTFNG03"
+                entry 10
+                    from
+                        source-address 154.11.0.255
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 20
+                    from
+                        protocol bgp bgp-label
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 510
+                    description "Assign NO-EXPORT community to IPv4 Routes provided by Telus"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V4-NE-EDTNABTFNG03"
+                    exit
+                    action next-entry
+                        community add "NO-EXPORT"
+                    exit
+                exit
+                entry 511
+                    description "Allow white-listed IPv4 prefixes, NO-EXPORT, TELUS-Provided prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V4-NE-EDTNABTFNG03"
+                    exit
+                    action accept
+                        community add "BICI-NO-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 540
+                    description "Allow white-listed IPv4 prefixes - EXPORT, Customer-Owned prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V4-E-EDTNABTFNG03"
+                    exit
+                    action accept
+                        community add "BICI-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 710
+                    description "Direct Connected IPv4 export without LP"
+                    from
+                        protocol direct
+                        prefix-list "DIRECT-BGP-V4-EDTNABTFNG03"
+                    exit
+                    action accept
+                        community add "NO-EXPORT"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                default-action next-policy
+                exit
+            exit
+            policy-statement "NG-EXPORT-IPV6-EDTNABTFNG03"
+                entry 10
+                    from
+                        source-address 2001:568:f000::1
+                        family ipv6 label-ipv6
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 20
+                    from
+                        protocol bgp bgp-label
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 510
+                    description "Assign NO-EXPORT community to IPv6 Routes provided by Telus"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "NO-EXPORT"
+                    exit
+                exit
+                entry 511
+                    description "Allow white-listed IPv6 prefixes, Assign IPv6, TELUS-Provided prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "IPV6"
+                    exit
+                exit
+                entry 512
+                    description "Allow white-listed IPv6 prefixes, Assign BI/CI, TELUS-Provided prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        community add "BICI-NO-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 540
+                    description "Allow white-listed IPv6 prefixes, Assign IPv6, Customer-Owned prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-E-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "IPV6"
+                    exit
+                exit
+                entry 541
+                    description "Allow white-listed IPv6 prefixes, Assign BI/CI, Customer-Owned prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-E-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        community add "BICI-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 710
+                    description "Direct Connected IPv6 export without LP"
+                    from
+                        protocol direct
+                        prefix-list "DIRECT-BGP-V6-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "IPV6"
+                    exit
+                exit
+                entry 711
+                    description "Direct Connected IPv6 export without LP"
+                    from
+                        protocol direct
+                        prefix-list "DIRECT-BGP-V6-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        community add "NO-EXPORT"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                default-action next-policy
+                exit
+            exit
+            policy-statement "SE-EXPORT-IPV4-EDTNABTFNG03"
+                entry 10
+                    from
+                        source-address 154.11.0.255
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 20
+                    from
+                        protocol bgp bgp-label
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 510
+                    description "Assign NO-EXPORT community to IPv4 Routes provided by Telus"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V4-NE-EDTNABTFNG03"
+                    exit
+                    action next-entry
+                        community add "NO-EXPORT"
+                    exit
+                exit
+                entry 511
+                    description "Allow white-listed IPv4 prefixes, NO-EXPORT, TELUS-Provided prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V4-NE-EDTNABTFNG03"
+                    exit
+                    action accept
+                        community add "BICI-NO-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 540
+                    description "Allow white-listed IPv4 prefixes - EXPORT, Customer-Owned prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V4-E-EDTNABTFNG03"
+                    exit
+                    action accept
+                        community add "BICI-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 710
+                    description "Direct Connected IPv4 export without LP"
+                    from
+                        protocol direct
+                        prefix-list "DIRECT-BGP-V4-EDTNABTFNG03"
+                    exit
+                    action accept
+                        community add "NO-EXPORT"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                default-action next-policy
+                exit
+            exit
+            policy-statement "SE-EXPORT-IPV6-EDTNABTFNG03"
+                entry 10
+                    from
+                        source-address 2001:568:f000::1
+                        family ipv6 label-ipv6
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 20
+                    from
+                        protocol bgp bgp-label
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                    exit
+                exit
+                entry 510
+                    description "Assign NO-EXPORT community to IPv6 Routes provided by Telus"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "NO-EXPORT"
+                    exit
+                exit
+                entry 511
+                    description "Allow white-listed IPv6 prefixes, Assign IPv6, TELUS-Provided prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "IPV6"
+                    exit
+                exit
+                entry 512
+                    description "Allow white-listed IPv6 prefixes, Assign BI/CI, TELUS-Provided prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-NE-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        community add "BICI-NO-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 540
+                    description "Allow white-listed IPv6 prefixes, Assign IPv6, Customer-Owned prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-E-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "IPV6"
+                    exit
+                exit
+                entry 541
+                    description "Allow white-listed IPv6 prefixes, Assign BI/CI, Customer-Owned prefixes"
+                    from
+                        protocol static
+                        prefix-list "STATIC-BGP-V6-E-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        community add "BICI-EXPORT-EDTNABTFNG03"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                entry 710
+                    description "Direct Connected IPv6 export without LP"
+                    from
+                        protocol direct
+                        prefix-list "DIRECT-BGP-V6-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action next-entry
+                        community add "IPV6"
+                    exit
+                exit
+                entry 711
+                    description "Direct Connected IPv6 export without LP"
+                    from
+                        protocol direct
+                        prefix-list "DIRECT-BGP-V6-EDTNABTFNG03"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        community add "NO-EXPORT"
+                        origin igp
+                        next-hop-self
+                    exit
+                exit
+                default-action next-policy
+                exit
+            exit
+            policy-statement "SE-IMPORT-IPV4-EDTNABTFNG03"
+                entry 10
+                    description "Deny prefixes with ASN path length > 60"
+                    from
+                        as-path "AS-PATH-TOO-LONG"
+                    exit
+                    action drop
+                    exit
+                exit
+                default-action next-policy
+                exit
+            exit
+            policy-statement "SE-IMPORT-IPV6-EDTNABTFNG03"
+                entry 10
+                    description "Deny prefixes with ASN path length > 60"
+                    from
+                        as-path "AS-PATH-TOO-LONG"
+                    exit
+                    action drop
+                    exit
+                exit
+                entry 20
+                    description "Accept IPv6 aggregates; set next-hop to black hole"
+                    from
+                        protocol bgp bgp-label
+                        as-path "AS852"
+                        community "AGGREGATE"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        next-hop 2001:568:f000::1
+                    exit
+                exit
+                entry 30
+                    description "Accept IPv6 prefixes destined for black hole"
+                    from
+                        protocol bgp bgp-label
+                        as-path "AS852"
+                        community "BLACKHOLE"
+                        family ipv6 label-ipv6
+                    exit
+                    action accept
+                        next-hop 2001:568:f000::1
+                    exit
+                exit
+                default-action next-policy
+                exit
+            exit
+            commit
+        exit
+#--------------------------------------------------
+echo "ISIS Configuration"
+#--------------------------------------------------
+        isis 0
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "IGMP Configuration"
+#--------------------------------------------------
+        igmp
+            query-interval 30
+            no shutdown
+        exit
+#--------------------------------------------------
+echo "PIM Configuration"
+#--------------------------------------------------
+        pim
+        exit
+#--------------------------------------------------
+echo "BGP Configuration"
+#--------------------------------------------------
+        bgp
+            multi-path
+                maximum-paths 2
+            exit
+            ibgp-multipath
+            enable-inter-as-vpn
+            local-as 852
+            router-id 10.0.0.1
+            enable-peer-tracking
+            rapid-withdrawal
+            rapid-update l2-vpn mvpn-ipv4
+            best-path-selection
+                origin-invalid-unusable
+            exit
+            next-hop-resolution
+                shortcut-tunnel
+                    family ipv4
+                        resolution-filter
+                            ldp
+                            rsvp
+                        exit
+                        resolution filter
+                    exit
+                exit
+                labeled-routes
+                    transport-tunnel
+                        family label-ipv6
+                            resolution-filter
+                                ldp
+                                rsvp
+                                bgp
+                            exit
+                            resolution any
+                        exit
+                    exit
+                exit
+            exit
+            rib-management
+                ipv6
+                    route-table-import "SE-EXPORT-IPV6-EDTNABTFNG03"
+                exit
+                label-ipv6
+                    route-table-import "SE-EXPORT-IPV6-EDTNABTFNG03"
+                exit
+            exit
+            group "ROUTE-REFLECTOR-VPN"
+                shutdown
+                description "<< Appliance Route Reflectors | VPN >>"
+                min-route-advertisement 5
+                next-hop-self
+                peer-as 852
+                neighbor 204.225.240.31
+                    description "<< CLGRAB01RR41 | AS852 | PG ROUTE-REFLECTOR-VPN >>"
+                    family vpn-ipv4 vpn-ipv6 l2-vpn mvpn-ipv4 evpn
+                    authentication-key "9G9eLDg3p8WdaGxIIZ2v3H7khfVdmyc=" hash2
+                    keepalive 30
+                    hold-time 90
+                exit
+                neighbor 204.225.240.32
+                    description "<< CLGRAB31RR41 | AS852 | PG ROUTE-REFLECTOR-VPN >>"
+                    family vpn-ipv4 vpn-ipv6 l2-vpn mvpn-ipv4 evpn
+                    authentication-key "9G9eLDg3p8WdaGxIIZ2v3Ni7todLdvs=" hash2
+                    keepalive 30
+                    hold-time 90
+                exit
+            exit
+            group "ROUTE-REFLECTOR-INET"
+                shutdown
+                description "<< Appliance Route Reflectors | Internet >>"
+                min-route-advertisement 5
+                next-hop-self
+                import "SE-IMPORT-IPV4-EDTNABTFNG03" "SE-IMPORT-IPV6-EDTNABTFNG03"
+                export "SE-EXPORT-IPV4-EDTNABTFNG03" "SE-EXPORT-IPV6-EDTNABTFNG03"
+                peer-as 852
+                neighbor 154.11.0.73
+                    description "<< CLGRAB01RR31 | AS852 | PG ROUTE-REFLECTOR-INET >>"
+                    family ipv4 label-ipv6
+                    authentication-key "9G9eLDg3p8WdaGxIIZ2v3C4bVhukCec=" hash2
+                    keepalive 30
+                    hold-time 90
+                exit
+                neighbor 154.11.0.74
+                    description "<< CLGRAB31RR31 | AS852 | PG ROUTE-REFLECTOR-INET >>"
+                    family ipv4 label-ipv6
+                    authentication-key "9G9eLDg3p8WdaGxIIZ2v3HbmU/lO46Q=" hash2
+                    keepalive 30
+                    hold-time 90
+                exit
+            exit
+            no shutdown
+        exit
+    exit
+
+#--------------------------------------------------
+echo "Source IP Address Configuration"
+#--------------------------------------------------
+    system
+        security
+            source-address
+                application cflowd "system"
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "Log all events for service vprn, log syslog tls-client-profile Configuration"
+#--------------------------------------------------
+    log
+        syslog 1 name "1"
+        exit
+        log-id 2 name "2"
+            no shutdown
+        exit
+    exit
+#--------------------------------------------------
+echo "System Time NTP Configuration"
+#--------------------------------------------------
+    system
+        time
+            ntp
+                server 205.206.214.253
+                server 205.206.214.254
+                server 209.20.8.244
+                server 209.20.8.245
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "AAA Configuration"
+#--------------------------------------------------
+    aaa
+        diameter
+            node "EDTNABTFNG0102" origin-realm "edtn.tlabs.ca" create
+                description "Gx Diameter node base for redundant pair"
+                connection-timer 40
+                source-address 172.25.212.132 allow-connections
+                peer index 1 "EDTNABTFNG0102" create
+                    address 172.25.212.133
+                    connection-timer 1
+                    default-peer
+                    watchdog-timer 1
+                    no shutdown
+                exit
+                peer index 2 "abelabsps.ab.lab.edtnab02.policy" create
+                    address 172.25.48.10
+                    preference 10
+                    watchdog-timer 60
+                    no shutdown
+                exit
+                peer index 3 "bcvlabsps.ab.lab.clgrabgu.policy" create
+                    address 172.25.49.10
+                    preference 20
+                    watchdog-timer 60
+                    no shutdown
+                exit
+            exit
+            node "EDTNABTFNG0102.lo.tlabs.ca" origin-realm "edtn.tlabs.ca" create
+                description "Gy Diameter node base for redundant pair"
+                connection-timer 40
+                source-address 172.25.212.132 allow-connections
+                peer index 1 "EDTNABTFNG0102.lo.tlabs.ca" create
+                    address 172.25.212.133
+                    connection-timer 1
+                    default-peer
+                    watchdog-timer 1
+                    no shutdown
+                exit
+                peer index 2 "abelab2mzwf01" create
+                    address 172.25.10.37
+                    preference 10
+                    watchdog-timer 60
+                    no shutdown
+                exit
+                peer index 3 "abelab2mzwf02" create
+                    address 172.25.10.38
+                    preference 20
+                    watchdog-timer 60
+                    no shutdown
+                exit
+                peer index 4 "bcvlab2mzwf01" create
+                    address 172.25.10.165
+                    preference 30
+                    watchdog-timer 60
+                    no shutdown
+                exit
+                peer index 5 "bcvlab2mzwf02" create
+                    shutdown
+                    address 172.25.10.166
+                    preference 40
+                    watchdog-timer 60
+                exit
+            exit
+        exit
+        diameter-peer-policy "HSAIPCRF_diameterPeerPolicy1" create
+            applications gx nasreq
+            origin-host "EDTNABTFNG02"
+            origin-realm "edtn.tlabs.ca"
+            source-address 172.25.212.133
+            peer "abelabSPS01" create
+                address 172.25.48.10
+                destination-host "abelabsps.ab.lab.edtnab02"
+                destination-realm "ab.lab.edtnab02.policy"
+                no shutdown
+            exit
+        exit
+    exit
+#--------------------------------------------------
+echo "System Configuration Mode Configuration"
+#--------------------------------------------------
+    system
+        management-interface
+            configuration-mode mixed
+            cli
+                cli-engine md-cli classic-cli
+            exit
+        exit
+    exit
+
+exit all
+
+# Finished WED APR 24 05:48:45 2024 UTC

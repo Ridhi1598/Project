@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"callback-url\":\"cs-orchestrator/handle-olt-l2resources/lock-or-unlock-l2-resources\",\n   \"status\":\"success\",\n   \"response\":{\n      \n   }\n}",
+  "payload_encoding": "string"
+}

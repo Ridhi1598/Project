@@ -1,0 +1,16 @@
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC81_E2E_BNG_Node_Name_Minimum_Length.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC83_E2E_BNG_Node_Name_Maximum_Length.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC85_E2E_OLT_Node_Name_Miniumum_Length.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC86_E2E_OLT_Node_Name_Maximum_Length.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC87_E2E_OLT_Lag_Empty.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC88_Add_OLT_Lag_With_Numeric_Value.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC89_Add_An_Already_Existing_Lag.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC90_Delete_Node_With_Existing_Lag.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC91_OLT_Add_Link_No_Value.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC92_OLT_Add_Duplicate_Link.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC93_OLT_Delete_Lag_With_Active_Link.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC94_BNG_Validate_Empty_Values.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC95_BNG_Parameters_Disabled_Without_Validation.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC96_BNG_Dry_Run_Invalid_Values.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC97_OLT_Empty_BNG_Id.feature
+../../features/feature_E2E/cs_Portal_Phase2_Positive/TC98_OLT_Parameters_Disabled_Without_Validation.feature

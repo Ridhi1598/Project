@@ -1,0 +1,89 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Logging server rule success
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: Writing a logging host on the param tree
+  when: remediated
+  then: parsing fails, but remediation is successful
+
+device_nso_config: !RuleTestCaseDeviceNSOConfig
+  items:
+    - !RuleTestCaseDeviceNSOConfigItem
+      section: # for future use
+      path: ios:logging/host/ipv4
+      config_subtree: '[{"_clear": true}]'
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - logging host 100.70.80.226
+        - logging host 209.202.66.43
+        - logging host 209.202.66.44
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  # auto option can be used with manual option together
+
+  # Adding auto will reverse the items in device config and prepend "no"
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path:
+      subtree: '{"logging_server_state": "overwrite"}'
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path:
+      subtree: '{"logging_server_state_confirmation": "confirmed"}'
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path:
+      subtree: "{'logging_server':null}"
+
+    - !RuleTestCaseParamTreeItem
+      level: device
+      level_key:
+      path:
+      subtree: '{
+                     "logging_server": [ "100.70.80.226" ]
+                }'
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: LOGGING_SERVER_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+      # !AssertValue
+      #  assertion_type: EXACT
+      #  value: rule failed
+    messages:
+      # !AssertValue
+      #  assertion_type: EXACT
+      #  value:
+      #    - rule failed
+      #    - errors are a list
+
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: ''
+        filter: logging host
+        config:
+          - logging host 100.70.80.226

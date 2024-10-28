@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\"request-id\": \"req_Id\", \"user-id\": \"x322195\", \"type\": \"VALIDATE\", \"path\": \"/bng-birth-certificate\", \"query-parameters\": [], \"payload\": {\"bng-group-id\": \"EDTNABTFNG07-EDTNABTFNG08\"}, \"callback-url\": \"cs-orchestrator/mock-extension\"}",
+  "payload_encoding": "string"
+}

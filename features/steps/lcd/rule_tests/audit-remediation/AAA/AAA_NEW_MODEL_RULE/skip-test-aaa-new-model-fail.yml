@@ -1,0 +1,47 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: aaa new-model rule failed
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: aaa new-model not configured on device
+  when: run AUDIT_REMEDIATION operation on device
+  then: Audit returns failed results
+  then: Remediation is initiated
+  then: Device configuration is asserted correctly
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no aaa new-model
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: AAA_NEW_MODEL_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors: 
+    messages: 
+  remediation_result: !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation: 
+      - !RuleTestCaseDeviceConfigItem
+        section:
+        filter: aaa new-model
+        config:
+          - aaa new-model

@@ -1,0 +1,70 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: Test ACL 88 onborading no changes test
+  test_suite:
+  device_models:
+    - "3600"
+    - "1921"
+    - asr
+
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no access-list 88
+        - access-list 88 permit any
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+param_tree: !RuleTestCaseParamTree
+  items:
+    - !RuleTestCaseParamTreeItem
+      level: customer
+      level_key:
+      path:
+      subtree: '{
+                    "access_list_88": [
+                    {
+                        "_key": ["ip_address", "mask"],
+                        "ip_address":"0.0.0.0",
+                        "mask":"255.255.255.255"
+                    }],
+                    "access_list_88_state":"overwrite"
+                }'
+
+action: !RuleTestCaseAction
+  type: ONBOARDING
+  rule_name: ACCESS_LIST_88_ONBOARDING
+
+assertions: !RuleTestCaseAssertions
+  audit_result:
+  remediation_result:
+  onboarding_result: !RuleTestCaseOnboardingResultAssertion
+    status:
+    errors:
+    messages:
+    param_tree: !RuleTestCaseParamTree
+      items:
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-88-state
+          subtree: extend
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-88-state-confirmation
+          subtree: confirmed
+
+        - !RuleTestCaseParamTreeItem
+          level: device
+          level_key:
+          path: access-list-88
+          subtree: '[]'

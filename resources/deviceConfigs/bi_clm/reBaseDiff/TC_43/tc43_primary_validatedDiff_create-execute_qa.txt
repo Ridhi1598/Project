@@ -1,0 +1,127 @@
+-# Generated THU SEP 21 09:57:15 2023 UTC
++# Generated THU SEP 21 10:21:14 2023 UTC
++            prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0042"
++                prefix 2002:56a:132::/48 exact
++            exit
++            exit
++            prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0042"
++                prefix 2012:568:5015::/48 exact
++                prefix 2001:db42::2/127 exact
++            exit
++            policy-statement "CUSTIN-V6_CLGRAB21-TST0042_PRI"
++        customer 700074 name "TST04" create
++            description "UAT Tester 4"
++        exit
++            exit
++        exit
++        ies 3087042 name "3087042" customer 700074 create
++            interface "CLGRAB21-TST0042.3.1500" create
++        ies 3087042 name "3087042" customer 700074 create
++            interface "CLGRAB21-TST0042.3.1500" create
++                description "1234742.CLGRAB21-TST0042.HS.2000000000K.BICI..V6..PRI..CLM.SEDU...CLGRAB21-TST0042ALIAS"
++                ip-mtu 1500
++                cflowd-parameters
++                    sampling unicast type interface
++                exit
++                ipv6
++                    address 2001:db42::1/127
++                exit
++                sap lag-736:3.1500 create
++                    ingress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 15000 cir 15000
++                            exit
++                        exit
++                        qos 53202
++                        filter ipv6 500
++                    exit
++                    egress
++                        scheduler-policy "BICI-SCHED"
++                        scheduler-override
++                            scheduler "BICI-ROOT" create
++                                rate 15000
++                            exit
++                        exit
++                        qos 53202
++                    exit
++                    collect-stats
++                    accounting-policy 77
++                exit
++            exit
++            no shutdown
++        exit
++                    exit
++                    action accept
++                        community add "BICI-EXPORT-EDTNABTFSE51"
++                    exit
++                exit
++                default-action drop
++                exit
++            exit
++            policy-statement "CUSTIN-V6_CLGRAB21-TST0042_PRI"
++                entry 10
++                    description "Set prefixes as backup"
++                    from
++                        protocol bgp bgp-label
++                        community "BICI-LP-BACKUP"
++                        family ipv6 label-ipv6
++                    exit
++                    action next-entry
++                        local-preference 80
++                    exit
++                exit
++                entry 20
++                    description "Set same LP as peering prefixes"
++                    from
++                        protocol bgp bgp-label
++                        community "BICI-LP-PEERING"
++                        family ipv6 label-ipv6
++                    exit
++                    action next-entry
++                        local-preference 230
++                    exit
++                exit
++                entry 30
++                    description "Set same LP as transit prefixes"
++                    from
++                        protocol bgp bgp-label
++                        community "BICI-LP-TRANSIT"
++                        family ipv6 label-ipv6
++                    exit
++                    action next-entry
++                        local-preference 150
++                    exit
++                exit
++                entry 40
++                    description "IPV6: Allow only white-listed IPV6 prefixes"
++                    from
++                        prefix-list "PREFIX-IPV6-NE_CLGRAB21-TST0042"
++                        family ipv6 label-ipv6
++                    exit
++                    action accept
++                        community add "BICI-NO-EXPORT-EDTNABTFSE51"
++                    exit
++                exit
++                entry 50
++                    description "IPV6: Customer Owned Prefix entry"
++                    from
++                        prefix-list "PREFIX-IPV6-E_CLGRAB21-TST0042"
++                        family ipv6 label-ipv6
++                exit
++                neighbor 2001:db42::2
++                    description "None.CLGRAB21-TST0042...BICI..V6..PRI"
++                    family ipv6
++                    authentication-key "Ea4ahpCWGy43GtTfQAFmpBtC44fbokc=" hash2
++                    keepalive 60
++                    hold-time 90 min 45
++                    local-preference 350
++                    prefix-limit ipv6 100
++                    med-out 80
++                    remove-private
++                    import "CUSTOMER-IN-BI-V6" "CUSTIN-V6_CLGRAB21-TST0042_PRI"
++                    export "DEFAULT-CUST-FULL-OUT-V6"
++                    peer-as 64004
+-# Finished THU SEP 21 09:57:16 2023 UTC
++# Finished THU SEP 21 10:21:16 2023 UTC

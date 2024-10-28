@@ -1,0 +1,36 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: service timestamps debug datetime successful rule
+  test_suite:
+  device_models:
+    - "1921"
+    - "3600"
+    - asr
+  given: correct sample
+  when: parsed
+  then: parsing is successful
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - service timestamps debug datetime msec localtime show-timezone
+
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+        
+param_tree: !RuleTestCaseParamTree
+  items:
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: SERVICE_TIMESTAMPS_DEBUG_DATETIME_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: succeeded
+    errors: 
+    messages: 
+  remediation_result: 

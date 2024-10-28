@@ -1,0 +1,20 @@
+{
+  "vhost": "/",
+  "name": "rabbit_exchange",
+  "properties": {
+    "delivery_mode": 2,
+    "headers": {
+
+    }
+  },
+  "routing_key": "l2_topology_engine_queue",
+  "delivery_mode": "2",
+  "payload": "{\r\n    \"request-id\": \"request-idValue\",\r\n    \"user-id\": \"txxxxxx\",\r\n    \"callback-url\": \"cs-portal/cb-path\",\r\n    \"type\": \"READ\",\r\n    \"path\": \"/ietf-network:networks/network=telus_clm_net/logical-termination-points\",\r\n    \"query-parameters\": [],\r\n    \"payload\": [\r\n        {\r\n            \"node\": \"EDTNABTFNG03\",\r\n            \"termination-point-prefix\": [\r\n            \t\"lag-12\"\r\n            ]\r\n        },\r\n        {\r\n            \"node\": \"EDTNABTFNG04\",\r\n            \"termination-point-prefix\": [\r\n            \t\"lag-12\"\r\n            ] \r\n        }\r\n    ]\r\n}\r\n",
+  "headers": {
+
+  },
+  "props": {
+
+  },
+  "payload_encoding": "string"
+}

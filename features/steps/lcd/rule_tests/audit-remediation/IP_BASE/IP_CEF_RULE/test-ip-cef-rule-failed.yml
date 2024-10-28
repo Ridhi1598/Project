@@ -1,0 +1,45 @@
+!RuleTestCase
+scenario: !RuleTestCaseScenario
+  title: IP CEF RULE failed
+  test_suite:
+  device_models:
+    - "1921"
+
+  given: Removing ip cef
+  when: parsed
+  then: parsing is failing, remediated afterwards
+
+device_config: !RuleTestCaseDeviceConfig
+  items:
+    - !RuleTestCaseDeviceConfigItem
+      section:
+      config:
+        - no ip cef
+
+param_tree: !RuleTestCaseParamTree
+  items:
+
+device_teardown_config:  !RuleTestCaseDeviceTeardownConfig
+  auto: no
+
+
+action: !RuleTestCaseAction
+  type: AUDIT_REMEDIATION
+  rule_name: IP_CEF_RULE
+
+assertions: !RuleTestCaseAssertions
+  audit_result: !RuleTestCaseAuditResultAssertion
+    status: failed
+    errors:
+    messages:
+  remediation_result:
+    !RuleTestCaseRemediationResultAssertion
+    status: remediated
+    errors:
+    messages:
+    remediation:
+      - !RuleTestCaseDeviceConfigItem
+        section: ''
+        filter: ip cef
+        config:
+          - ip cef

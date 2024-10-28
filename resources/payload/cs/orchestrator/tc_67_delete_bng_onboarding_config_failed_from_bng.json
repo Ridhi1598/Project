@@ -1,0 +1,6 @@
+{
+  "properties": {"delivery_mode": 1, "headers": {}},
+  "routing_key": "queue",
+  "payload": "{\n   \"request-id\":\"req_Id\",\n   \"user-id\":\"x235417\",\n   \"callback-url\":\"cs-portal/delete-bng-config\",\n   \"type\":\"DELETE\",\n   \"path\":\"/tinaa-bng-services/bng-group=EDTNABTFNG03-EDTNABTFNG04\",\n   \"query-parameters\":[\n      \n   ],\n   \"payload\":{\n      \n   }\n}",
+  "payload_encoding": "string"
+}
